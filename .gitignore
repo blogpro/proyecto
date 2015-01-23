@@ -14,6 +14,10 @@ proyecto/migrations/
 respuestas/migrations/
 votos/migrations/
 
+
+videos/
+fotos/
+
 #python
 *.pyc
 *.swp
