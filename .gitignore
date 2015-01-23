@@ -18,6 +18,8 @@ votos/migrations/
 videos/
 fotos/
 
+node_modules/
+
 #python
 *.pyc
 *.swp
