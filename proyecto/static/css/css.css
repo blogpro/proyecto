@@ -1,0 +1,115 @@
+/*
+Notas:;
+1.- #343B54 
+	.son numeros hexadecimal
+	.van de 0 a F
+	.Lo que significa que ff=255
+	.Y 00 es 0
+	.Estan divido por 3 pares
+	.Primer par cantidad de Rojo
+	.Segundo par cantidad de Verde 
+	.Tercer par cantidad de Azul
+	.El numero indica la cantidad de brillo de un color
+
+2.- 1em
+	.Equivale a una letra m, ya que es considerada la mas cuadrada
+	.sirve para ser relativa la fuente del texto más cercano
+	.para sacar el valor en pixel se saca con la formula
+	------ fuente = 16px(fuente mas cercana)
+	------v_px fuente(16) * 1.2em
+	------v_px = 19.2px 	
+
+*/
+a{
+	color: #22BCE0;/*A todas las etiquetas de tipo "a" pomele el color azul*/
+}
+
+
+body{
+	background: #EEEEEE;/*Color de fondo para todo el contenido de la pagina*/
+	font-family: Arial;/*A toda la fuente de la pagina ponle el tipo Arial "Solo se puso sin comillas por que es un nico tipo de fuente si fueran más se ponen en comillas"*/
+	font-size: 16px;/*Atodo el texto/fuente ponle el tamañao de 16px, El tamaño minimo que tiene que tener toda pagina*/
+}
+
+footer
+{
+	background: #22BCE0;
+	color: rgba(255,255,255,0.7);
+	padding: 1em;
+	text-align: center;
+}
+footer p:first-child
+{	
+	margin-bottom: 0;
+}
+footer p:last-child
+{
+	margin-top: 0;
+}
+footer p:last-child:after
+{
+	content: " -";
+}
+footer p:last-child:before
+{
+	content: "- ";
+}
+
+header{
+	background: #343B54;/*Color de fondo para el header*/
+	color: white;/*Color del texto del header*/
+	overflow: hidden;/* para que todo se ajuste dentro del header*/
+	padding: 2em;/*border interno de caja de h1 esto equivale a 8px*/
+	position: relative;
+}
+
+header figure
+{
+	float: left;
+}
+
+header h1{ /*Significa que el H1 esta dentro del header*/
+	font-size: 1.2em;
+	font-weight: normal; /*Para quitarle la negrita lo deja en normal*/
+	margin: 0 70px 0 0;/*dejamos el margen exterior en 0*/
+}
+
+header p{ /*Significa que el H1 esta dentro del header*/
+	font-weight: normal; /*Para quitarle la negrita lo deja en normal*/
+	margin: 0 70px 0 0;/*dejamos el margen exterior en 0*/
+}
+
+header #logo{
+	margin: 0.6em 0.5em 0 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+header #logo img{
+	border-radius: 50%;
+	width: 50px;
+
+}
+
+nav{/* color de fondo del nav*/
+	background: #80BCA3;
+	padding: 0 0.5;/* Arriba abajo*/
+}
+
+nav ul{/* quitamos el punto el margen externo e interno */
+	list-style: none;/*quitar puntos a la lista*/
+	margin: 0;
+	padding: 0;
+}
+
+nav ul li{
+	display: inline-block;/*hacer que los li esten en lineas no debajo*/
+	margin: 0 1em 0 0;
+}
+
+nav ul li a{
+	color: white;
+	display: block;/*lo hacemos como una caja ya que por que solos las cajas tienen margin y padding y a no es caja*/
+	padding: 0.5em 0;/*Esto hace que todo el area de a sea cliqueable por eso no se le puso a nav*/
+}
