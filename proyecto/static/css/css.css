@@ -94,13 +94,19 @@ header #logo img{
 
 nav{/* color de fondo del nav*/
 	background: #80BCA3;
-	padding: 0 0.5;/* Arriba abajo*/
+	padding: 0 6em 0 0;/* Arriba abajo*/
+	position: relative;
 }
 
 nav ul{/* quitamos el punto el margen externo e interno */
 	list-style: none;/*quitar puntos a la lista*/
 	margin: 0;
 	padding: 0;
+}
+
+nav ul li a:hover{
+	background: #343B54;
+
 }
 
 nav ul li{
@@ -111,5 +117,6 @@ nav ul li{
 nav ul li a{
 	color: white;
 	display: block;/*lo hacemos como una caja ya que por que solos las cajas tienen margin y padding y a no es caja*/
-	padding: 0.5em 0;/*Esto hace que todo el area de a sea cliqueable por eso no se le puso a nav*/
+	padding: 0.5em;/*Esto hace que todo el area de a sea cliqueable por eso no se le puso a nav*/
+	-webkit-transition:.3s;/*la animacion para que hover*/
 }
