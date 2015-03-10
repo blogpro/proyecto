@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'votos',
     'comentarios',
     'respuestas',
+    'categorias',
 )
 
 MIDDLEWARE_CLASSES = (
