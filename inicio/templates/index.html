@@ -1,14 +1,89 @@
 {% extends "base.html" %}
 
 {% block title %}
-	My amazing blog
+	Sistemas Tabasco
 {% endblock %}
 
-{% block content %}
-	{% for entry in blog_entries %}
-	    <h2>{{ entry.title }}</h2>
-	    <p>{{ entry.body }}</p>
-	{% endfor %}
+{% block menu %}
+	<div class="row">
+        <div class="large-12 columns">
+			<div class="nav-bar right">
+				<ul class="button-group">
+					<li><a href="/" class="button">Inicio</a></li>
+					<li><a href="#" class="button">Nosotros</a></li>
+					<li><a href="#" class="button">Proyectos</a></li>
+					<li><a href="#" class="button">Blog</a></li>
+				</ul>
+			</div>
+			<h1>Systab <small>Rediseñando la web.</small></h1>
+			<hr/>
+        </div>
+    </div>
 {% endblock %}
+
+{% block contenido %}
+	<div class="large-9 columns" role="content">
+          <article>
+            <h3><a href="#">Blog Post Title</a></h3>
+            <h6>Written by <a href="#">John Smith</a> on August 12, 2012.</h6>
+     
+            <div class="row">
+              <div class="large-6 columns">
+                <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa.</p>
+                <p>Boudin aliqua adipisicing rump corned beef. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
+              </div>
+              <div class="large-6 columns">
+                <img src="http://placehold.it/400x240&text=[img]"/>
+              </div>
+            </div>
+     
+            <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
+     
+            <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
+     
+          </article>
+          <hr/>
+        </div>
+{% endblock %}
+
+{% block aside %}
+	<aside class="large-3 columns">
+
+	<div class="panel">
+		<h5>Categorias</h5>
+		<ul class="side-nav">
+			{% for ca in Categoria %}
+			<li><a href="#">{{ca.title}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+     
+    </aside>
+{% endblock %}
+
+{% block footer %}
+	<footer class="row">
+        <div class="large-12 columns">
+
+          <hr/>
+          <div class="row">
+            <div class="large-6 columns">
+              <p>© Copyright 2015.</p>
+            </div>
+            <div class="large-6 columns">
+              <ul class="inline-list right">
+                <li><a href="#">Link 1</a></li>
+                <li><a href="#">Link 2</a></li>
+                <li><a href="#">Link 3</a></li>
+                <li><a href="#">Link 4</a></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </footer>
+{% endblock %}
+
+
 
 
