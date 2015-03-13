@@ -1,12 +1,11 @@
 from django.db import models
 
-from post.models import Post
 
 class Voto(models.Model):
-	order = models.PositiveIntegerField()
-	post = models.ForeignKey(Post)
+	voto = models.PositiveIntegerField()
+	#post = models.ForeignKey(Post)
 
 	def __unicode__(self):
-		return '%s' % (self.post)
+		return '%s' % (self.voto)
 
 # Create your models here.
