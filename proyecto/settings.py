@@ -14,6 +14,18 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 RUTA_PROYECTO = os.path.dirname(os.path.realpath(__file__))
 
+import socket
+a = socket.gethostbyname(socket.gethostname())
+
+
+if str(a) == '127.0.1.1':
+    debug = True
+    HOSTS = ['*']
+else:
+    debug = False  
+    HOSTS = ['http://systab.herokuapp.com/','systab.herokuapp.com']
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -22,11 +34,11 @@ RUTA_PROYECTO = os.path.dirname(os.path.realpath(__file__))
 SECRET_KEY = 'x#3$8^e=cb+ny^!#0!k30t_m1n^29m(3z#)8n=lir_z7n3*7=@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = debug
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = HOSTS
 
 
 # Application definition
@@ -53,7 +65,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    #'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
