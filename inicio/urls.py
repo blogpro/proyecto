@@ -1,9 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-urlpatterns = patterns('',
-    url(r'^$','inicio.views.vw_inicio'),
+from .views import InicioView
 
-    #url de prueba
-    url(r'^prueba/$','inicio.views.vw_prueba'),
+urlpatterns = patterns('',
+    url(r'^$', InicioView.as_view(), name='LoginView'),
+
 )

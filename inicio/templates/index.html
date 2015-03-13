@@ -10,8 +10,8 @@
 			<div class="nav-bar right">
 				<ul class="button-group">
 					<li><a href="/" class="button">Inicio</a></li>
-					<li><a href="#" class="button">Nosotros</a></li>
 					<li><a href="#" class="button">Proyectos</a></li>
+					<li><a href="#" class="button">Contacto</a></li>
 					<li><a href="#" class="button">Blog</a></li>
 				</ul>
 			</div>
@@ -54,6 +54,13 @@
 		<ul class="side-nav">
 			{% for ca in Categoria %}
 			<li><a href="#">{{ca.title}}</a></li>
+			{% endfor %}
+		</ul>
+
+		<h5>Tag</h5>
+		<ul class="side-nav">
+			{% for et in Etiqueta %}
+			<li><a href="#">{{et.title}}</a></li>
 			{% endfor %}
 		</ul>
 	</div>
