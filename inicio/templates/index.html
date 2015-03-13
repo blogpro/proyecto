@@ -9,10 +9,11 @@
         <div class="large-12 columns">
 			<div class="nav-bar right">
 				<ul class="button-group">
-					<li><a href="/" class="button">Inicio</a></li>
-					<li><a href="#" class="button">Proyectos</a></li>
-					<li><a href="#" class="button">Contacto</a></li>
-					<li><a href="#" class="button">Blog</a></li>
+
+          {% for me in Menu %}
+            <li><a href="#">{{me.descripcion}}</a></li>
+          {% endfor %}
+
 				</ul>
 			</div>
 			<h1>Systab <small>Rediseñando la web.</small></h1>

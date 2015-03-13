@@ -3,6 +3,7 @@ from django.template import RequestContext
 
 from django.views.generic import TemplateView, RedirectView, FormView
 
+from menu.models import Menu
 from categorias.models import Categoria
 from etiquetas.models import Etiqueta
 
@@ -15,9 +16,11 @@ class InicioView(TemplateView):
 		context = super(InicioView, self).get_context_data(**kwargs)
 		ObjCategoria = Categoria.objects.all()
 		ObjEtiqueta = Etiqueta.objects.all()
+		ObjMenu = Menu.objects.all()
 		data = {
 			'Categoria':ObjCategoria,
 			'Etiqueta':ObjEtiqueta,
+			'Menu':ObjMenu,
 		}
 
 		context.update(data)

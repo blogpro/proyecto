@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'comentarios',
     'respuestas',
     'categorias',
+    'menu',
 )
 
 MIDDLEWARE_CLASSES = (
