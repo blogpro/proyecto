@@ -21,10 +21,20 @@ a = socket.gethostbyname(socket.gethostname())
 if str(a) == '127.0.1.1':
     debug = True
     HOSTS = ['*']
+    #Bd
+    NAME = ''
+    USER = ''
+    PASSWORD = ''
+    HOST = ''
 else:
     debug = False  
     HOSTS = ['http://systab.herokuapp.com/','systab.herokuapp.com']
 
+    #Bd
+    NAME = 'd9d46qtftu68ki'
+    USER = 'oithnhwamizxka'
+    PASSWORD = '6OrH6cRnkAugNL44gxypx_SpdQ'
+    HOST = 'ec2-23-21-187-45.compute-1.amazonaws.com'
 
 
 # Quick-start development settings - unsuitable for production
@@ -65,7 +75,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    #'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
