@@ -68,6 +68,8 @@ INSTALLED_APPS = (
     'respuestas',
     'categorias',
     'menu',
+
+    'social.apps.django_app.default',
 )
 
 MIDDLEWARE_CLASSES = (
