@@ -1,3 +1,8 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
-# Create your models here.
+class DescripcionPost(models.Model):
+	#descripcion = models.CharField(max_length=255)
+	descripcion=RichTextField()  # Usamos  RichTextField()
+	def __unicode__(self):
+		return self.descripcion 

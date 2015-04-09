@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 
 {% block title %}
-	Sistemas Tabasco
+  Sistemas Tabasco
 {% endblock %}
 
 
 {% block menu %}
-	<div class="row">
+  <div class="row">
         <div class="large-12 columns">
-			<div class="nav-bar right">
-				<ul class="button-group">
+      <div class="nav-bar right">
+        <ul class="button-group">
 
           {% for me in Menu %}
             <li><a href="#" class="button">{{me.descripcion}}</a></li>
           {% endfor %}
 
-				</ul>
-			</div>
-			<h1>Systab <small>Rediseñando la web.</small></h1>
-			<hr/>
+        </ul>
+      </div>
+      <h1>Systab <small>Rediseñando la web.</small></h1>
+      <hr/>
         </div>
     </div>
 {% endblock %}
@@ -26,25 +26,44 @@
 
 
 {% block contenido %}
- {% for p in Post %}
-	<div class="large-9 columns" role="content">
+ {% for p in PostMatriz %}
+  <div class="large-9 columns" role="content">
           <article>
             <h3><a href="#">{{p.title}}</a></h3>
-            <h6>Escrito por <a href="#">{{p.user.first_name}} {{p.user.last_name}}</a> el {{p.fecha_registro}}.</h6>
-     
+            <h6>Escrito por <a href="#">{{p.first_name}} {{p.last_name}}</a> el {{p.fecha}}.</h6>
+
+              {% for lp in p.postList %}
+                {% if lp.subtitulopost != 'None' %}
+                  <p>      
+                    {{lp.subtitulopost}}
+                  </p>
+                {% endif %}
+            {% if lp.descripcionpost != None or  lp.imagenpost != 'None'%}  
             <div class="row">
-              <div class="large-6 columns">
-                <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa.</p>
-                <p>Boudin aliqua adipisicing rump corned beef. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
+              {% if lp.descripcionpost != None %}
+              <div class="large-12 columns">
+
+                  {{lp.descripcionpost|safe}}
               </div>
-              <div class="large-6 columns">
-                <img src="http://placehold.it/400x240&text=[img]"/>
-              </div>
+              {% endif %}
+
+              {% if lp.imagenpost != 'None' %}  
+                <div class="large-11 columns">
+                  <img src="{{lp.imagenpost}}"/>
+                </div>
+              {% endif %}
+
             </div>
+            {% endif %}
+
+
+            {% if lp.codigospost != 'None'  %}
+              <pre class="brush: python">{{lp.codigospost}}</pre>
+              {% endif %}
      
-            <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
-     
-            <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
+            
+
+            {%  endfor%}
      
           </article>
           <hr/>
@@ -53,29 +72,29 @@
 {% endblock %}
 
 {% block aside %}
-	<aside class="large-3 columns">
+  <aside class="large-3 columns">
 
-	<div class="panel">
-		<h5>Categorias</h5>
-		<ul class="side-nav">
-			{% for ca in Categoria %}
-			<li><a href="#">{{ca.title}}</a></li>
-			{% endfor %}
-		</ul>
+  <div class="panel">
+    <h5>Categorias</h5>
+    <ul class="side-nav">
+      {% for ca in Categoria %}
+      <li><a href="#">{{ca.title}}</a></li>
+      {% endfor %}
+    </ul>
 
-		<h5>Tag</h5>
-		<ul class="side-nav">
-			{% for et in Etiqueta %}
-			<li><a href="#">{{et.title}}</a></li>
-			{% endfor %}
-		</ul>
-	</div>
+    <h5>Tag</h5>
+    <ul class="side-nav">
+      {% for et in Etiqueta %}
+      <li><a href="#">{{et.title}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
      
     </aside>
 {% endblock %}
 
 {% block footer %}
-	<footer class="row">
+  <footer class="row">
         <div class="large-12 columns">
 
           <hr/>

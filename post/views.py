@@ -10,6 +10,9 @@ from django.utils.decorators import method_decorator
 from menu.models import Menu
 from categorias.models import Categoria
 from etiquetas.models import Etiqueta
+from post.models import Post,PostAdd
+
+
 
 from .form import PostForm
 
@@ -41,9 +44,9 @@ class PostView(LoginRequiredMixin,FormView):
 		ObjCategoria = Categoria.objects.all()
 		ObjEtiqueta = Etiqueta.objects.all()
 		ObjMenu = Menu.objects.all()
+		ObjPost = Post.objects.all()
 
 		ObjFormPost = PostForm()
-
 		#Mandamos a llamar al formulario del Post
 
 		data = {
@@ -51,6 +54,7 @@ class PostView(LoginRequiredMixin,FormView):
 			'Etiqueta':ObjEtiqueta,
 			'Menu':ObjMenu,
 			'ObjFormPost':ObjFormPost,
+			'Post':ObjPost,
 		}
 
 		context.update(data)

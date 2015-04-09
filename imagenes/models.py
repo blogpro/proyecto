@@ -1,3 +1,7 @@
+# -*- encoding: utf-8 -*-
 from django.db import models
 
-# Create your models here.
+class ImagenPost(models.Model):
+	image = models.ImageField(upload_to='images', verbose_name='Imágen', blank=True, null=True)
+	def __unicode__(self):
+		return self.image.url 

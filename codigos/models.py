@@ -1,3 +1,6 @@
 from django.db import models
 
-# Create your models here.
+class CodigosPost(models.Model):
+	descripcion = models.TextField()
+	def __unicode__(self):
+		return self.descripcion 

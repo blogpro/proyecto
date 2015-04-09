@@ -21,7 +21,6 @@ a = socket.gethostbyname(socket.gethostname())
 if str(a) == '127.0.1.1':
     debug = True
     HOSTS = ['*']
-    #Bd
     NAME = ''
     USER = ''
     PASSWORD = ''
@@ -51,6 +50,21 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = HOSTS
 
 
+#Editor
+CKEDITOR_MEDIA_PREFIX = "/static/ckeditor/" #copiar ``media/ckeditor``
+CKEDITOR_UPLOAD_PATH = "/media/"# Subir archivos
+#CKEDITOR_JQUERY_URL = '/static/js/jquery-2.1.1.min.js'
+CKEDITOR_CONFIGS = {
+       'default': {
+           'toolbar': 'Full',
+           'height': 1024,
+           'width': 900,
+           'removePlugins': 'stylesheetparser',
+           #'extraPlugins': 'codesnippet',
+       },
+   }
+#Editor
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -69,7 +83,16 @@ INSTALLED_APPS = (
     'categorias',
     'menu',
 
+    'subtitulos',
+    'descripciones',
+    'codigos',
+    'imagenes',
+
     'social.apps.django_app.default',
+
+    'ckeditor',
+    'suit_ckeditor',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -120,11 +143,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-
+MEDIA_URL = '/media/'
 
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(RUTA_PROYECTO, 'images')
 MEDIA_ROOT_MOVIL = os.path.join(RUTA_PROYECTO, 'static')
 
 #STATIC_ROOT = ''
