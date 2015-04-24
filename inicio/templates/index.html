@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base3.html" %}
 
 {% block title %}
   Sistemas Tabasco
@@ -6,114 +6,143 @@
 
 
 {% block menu %}
-  <div class="row">
-        <div class="large-12 columns">
-      <div class="nav-bar right">
-        <ul class="button-group">
-
-          {% for me in Menu %}
-            <li><a href="#" class="button">{{me.descripcion}}</a></li>
-          {% endfor %}
-
-        </ul>
-      </div>
-      <h1>Systab <small>Rediseñando la web.</small></h1>
-      <hr/>
+  <div class="header">
+      <div class="header-top">
+        <div class="header-in">
+          <div class="logo">
+            <a href="index.html"><img src="/static/images/logo.png" alt="" ></a>
+          </div>
+          <div class="search">
+            <form>
+              <input type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
+              <input type="submit" value="SEARCH">
+            </form>
+          </div>
+          <div class="clearfix"> </div>
         </div>
+        <div class="header-top-on">
+          <ul class="social-in">
+            <li><a href="#"><i> </i></a></li>           
+            <li><a href="#"><i class="facebook"> </i></a></li>
+            <li><a href="#"><i class="tin"> </i></a></li>
+          </ul>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+      <!---->
+      <div class="header-bottom">
+        <div class="navigation">  
+        <div>
+          <label class="mobile_menu" for="mobile_menu">
+          <span>Menu</span>
+          </label>
+          <input id="mobile_menu" type="checkbox">
+          <ul class="nav">
+
+            {% for m in Menu %}
+              <li><a class="{{m.css_menu}}" href="index.html">{{m.title_menu}}</a></li>
+            {% endfor %}
+
+            <div class="clearfix"></div>
+          </ul>
+        </div>      
+      </div>
     </div>
+  </div>
 {% endblock %}
 
-
-
 {% block contenido %}
- {% for p in PostMatriz %}
-  <div class="large-9 columns" role="content">
-          <article>
-            <h3><a href="#">{{p.title}}</a></h3>
-            <h6>Escrito por <a href="#">{{p.first_name}} {{p.last_name}}</a> el {{p.fecha}}.</h6>
-
-              {% for lp in p.postList %}
-                {% if lp.subtitulopost != 'None' %}
-                  <p>      
-                    {{lp.subtitulopost}}
-                  </p>
-                {% endif %}
-            {% if lp.descripcionpost != None or  lp.imagenpost != 'None'%}  
-            <div class="row">
-              {% if lp.descripcionpost != None %}
-              <div class="large-12 columns">
-
-                  {{lp.descripcionpost|safe}}
-              </div>
-              {% endif %}
-
-              {% if lp.imagenpost != 'None' %}  
-                <div class="large-11 columns">
-                  <img src="{{lp.imagenpost}}"/>
-                </div>
-              {% endif %}
-
-            </div>
-            {% endif %}
-
-
-            {% if lp.codigospost != 'None'  %}
-              <pre class="brush: python">{{lp.codigospost}}</pre>
-              {% endif %}
-     
-            
-
-            {%  endfor%}
-     
-          </article>
-          <hr/>
+<div class="col-md-8 content-top">
+    {% for p in PostMatriz %}
+      <div class="number">
+        <div class="feb">
+          <b>
+            {{p.fecha|date:"d"}}
+          </b>
+          <label>
+            {{p.fecha|date:"M"}}
+          </label>
         </div>
-  {% endfor %}      
+        
+        <h3><a href="single.html">{{p.title}}</a></h5>    
+
+        <h4>Escrito por: {{p.first_name}} {{p.last_name}}</h4>
+
+
+          {% for lp in p.postList %}
+                {{lp.inicio_html|safe}} {{lp.codigo_pos|safe}} {{lp.fin_html|safe}}
+          {%  endfor%} 
+
+
+        <div class="movie">
+          <ul class="comment">
+            <li><span>Categoria : <a href="single.html"> {{p.categoria}}</a> </span></li>
+            <li><a href="#"><i> </i>{{p.comentarios}} Comentarios  </a></li>
+          </ul>       
+          <a href="single.html" class="more">Leer Más </a>
+        <div class="clearfix"> </div>
+        </div>
+      </div>
+    {% endfor %} 
+      <!---->
+
+      <!---->
+      <div class="older-top">
+        <a href="#" class="older"><i> </i>older posts</a>
+        <a href="#" class="older top-old"><i > </i>newer posts</a>
+        <div class="clearfix"> </div>
+      </div>
+      <!---->
+  </div>
 {% endblock %}
 
 {% block aside %}
-  <aside class="large-3 columns">
-
-  <div class="panel">
-    <h5>Categorias</h5>
-    <ul class="side-nav">
+<div class="col-md-4 content-bottom">
+  <!--
+  <div class="story"><h4  class="stories"><span>Top Stories</span></h4></div>
+  --> 
+<!--
+  <div class="might">
+    <h4>YOU MIGHT ALSO LIKE</h4>
+    <div class="might-grid">
+      <div class="grid-might">
+        <a href="single.html"><img src="/static/images/mi.jpg" class="img-responsive" alt=""> </a>
+      </div>
+      <div class="might-top">
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> 
+        <a href="single.html">Medication <i> </i></a>
+      </div>
+    <div class="clearfix"></div>
+    </div>
+  </div>
+-->
+<!---->
+  <div class="grid-top">
+    <h4>Categorias</h4>
+    <ul>
       {% for ca in Categoria %}
-      <li><a href="#">{{ca.title}}</a></li>
-      {% endfor %}
-    </ul>
-
-    <h5>Tag</h5>
-    <ul class="side-nav">
-      {% for et in Etiqueta %}
-      <li><a href="#">{{et.title}}</a></li>
+        <li><a href="single.html">{{ca.title}}. </a></li>
       {% endfor %}
     </ul>
   </div>
-     
-    </aside>
+<!---->
+
+<!---->
+  <div class="grid-top-in">
+    <h4>Tag</h4>
+    <p>
+      {% for e in Etiqueta %}
+      <a href="#" class="{{e.css_etiqueta}}">{{e.title_etiqueta}}</a>
+      {% endfor %}
+     </p>       
+  </div>
+  <!---->
+</div>
 {% endblock %}
 
 {% block footer %}
-  <footer class="row">
-        <div class="large-12 columns">
-
-          <hr/>
-          <div class="row">
-            <div class="large-6 columns">
-              <p>© Copyright 2015.</p>
-            </div>
-            <div class="large-6 columns">
-              <ul class="inline-list right">
-                <li><a href="#">Link 1</a></li>
-                <li><a href="#">Link 2</a></li>
-                <li><a href="#">Link 3</a></li>
-                <li><a href="#">Link 4</a></li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-      </footer>
+  <p class="footer-class">Copyright © 2015 Megblog Template by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+  <a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 {% endblock %}
 
 
