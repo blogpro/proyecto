@@ -16,7 +16,7 @@ from django.contrib.auth.models import User
 
 
 class Post(models.Model):
-	user = models.OneToOneField(User, unique=True, related_name='perfil')
+	user = models.ForeignKey(User, related_name='perfil')
 	title = models.CharField(max_length=255)
 	etiquetas = models.ManyToManyField(Etiqueta, blank=True, null=True)
 	categoria = models.ForeignKey(Categoria)

@@ -12,8 +12,9 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^',include('inicio.urls')),
     url(r'^',include('post.urls')),
+    url(r'^',include('descripciones.urls')),
 
-    (r'^ckeditor/', include('ckeditor.urls')),
+    (r'^/ckeditor/', include('ckeditor.urls')),
 
     url(r'^media/(?P<path>.*)$','django.views.static.serve',
         {'document_root':settings.MEDIA_ROOT,}

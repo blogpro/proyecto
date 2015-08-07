@@ -57,13 +57,15 @@ CKEDITOR_UPLOAD_PATH = "/media/"# Subir archivos
 CKEDITOR_CONFIGS = {
        'default': {
            'toolbar': 'Full',
-           'height': 1024,
+           'height': 800,
            'width': 900,
-           'removePlugins': 'stylesheetparser',
+           #'removePlugins': 'stylesheetparser',
            #'extraPlugins': 'codesnippet',
        },
    }
 #Editor
+
+
 
 # Application definition
 
