@@ -116,5 +116,6 @@ class EditDescripcionPostView(GetPostMixin,FormView):
 
 class DeleteDescripcionPostView(DeleteView):
     model = DescripcionPost
-    print "ok"
-    #success_url = reverse_lazy('deletedescripcionpostView')
+    success_url = '/admin/'
+
+    template_name = 'deletedescripcion.html'

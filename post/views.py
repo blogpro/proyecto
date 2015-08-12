@@ -123,6 +123,34 @@ class EditItemPostView(RedirectView):
 		return HttpResponseRedirect(url+str(post_id)+"/"+str(postitem_id)+"/"+str(positem_id)+"/")
 
 
+class DeleteItemPostView(RedirectView):
+
+	def get(self, args, **kwargs):
+		post_id = self.kwargs.get('pk1', None)
+		postitem_id = self.kwargs.get('pk2', None)
+
+		ObjPostAdd = get_object_or_404(PostAdd, pk=postitem_id)
+
+		v_subtitulopost = ObjPostAdd.subtitulopost
+		v_descripcionpost = ObjPostAdd.descripcionpost
+		v_codigospost = ObjPostAdd.codigospost
+		v_imagenpost = ObjPostAdd.imagenpost
+
+
+
+		if v_subtitulopost != None:
+			url = "/edit-descripcion-post/"
+			print "editar subtitulo"
+		if v_descripcionpost != None:
+			print "eliminar descripcion"
+			url = "/delete-descripcion-post/"
+			positem_id = v_descripcionpost.id
+		if v_codigospost != None:
+			print "editar codigo"
+		if v_imagenpost != None:
+			print "editar imagen"
+
+		return HttpResponseRedirect(url+str(positem_id)+"/")
 
 
 
