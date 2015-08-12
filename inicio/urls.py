@@ -5,5 +5,4 @@ from .views import InicioView
 
 urlpatterns = patterns('',
     url(r'^$', InicioView.as_view(), name='LoginView'),
-
 )
