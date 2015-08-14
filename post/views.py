@@ -109,16 +109,17 @@ class EditItemPostView(RedirectView):
 
 
 		if v_subtitulopost != None:
-			url = "/edit-descripcion-post/"
-			print "editar subtitulo"
+			url = "/edit-subtitulo-post/"
+			positem_id = v_subtitulopost.id
 		if v_descripcionpost != None:
-			print "editar descripcion"
 			url = "/edit-descripcion-post/"
 			positem_id = v_descripcionpost.id
 		if v_codigospost != None:
-			print "editar codigo"
+			url = "/edit-codigo-post/"
+			positem_id = v_codigospost.id
 		if v_imagenpost != None:
-			print "editar imagen"
+			url = "/edit-imagen-post/"
+			positem_id = v_imagenpost.id
 
 		return HttpResponseRedirect(url+str(post_id)+"/"+str(postitem_id)+"/"+str(positem_id)+"/")
 
@@ -139,16 +140,17 @@ class DeleteItemPostView(RedirectView):
 
 
 		if v_subtitulopost != None:
-			url = "/edit-descripcion-post/"
-			print "editar subtitulo"
+			url = "/delete-subtitulo-post/"
+			positem_id = v_subtitulopost.id
 		if v_descripcionpost != None:
-			print "eliminar descripcion"
 			url = "/delete-descripcion-post/"
 			positem_id = v_descripcionpost.id
 		if v_codigospost != None:
-			print "editar codigo"
+			url = "/delete-codigo-post/"
+			positem_id = v_codigospost.id
 		if v_imagenpost != None:
-			print "editar imagen"
+			url = "/delete-imagen-post/"
+			positem_id = v_imagenpost.id
 
 		return HttpResponseRedirect(url+str(positem_id)+"/")
 

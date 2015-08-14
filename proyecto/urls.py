@@ -13,6 +13,9 @@ urlpatterns = patterns('',
     url(r'^',include('inicio.urls')),
     url(r'^',include('post.urls')),
     url(r'^',include('descripciones.urls')),
+    url(r'^',include('subtitulos.urls')),
+    url(r'^',include('codigos.urls')),
+    url(r'^',include('imagenes.urls')),
 
     (r'^/ckeditor/', include('ckeditor.urls')),
 

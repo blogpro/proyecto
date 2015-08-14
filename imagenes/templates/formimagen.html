@@ -52,6 +52,29 @@
 {% endblock %}
 
 {% block contenido %}
+
+
+<div class="col-md-8 content-top">
+
+  <form name="personal2" class="form-horizontal left-align" id="signupForm2" method="POST" action="" enctype="multipart/form-data">
+  {% csrf_token %}
+
+    {{ form.media }}
+    {{ form.as_p }}
+
+    <input type="hidden" name="id_post" value="{{id_post}}">
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+          Guardar
+      </button>
+    </div>
+
+  </form>
+      <!---->
+
+  </div>
+
 <div class="col-md-8 content-top">
     {% for p in PostMatriz %}
       <div class="number">
@@ -71,8 +94,6 @@
 
           {% for lp in p.postList %}
                 {{lp.inicio_html|safe}} {{lp.codigo_pos|safe}} {{lp.fin_html|safe}}
-                <a href="/edit-item-post/{{id_post}}/{{lp.id_post_add}}/">Editar</a>  
-                <a href="/delete-item-post/{{id_post}}/{{lp.id_post_add}}/">Eliminar</a>  
           {%  endfor%} 
 
 
@@ -98,23 +119,14 @@
   <div class="grid-top">
     <h4>Configuración</h4>
     <ul>
-        <li><a href="/add-subtitulo-post/{{id_post}}/">Subtitulo</a></li>
-        <li><a href="/add-descripcion-post/{{id_post}}/">Descripción</a></li>
-        <li><a href="/add-codigo-post/{{id_post}}/">Código</a></li>
-        <li><a href="/add-imagen-post/{{id_post}}/">Imagen</a></li>
+        <li><a href="single.html">Subtitulo</a></li>
+        <li><a href="single.html">Descripción</a></li>
+        <li><a href="single.html">Código</a></li>
+        <li><a href="single.html">Imagen</a></li>
     </ul>
   </div>
 <!---->
-<!---->
-  <div class="grid-top-in">
-    <h4>Tag</h4>
-    <p>
-      {% for postadd in ObjPostAdd %}
-      <a href="#" class="{{e.css_etiqueta}}">{{postadd}}</a>
-      {% endfor %}
-     </p>       
-  </div>
-  <!---->
+
 
 </div>
 {% endblock %}
