@@ -88,6 +88,7 @@ class QueryPostMixin(object):
 
 			
 			file_info['title']=p.title
+			file_info['id']=p.id
 			file_info['first_name']=p.user.first_name
 			file_info['last_name']=p.user.last_name
 			file_info['fecha']=p.fecha_registro

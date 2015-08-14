@@ -116,6 +116,6 @@ class EditDescripcionPostView(GetPostMixin,FormView):
 
 class DeleteDescripcionPostView(DeleteView):
     model = DescripcionPost
-    success_url = '/admin/'
+    success_url = '/access-admin-site/'
 
     template_name = 'deletedescripcion.html'

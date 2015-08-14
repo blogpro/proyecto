@@ -116,6 +116,6 @@ class EditSubtituloPostView(GetPostMixin,FormView):
 
 class DeleteSubtituloPostView(DeleteView):
     model = SubtituloPost
-    success_url = '/admin/'
+    success_url = '/access-admin-site/'
 
     template_name = 'deletesubtitulo.html'        		

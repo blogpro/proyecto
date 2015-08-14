@@ -124,6 +124,6 @@ class EditImegenPostView(GetPostMixin,FormView):
 
 class DeleteImegnPostView(DeleteView):
     model = ImagenPost
-    success_url = '/admin/'
+    success_url = '/access-admin-site/'
 
     template_name = 'deleteimagen.html'        		

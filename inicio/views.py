@@ -83,3 +83,26 @@ class InicioView(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		context.update(data)
 		return context	
 
+
+class InicioViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
+    template_name = 'inicio_admin.html'
+
+    #Retorna los valores al template como nuevas variables
+    def get_context_data(self, **kwargs):
+		context = super(InicioViewAdmin, self).get_context_data(**kwargs)
+
+		ObjMenu = self.Menus()
+		ObjEtiqueta = self.Etiquetas()
+		ObjCategoria = self.Categorias()
+
+		ObjQueryPost = self.QueryPost()
+
+		data = {
+			'Categoria':ObjCategoria,
+			'Etiqueta':ObjEtiqueta,
+			'Menu':ObjMenu,
+			'PostMatriz':ObjQueryPost,
+		}
+
+		context.update(data)
+		return context	

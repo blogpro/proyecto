@@ -116,6 +116,6 @@ class EditCodigoPostView(GetPostMixin,FormView):
 
 class DeleteCodigoPostView(DeleteView):
     model = CodigosPost
-    success_url = '/admin/'
+    success_url = '/access-admin-site/'
 
     template_name = 'deletecodigo.html'        		
