@@ -90,7 +90,7 @@ INSTALLED_APPS = (
     'codigos',
     'imagenes',
 
-    'social.apps.django_app.default',
+    'social.apps.django_app.default',#Login con facebook
 
     'ckeditor',
     'suit_ckeditor',
@@ -176,4 +176,20 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     'templates',
 )
+
+#-----------------Autentificacion con red socil--------------
+SOCIAL_AUTH_FACEBOOK_KEY = "1476656729277209"
+SOCIAL_AUTH_FACEBOOK_SECRET = "5c1f80475bcef95cef58f523ab14df27"
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+
+AUTHENTICATION_BACKENDS = (
+   'social.backends.facebook.FacebookOAuth2',
+   #'social.backends.google.GoogleOAuth2',
+   #'social.backends.twitter.TwitterOAuth',
+   'django.contrib.auth.backends.ModelBackend',
+)
+# URLs
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_LOGIN_URL = '/login/'
+#-----------------Autentificacion con red socil--------------
 

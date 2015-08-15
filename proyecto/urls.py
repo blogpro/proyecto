@@ -17,6 +17,8 @@ urlpatterns = patterns('',
     url(r'^',include('codigos.urls')),
     url(r'^',include('imagenes.urls')),
 
+    url('', include('social.apps.django_app.urls', namespace='social')),
+
     (r'^/ckeditor/', include('ckeditor.urls')),
 
     url(r'^media/(?P<path>.*)$','django.views.static.serve',

@@ -1,7 +1,7 @@
 {% extends "base3.html" %}
 
 {% block title %}
-  Sistemas Tabasco
+  Sistemas Tabasco Administrador
 {% endblock %}
 
 
@@ -80,8 +80,16 @@
             <li><a href="#"><i> </i>{{p.comentarios}} Comentarios  </a></li>
           </ul>       
           <a href="single.html" class="more">Leer Más </a>
+          <a href="/add-item-post/{{p.id}}/" class="more">Acceso </a>
         <div class="clearfix"> </div>
         </div>
+
+        <div class="movie">       
+          <a href="/add-item-post/{{p.id}}/" class="more">Acceso </a>
+        <div class="clearfix"> </div>
+        </div>
+
+
       </div>
     {% endfor %} 
       <!---->
@@ -124,7 +132,6 @@
         <li><a href="single.html">{{ca.title}}. </a></li>
       {% endfor %}
     </ul>
-    <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary btn-lg" role="button">Facebook</a>
   </div>
 <!---->
 
@@ -137,6 +144,14 @@
       {% endfor %}
      </p>       
   </div>
+
+  <div class="grid-top-in">
+    <h4>Nuevo Post</h4>
+    <p>
+      <a href="/new-post/" class="{{e.css_etiqueta}}">Nuevo</a>
+     </p>       
+  </div>
+
   <!---->
 </div>
 {% endblock %}
