@@ -124,7 +124,16 @@
         <li><a href="single.html">{{ca.title}}. </a></li>
       {% endfor %}
     </ul>
-    <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary btn-lg" role="button">Facebook</a>
+    
+    {% if not  request.user.is_authenticated %}
+      <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary btn-lg" role="button">Facebook</a>
+    {% endif %}
+    
+    {% if request.user.is_authenticated %}
+      <a href="{% url 'log-out' %}" class="btn btn-danger btn-lg" role="button">Logout</a>
+    {% endif %}
+
+
   </div>
 <!---->
 

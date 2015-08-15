@@ -189,7 +189,7 @@ AUTHENTICATION_BACKENDS = (
    'django.contrib.auth.backends.ModelBackend',
 )
 # URLs
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
-SOCIAL_AUTH_LOGIN_URL = '/login/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'#Cuando me logee bien
+SOCIAL_AUTH_LOGIN_URL = '/login/'#Cuando aya algun error
 #-----------------Autentificacion con red socil--------------
 
