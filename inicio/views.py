@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from django.shortcuts import render, render_to_response, get_object_or_404,render
+from django.shortcuts import render, render_to_response, get_object_or_404,render,redirect
 from django.template import RequestContext
 
 from django.views.generic import TemplateView, RedirectView, FormView
@@ -8,9 +8,13 @@ from menu.models import Menu
 from categorias.models import Categoria
 from etiquetas.models import Etiqueta
 
-
+from django.contrib.auth import logout
 
 from post.ModelPost import QueryPostMixin
+
+def log_out(request):
+    logout(request)
+    return redirect('LoginView')
 
 # Create your views here.
 
