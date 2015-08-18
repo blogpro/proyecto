@@ -18,6 +18,13 @@ def log_out(request):
 
 # Create your views here.
 
+def acceso_user(backend, user, response, *args, **kwargs):
+    if backend.name == 'facebook':
+        profile = user
+        print profile
+        #profile.gender = response.get('gender')
+
+
 class MenuMixin(object):
 	def Menus(self):
 		#-------clases css del template para el diseño---
