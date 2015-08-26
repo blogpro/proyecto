@@ -20,6 +20,8 @@ def log_out(request):
 
 def acceso_user(backend, user, response, *args, **kwargs):
     if backend.name == 'facebook':
+    	for userg in user.group.all():
+    		print userg
         profile = user
         print profile
         #profile.gender = response.get('gender')
