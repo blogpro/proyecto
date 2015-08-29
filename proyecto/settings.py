@@ -180,11 +180,11 @@ TEMPLATE_DIRS = (
 import socket
 a = socket.gethostbyname(socket.gethostname())
 if str(a) == '127.0.1.1':
-    facebook_key = "1539556102987271"#Local
+    facebook_key = "1476656729277209"#Local
     facebook_secret = "330159cf0d1b6a8a98c0e35c564365a8"#Local
 else:
-    facebook_secret = "330159cf0d1b6a8a98c0e35c564365a8"#Produccion
-    facebook_key = "1539556102987271"#Produccion
+    facebook_key = "1476656729277209"#Produccion
+    facebook_secret = "5c1f80475bcef95cef58f523ab14df27"#Produccion
 
 print facebook_key
 
