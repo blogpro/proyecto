@@ -177,6 +177,17 @@ TEMPLATE_DIRS = (
     'templates',
 )
 
+import socket
+a = socket.gethostbyname(socket.gethostname())
+if str(a) == '127.0.1.1':
+    facebook_key = "1539556102987271"#Local
+    facebook_secret = "330159cf0d1b6a8a98c0e35c564365a8"#Local
+else:
+    facebook_secret = "330159cf0d1b6a8a98c0e35c564365a8"#Produccion
+    facebook_key = "1539556102987271"#Produccion
+
+print facebook_key
+
 #-----------------Autentificacion con red socil--------------
 SOCIAL_AUTH_FACEBOOK_KEY = "1476656729277209"#Produccion
 #SOCIAL_AUTH_FACEBOOK_KEY = "1539556102987271"#Local
