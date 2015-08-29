@@ -178,8 +178,10 @@ TEMPLATE_DIRS = (
 )
 
 #-----------------Autentificacion con red socil--------------
-SOCIAL_AUTH_FACEBOOK_KEY = "1476656729277209"
-SOCIAL_AUTH_FACEBOOK_SECRET = "5c1f80475bcef95cef58f523ab14df27"
+#SOCIAL_AUTH_FACEBOOK_KEY = "1476656729277209"#Produccion
+SOCIAL_AUTH_FACEBOOK_KEY = "1539556102987271"#Local
+#SOCIAL_AUTH_FACEBOOK_SECRET = "5c1f80475bcef95cef58f523ab14df27"#Produccion
+SOCIAL_AUTH_FACEBOOK_SECRET = "330159cf0d1b6a8a98c0e35c564365a8"#Local
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
 AUTHENTICATION_BACKENDS = (
@@ -189,7 +191,7 @@ AUTHENTICATION_BACKENDS = (
    'django.contrib.auth.backends.ModelBackend',
 )
 # URLs
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'#Cuando me logee bien
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/validar-acceso/'#Cuando me logee bien
 SOCIAL_AUTH_LOGIN_URL = '/login/'#Cuando aya algun error
 
 SOCIAL_AUTH_PIPELINE = (

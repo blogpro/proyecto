@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.shortcuts import render, render_to_response, get_object_or_404,render,redirect
 from django.template import RequestContext
+from django.http import HttpResponse, HttpResponseRedirect
 
 from django.views.generic import TemplateView, RedirectView, FormView
 
@@ -14,7 +15,7 @@ from post.ModelPost import QueryPostMixin
 
 def log_out(request):
     logout(request)
-    return redirect('LoginView')
+    return redirect('InicioViewInvitado')
 
 # Create your views here.
 
@@ -72,14 +73,25 @@ class AsideMixin(object):
 			
 
 
+class ValidaAccesoView(RedirectView):
+	def get(self, args, **kwargs):
+		if self.request.user.groups.filter(name='admin').exists():
+			return redirect('InicioViewAdmin')
+		if self.request.user.groups.filter(name='posteador').exists():
+			return redirect('InicioViewAdmin')	
+		else:
+			return redirect('InicioViewInvitado')
+		#return HttpResponseRedirect(url)
 
-class InicioView(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
+
+class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
     template_name = 'index.html'
 
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
-		context = super(InicioView, self).get_context_data(**kwargs)
+		context = super(InicioViewInvitado, self).get_context_data(**kwargs)
 
+		
 		ObjMenu = self.Menus()
 		ObjEtiqueta = self.Etiquetas()
 		ObjCategoria = self.Categorias()

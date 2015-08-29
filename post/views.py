@@ -3,8 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView, RedirectView, FormView, DetailView
 
 #Seguridad para las vistas
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.decorators import method_decorator
+
 
 
 
@@ -21,7 +22,7 @@ from .form import PostForm
 from .ModelPost import GetPostMixin
 
 class LoginRequiredMixin(object): 
-	@method_decorator(login_required) 
+	@method_decorator(permission_required('post.add_post'))
 	def dispatch(self, request, *args, **kwargs): 
 		return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
