@@ -52,7 +52,7 @@ class GetPostMixin(object):
 
 class QueryPostMixin(object):
 	def QueryPost(self):
-		ObjPost = Post.objects.all()
+		ObjPost = Post.objects.all().order_by('-id')
 		PostMatriz = []
 		for p in ObjPost:
 			file_info = {}
