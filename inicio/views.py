@@ -120,11 +120,16 @@ class InicioViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
     def get_context_data(self, **kwargs):
 		context = super(InicioViewAdmin, self).get_context_data(**kwargs)
 
+		try:
+			page = int(self.request.GET.get('page', '1'))
+		except ValueError:
+			page = 1
+
 		ObjMenu = self.Menus()
 		ObjEtiqueta = self.Etiquetas()
 		ObjCategoria = self.Categorias()
 
-		ObjQueryPost = self.QueryPost()
+		ObjQueryPost = self.QueryPost(page)
 
 		data = {
 			'Categoria':ObjCategoria,

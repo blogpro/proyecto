@@ -69,7 +69,7 @@
         <h4>Escrito por: {{p.first_name}} {{p.last_name}}</h4>
 
 
-          {% for lp in p.postList %}
+          {% for lp in p.postList|slice:":3" %}
                 {{lp.inicio_html|safe}} {{lp.codigo_pos|safe}} {{lp.fin_html|safe}}
           {%  endfor%} 
 
@@ -79,8 +79,6 @@
             <li><span>Categoria : <a href="single.html"> {{p.categoria}}</a> </span></li>
             <li><a href="#"><i> </i>{{p.comentarios}} Comentarios  </a></li>
           </ul>       
-          <a href="single.html" class="more">Leer Más </a>
-          <a href="/add-item-post/{{p.id}}/" class="more">Acceso </a>
         <div class="clearfix"> </div>
         </div>
 
@@ -95,11 +93,23 @@
       <!---->
 
       <!---->
+      {% for p in PostMatriz|slice:":1" %}
       <div class="older-top">
-        <a href="#" class="older"><i> </i>older posts</a>
-        <a href="#" class="older top-old"><i > </i>newer posts</a>
+      {% if p.previous_page_number > 0 %}
+            <a href="?page={{p.previous_page_number}}" class="older"><i> </i>Anterior</a>
+        {% endif %}
+
+        <span class="currents">
+          Pagina {{p.number}} de {{p.num_pages}}.
+        </span>
+
+        {% if p.next_page_number <= p.num_pages %}
+            <a href="?page={{p.next_page_number}}" class="older top-old"><i > </i>Siguiente</a>
+        {% endif %}
+        
         <div class="clearfix"> </div>
       </div>
+      {% endfor %}
       <!---->
   </div>
 {% endblock %}
