@@ -1,5 +1,6 @@
 from post.models import Post,PostAdd
 from comentarios.models import Comentario
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
 class GetPostMixin(object):
 	def GetPost(self,pk):
@@ -51,8 +52,21 @@ class GetPostMixin(object):
 
 
 class QueryPostMixin(object):
-	def QueryPost(self):
+	def QueryPost(self,page):
 		ObjPost = Post.objects.all().order_by('-id')
+
+		paginator = Paginator(ObjPost,7) # Show 25 contacts per page
+		try:
+			contacts = paginator.page(page)
+		except (EmptyPage, InvalidPage):
+			contacts = paginator.page(paginator.num_pages)
+
+
+		number_actual = int(contacts.number)
+		number_previous = int(number_actual-1)
+		number_next = int(number_actual+1)	
+
+		ObjPost = contacts
 		PostMatriz = []
 		for p in ObjPost:
 			file_info = {}
@@ -87,6 +101,11 @@ class QueryPostMixin(object):
 			#----------------------------------------Lista Post---------------------------------------
 
 			
+			file_info['previous_page_number'] = number_previous
+			file_info['number'] = contacts.number
+			file_info['num_pages'] = contacts.paginator.num_pages
+			file_info['next_page_number'] = number_next
+
 			file_info['title']=p.title
 			file_info['id']=p.id
 			file_info['first_name']=p.user.first_name

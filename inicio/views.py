@@ -3,7 +3,7 @@ from django.shortcuts import render, render_to_response, get_object_or_404,rende
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 
-from django.views.generic import TemplateView, RedirectView, FormView
+from django.views.generic import TemplateView, RedirectView, FormView, ListView
 
 from menu.models import Menu
 from categorias.models import Categoria
@@ -91,12 +91,16 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
     def get_context_data(self, **kwargs):
 		context = super(InicioViewInvitado, self).get_context_data(**kwargs)
 
-		
+		try:
+			page = int(self.request.GET.get('page', '1'))
+		except ValueError:
+			page = 1
+
 		ObjMenu = self.Menus()
 		ObjEtiqueta = self.Etiquetas()
 		ObjCategoria = self.Categorias()
 
-		ObjQueryPost = self.QueryPost()
+		ObjQueryPost = self.QueryPost(page)
 
 		data = {
 			'Categoria':ObjCategoria,
