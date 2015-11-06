@@ -13,6 +13,7 @@ urlpatterns = patterns('',
 
     #----------------google--------------------
     (r'^google0aaeb5398aea27d9\.html$', lambda r: HttpResponse("google-site-verification: google0aaeb5398aea27d9.html")),
+    (r'^sitemap\.xml$', lambda r: HttpResponse("google-site-verification: sitemap.xml")),
     #----------------google--------------------
 
     url(r'^admin/', include(admin.site.urls)),
