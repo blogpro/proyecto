@@ -155,23 +155,6 @@ class DeleteItemPostView(RedirectView):
 
 		return HttpResponseRedirect(url+str(positem_id)+"/")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class PostViewp(LoginRequiredMixin,FormView):
     template_name = 'post.html'
     form_class = PostForm

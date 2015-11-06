@@ -142,7 +142,7 @@ class InicioViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		return context
 
 
-
+#--------------------------------Vistas nuevas------------------------------
 class Viewprueba(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
     template_name = 'pruebab.html'
 
@@ -170,3 +170,4 @@ class Viewprueba(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 
 		context.update(data)
 		return context			
+#--------------------------------Vistas nuevas------------------------------

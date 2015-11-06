@@ -55,7 +55,7 @@ class QueryPostMixin(object):
 	def QueryPost(self,page):
 		ObjPost = Post.objects.all().order_by('-id')
 
-		paginator = Paginator(ObjPost,7) # Show 25 contacts per page
+		paginator = Paginator(ObjPost,7) # Mustra 7 post en el index
 		try:
 			contacts = paginator.page(page)
 		except (EmptyPage, InvalidPage):
