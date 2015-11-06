@@ -139,4 +139,34 @@ class InicioViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		}
 
 		context.update(data)
-		return context	
+		return context
+
+
+
+class Viewprueba(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
+    template_name = 'pruebab.html'
+
+    #Retorna los valores al template como nuevas variables
+    def get_context_data(self, **kwargs):
+		context = super(Viewprueba, self).get_context_data(**kwargs)
+
+		try:
+			page = int(self.request.GET.get('page', '1'))
+		except ValueError:
+			page = 1
+
+		ObjMenu = self.Menus()
+		ObjEtiqueta = self.Etiquetas()
+		ObjCategoria = self.Categorias()
+
+		ObjQueryPost = self.QueryPost(page)
+
+		data = {
+			'Categoria':ObjCategoria,
+			'Etiqueta':ObjEtiqueta,
+			'Menu':ObjMenu,
+			'PostMatriz':ObjQueryPost,
+		}
+
+		context.update(data)
+		return context			
