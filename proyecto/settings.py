@@ -30,10 +30,11 @@ else:
     HOSTS = ['http://systab.herokuapp.com/','systab.herokuapp.com']
 
     #Bd
-    NAME = 'd9d46qtftu68ki'
-    USER = 'oithnhwamizxka'
-    PASSWORD = '6OrH6cRnkAugNL44gxypx_SpdQ'
-    HOST = 'ec2-23-21-187-45.compute-1.amazonaws.com'
+    HOST = 'ec2-54-225-201-25.compute-1.amazonaws.com'
+    NAME = 'd8aecn4b0n19m3'
+    USER = 'nnwgvgoklyndcu'
+    PASSWORD = '3eyYWb0OMg9o5VNlkEa4QQPkpu'
+    
 
 
 # Quick-start development settings - unsuitable for production
@@ -85,9 +86,9 @@ INSTALLED_APPS = (
     'categorias',
     'menu',
 
-    'subtitulos',
-    'descripciones',
-    'codigos',
+    #'subtitulos',
+    #'descripciones',
+    #'codigos',
     'imagenes',
 
     'social.apps.django_app.default',#Login con facebook

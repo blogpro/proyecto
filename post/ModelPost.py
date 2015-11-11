@@ -14,21 +14,21 @@ class GetPostMixin(object):
 		ObjPostAdd = PostAdd.objects.filter(post__id= p.id).order_by('order')
 		for s in ObjPostAdd:
 			file_info_html = {}
-			if s.subtitulopost != None:
-				file_info_html['inicio_html']="<br><h5>"
-				file_info_html['codigo_pos'] = s.subtitulopost
-				file_info_html['fin_html']="</br>"
-				file_info_html['id_post_add']=s.id
-			if s.descripcionpost != None:	
-				file_info_html['inicio_html']="<p>"
-				file_info_html['codigo_pos'] = s.descripcionpost
-				file_info_html['fin_html']="</p>"
-				file_info_html['id_post_add']=s.id
-			if s.codigospost != None:	
-				file_info_html['inicio_html']="<pre class='brush: python'>"
-				file_info_html['codigo_pos'] = s.codigospost
-				file_info_html['fin_html']="</pre>"
-				file_info_html['id_post_add']=s.id
+			# if s.subtitulopost != None:
+			# 	file_info_html['inicio_html']="<br><h5>"
+			# 	file_info_html['codigo_pos'] = s.subtitulopost
+			# 	file_info_html['fin_html']="</br>"
+			# 	file_info_html['id_post_add']=s.id
+			# if s.descripcionpost != None:	
+			# 	file_info_html['inicio_html']="<p>"
+			# 	file_info_html['codigo_pos'] = s.descripcionpost
+			# 	file_info_html['fin_html']="</p>"
+			# 	file_info_html['id_post_add']=s.id
+			# if s.codigospost != None:	
+			# 	file_info_html['inicio_html']="<pre class='brush: python'>"
+			# 	file_info_html['codigo_pos'] = s.codigospost
+			# 	file_info_html['fin_html']="</pre>"
+			# 	file_info_html['id_post_add']=s.id
 			if s.imagenpost != None:
 				file_info_html['inicio_html']="<img class='img-responsive' src='"	
 				file_info_html['codigo_pos'] =s.imagenpost
@@ -76,21 +76,21 @@ class QueryPostMixin(object):
 			ObjPostAdd = PostAdd.objects.filter(post__id= p.id).order_by('order')
 			for s in ObjPostAdd:
 				file_info_html = {}
-				if s.subtitulopost != None:
-					file_info_html['inicio_html']="<br><h5>"
-					file_info_html['codigo_pos'] = s.subtitulopost
-					file_info_html['fin_html']="</br>"
-					file_info_html['id_post_add']=s.id
-				if s.descripcionpost != None:	
-					file_info_html['inicio_html']="<p>"
-					file_info_html['codigo_pos'] = s.descripcionpost
-					file_info_html['fin_html']="</p>"
-					file_info_html['id_post_add']=s.id
-				if s.codigospost != None:	
-					file_info_html['inicio_html']="<pre class='brush: python'>"
-					file_info_html['codigo_pos'] = s.codigospost
-					file_info_html['fin_html']="</pre>"
-					file_info_html['id_post_add']=s.id
+				# if s.subtitulopost != None:
+				# 	file_info_html['inicio_html']="<br><h5>"
+				# 	file_info_html['codigo_pos'] = s.subtitulopost
+				# 	file_info_html['fin_html']="</br>"
+				# 	file_info_html['id_post_add']=s.id
+				# if s.descripcionpost != None:	
+				# 	file_info_html['inicio_html']="<p>"
+				# 	file_info_html['codigo_pos'] = s.descripcionpost
+				# 	file_info_html['fin_html']="</p>"
+				# 	file_info_html['id_post_add']=s.id
+				# if s.codigospost != None:	
+				# 	file_info_html['inicio_html']="<pre class='brush: python'>"
+				# 	file_info_html['codigo_pos'] = s.codigospost
+				# 	file_info_html['fin_html']="</pre>"
+				# 	file_info_html['id_post_add']=s.id
 				if s.imagenpost != None:
 					file_info_html['inicio_html']="<img class='img-responsive' src='"	
 					file_info_html['codigo_pos'] =s.imagenpost
