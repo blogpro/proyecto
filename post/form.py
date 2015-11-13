@@ -10,15 +10,16 @@ from django.utils.timezone import utc
 
 from datetime import date, timedelta
 
-
+from suit_ckeditor.widgets import CKEditorWidget
 from .models import Post
 
 class PostForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields = ('title','etiquetas','categoria',)
-        widgets = {
-            'title': TextInput(attrs={'class':'span12','id':'Descripcion','placeholder':'Descripcion'}),
-            'etiquetas': SelectMultiple(attrs={'class':'span12','size':'15'}),
-            'categoria': Select(attrs={'class':'span12','id':'categoria'}),
-        }          
+	descripcion = forms.CharField(widget=CKEditorWidget())#tiene que ser el mismo nombre del campo en la base de datos
+	class Meta:
+		model = Post
+		fields = ('status','title','etiquetas','categoria','descripcion')
+		widgets = {
+			'title': TextInput(attrs={'class':'span12','id':'Descripcion','placeholder':'Descripcion'}),
+			'etiquetas': SelectMultiple(attrs={'class':'span12','size':'15'}),
+			'categoria': Select(attrs={'class':'span12','id':'categoria'}),
+	}          

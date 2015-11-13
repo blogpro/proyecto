@@ -16,23 +16,35 @@ from ckeditor.fields import RichTextField
 # Create your models here.
 
 
+class Status_Post(models.Model):
+	title = models.CharField(max_length=255)
+	descripcion=models.TextField()
+	def __unicode__(self):
+		return self.title 
+
+from django.template import defaultfilters
 class Post(models.Model):
+	status = models.ForeignKey(Status_Post,blank=True, null=True)
 	user = models.ForeignKey(User, related_name='perfil')
 	title = models.CharField(max_length=255)
 	descripcion=RichTextField()  # Usamos  RichTextField()
 	etiquetas = models.ManyToManyField(Etiqueta, blank=True, null=True)
 	categoria = models.ForeignKey(Categoria)
 	voto = models.ForeignKey(Voto,blank=True, null=True)
+	date_ini = models.DateField(blank=True, null=True)
+
+	slug = models.SlugField()
 	
 	fecha_registro = models.DateTimeField(auto_now_add=True)
 	def __unicode__(self):
-		return self.title 
+		return self.title
+
+	def save(self, *args, **kwargs):
+		self.slug = defaultfilters.slugify(self.title)
+		super(Post, self).save(*args, **kwargs)	 
 
 class PostAdd(models.Model):
 	post = models.ForeignKey(Post)
-	#subtitulopost = models.ForeignKey(SubtituloPost,blank=True, null=True)
-	#descripcionpost = models.ForeignKey(DescripcionPost,blank=True, null=True)
-	#codigospost = models.ForeignKey(CodigosPost,blank=True, null=True)
 	imagenpost = models.ForeignKey(ImagenPost,blank=True, null=True)
 	
 	order = models.PositiveIntegerField()

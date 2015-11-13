@@ -30,35 +30,14 @@
 	<div class="large-9 columns" role="content">
           <article>
             <div class="row">
-              <div class="large-6 columns">
 
               <form name="actividades" class="form-horizontal left-align" id="actividades" method="POST" action="">
                   {% csrf_token %}
 
-
-                  <div class="control-group">
-                    <label class="control-label">Título</label>
-                    <div class="controls">
-                    {{ObjFormPost.title}}
-                    </div>
-                  </div>
-
-                  <div class="control-group">
-                    <label class="control-label">Etiquetas</label>
-                    <div class="controls">
-                    {{ObjFormPost.etiquetas}}
-                    </div>
-                  </div>
-
-
-
-                  <div class="control-group">
-                    <label class="control-label">Categorias</label>
-                    <div class="controls">
-                    {{ObjFormPost.categoria}}
-                    </div>
-                  </div>
-                 
+                  <link href="/static/suit-ckeditor/ckeditor.css" type="text/css" media="all" rel="stylesheet" />
+                  <script type="text/javascript" src="/static/suit-ckeditor/ckeditor/ckeditor.js"></script>
+                  
+                  {{ form.as_p }}
 
                   <div class="form-actions">
                     <button type="submit" class="btn btn-primary" >Guardar</button>
@@ -67,7 +46,6 @@
 
                 </form>
                
-              </div>
             </div>
      
           

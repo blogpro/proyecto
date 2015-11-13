@@ -10,7 +10,7 @@
       <div class="header-top">
         <div class="header-in">
           <div class="logo">
-            <a href="index.html"><img src="/static/images/logo.png" alt="" ></a>
+            <a href="/"><img src="/static/images/logo.png" alt="" ></a>
           </div>
           <div class="search">
             <form>
@@ -68,8 +68,10 @@
 
         <h4>Escrito por: {{p.first_name}} {{p.last_name}}</h4>
 
+        {{p.descripcion|safe|slice:":500"}}...
 
-          {% for lp in p.postList|slice:":3" %}
+
+          {% for lp in p.postList|slice:":3" %}<!-- Limita la cantidad de vuelta del for -->
                 {{lp.inicio_html|safe}} {{lp.codigo_pos|safe}} {{lp.fin_html|safe}}
           {%  endfor%} 
 
@@ -84,6 +86,11 @@
 
         <div class="movie">       
           <a href="/add-item-post/{{p.id}}/" class="more">Acceso </a>
+        <div class="clearfix"> </div>
+        </div>
+
+        <div class="movie">       
+          <a href="/blog/{{p.slug}}/" class="more">Ver más </a>
         <div class="clearfix"> </div>
         </div>
 
@@ -155,14 +162,15 @@
 <!---->
 
 <!---->
-  <div class="grid-top-in">
+  <div class="grid-top">
     <h4>Tag</h4>
-    <p>
+    <ul>
       {% for e in Etiqueta %}
-      <a href="#" class="{{e.css_etiqueta}}">{{e.title_etiqueta}}</a>
+      <li><a href="single.html">{{e.title_etiqueta}}. </a></li>
       {% endfor %}
-     </p>       
+     </ul>       
   </div>
+<!---->  
 
   <div class="grid-top-in">
     <h4>Nuevo Post</h4>

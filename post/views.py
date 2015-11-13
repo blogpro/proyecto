@@ -1,6 +1,7 @@
-from django.shortcuts import render, render_to_response, get_object_or_404,render
+# -*- encoding: utf-8 -*-
+from django.shortcuts import render, render_to_response, get_object_or_404,render,redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import TemplateView, RedirectView, FormView, DetailView
+from django.views.generic import TemplateView, RedirectView, FormView, DetailView, UpdateView
 
 #Seguridad para las vistas
 from django.contrib.auth.decorators import login_required, permission_required
@@ -19,7 +20,8 @@ from comentarios.models import Comentario
 
 from .form import PostForm
 
-from .ModelPost import GetPostMixin
+from .ModelPost import MenuMixin, GetPostMixin, GetPostSlugMixin
+from django.core.urlresolvers import reverse
 
 class LoginRequiredMixin(object): 
 	@method_decorator(permission_required('post.add_post'))
@@ -67,6 +69,47 @@ class PostView(LoginRequiredMixin,FormView):
 
 		context.update(data)
 		return context
+
+class UpdateContactViewPost(UpdateView):
+
+	form_class=PostForm
+	model = Post
+	template_name = 'post.html'
+
+
+	def get_success_url(self):
+		return reverse('InicioViewAdmin')
+
+	def get_context_data(self, **kwargs):
+
+		context = super(UpdateContactViewPost, self).get_context_data(**kwargs)
+		context['ObjFormPost'] = reverse('UpdateContactViewPost',kwargs={'pk': self.get_object().id})
+
+		return context
+
+class DetailPostViewPost(MenuMixin,GetPostSlugMixin, DetailView):
+	model = Post
+	template_name = 'detailpost.html'
+	#Retorna los valores al template como nuevas variables
+	def get_context_data(self, **kwargs):
+		context = super(DetailPostViewPost, self).get_context_data(**kwargs)
+		ObjMenu = self.Menus()
+
+		id_post = self.kwargs['slug']
+
+		ObjGetPost = self.GetPost(id_post)
+		#ObjPostAdd = PostAdd.objects.filter(post__id=id_post)
+
+		data = {
+			'Menu':ObjMenu,
+			'PostMatriz':ObjGetPost,
+			#'ObjPostAdd':ObjPostAdd,
+			'id_post':id_post,
+		}
+
+		context.update(data)
+		return context
+
 
 
 class AddItemPostView(LoginRequiredMixin,GetPostMixin,TemplateView):

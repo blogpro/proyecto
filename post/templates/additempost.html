@@ -68,12 +68,16 @@
 
         <h4>Escrito por: {{p.first_name}} {{p.last_name}}</h4>
 
+        {{p.descripcion|safe}}
+
 
           {% for lp in p.postList %}
                 {{lp.inicio_html|safe}} {{lp.codigo_pos|safe}} {{lp.fin_html|safe}}
                 <a href="/edit-item-post/{{id_post}}/{{lp.id_post_add}}/">Editar</a>  
                 <a href="/delete-item-post/{{id_post}}/{{lp.id_post_add}}/">Eliminar</a>  
           {%  endfor%} 
+
+          <a href="/edit-post/{{id_post}}/">Editar post</a> 
 
 
         <div class="movie">
