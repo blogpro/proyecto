@@ -93,12 +93,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--Codigo de configuracion para el facebook-->
 <!-- You can use Open Graph tags to customize link previews.
     Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
-    <meta property="og:url"           content="http://systab.herokuapp.com/" />
-    <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="Systab" />
-    <meta property="og:description"   content="Pagina dedicado al mundo de la informatica" />
-    <meta property="og:image"         content="http://systab.herokuapp.com/static/images/logo.png" />
-
+    {% block configFacebook %}{% endblock %}
+    
 
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
