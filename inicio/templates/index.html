@@ -137,7 +137,7 @@
 <!---->
   <div class="grid-top">
     <h4>Login</h4>
-    </br>
+    <br>
     {% if not user.is_authenticated %}
       <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary" role="button">Facebook</a>
     {% endif %}
@@ -146,6 +146,15 @@
       <a href="{% url 'log-out' %}" class="btn btn-danger" role="button">Logout</a>
     {% endif %}
   </div>
+  <!---->
+  <div class="grid-top">
+    <h4>Redes</h4>
+    </br>
+    <ul>
+     <div class="fb-like"></div>
+    </ul>
+  </div>
+<!---->
 <!---->
   <div class="grid-top">
     <h4>Categorias</h4>
