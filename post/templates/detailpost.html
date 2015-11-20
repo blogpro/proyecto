@@ -1,7 +1,9 @@
 {% extends "base3.html" %}
 
 {% block title %}
-  Sistemas Tabasco Administrador
+  {% for p in PostMatriz %}
+    {{p.title}}
+  {% endfor %}
 {% endblock %}
 
 {% block configFacebook %}
