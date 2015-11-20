@@ -3,7 +3,25 @@ from post.models import Post,PostAdd
 from comentarios.models import Comentario
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
+from categorias.models import Categoria
+from etiquetas.models import Etiqueta
+
 from menu.models import Menu
+
+class AsideMixin(object):
+	def Etiquetas(self):
+		ObjEtiqueta = Etiqueta.objects.all()
+		EtiquetaMatriz = []
+		for E in ObjEtiqueta:
+			file_info = {}
+			file_info['title_etiqueta'] = E.title
+			EtiquetaMatriz.append(file_info)
+	
+		return EtiquetaMatriz
+	
+	def Categorias(self):
+		ObjCategoria = Categoria.objects.all()
+		return ObjCategoria
 
 class GetPostSlugMixin(object):
 	def GetPost(self,slug):

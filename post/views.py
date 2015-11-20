@@ -20,7 +20,7 @@ from comentarios.models import Comentario
 
 from .form import PostForm
 
-from .ModelPost import MenuMixin, GetPostMixin, GetPostSlugMixin
+from .ModelPost import MenuMixin, AsideMixin, GetPostMixin, GetPostSlugMixin
 from django.core.urlresolvers import reverse
 
 class LoginRequiredMixin(object): 
@@ -87,13 +87,16 @@ class UpdateContactViewPost(UpdateView):
 
 		return context
 
-class DetailPostViewPost(MenuMixin,GetPostSlugMixin, DetailView):
+class DetailPostViewPost(MenuMixin,AsideMixin,GetPostSlugMixin, DetailView):
 	model = Post
 	template_name = 'detailpost.html'
 	#Retorna los valores al template como nuevas variables
 	def get_context_data(self, **kwargs):
 		context = super(DetailPostViewPost, self).get_context_data(**kwargs)
+
 		ObjMenu = self.Menus()
+		ObjEtiqueta = self.Etiquetas()
+		ObjCategoria = self.Categorias()
 
 		id_post = self.kwargs['slug']
 
@@ -101,6 +104,8 @@ class DetailPostViewPost(MenuMixin,GetPostSlugMixin, DetailView):
 		#ObjPostAdd = PostAdd.objects.filter(post__id=id_post)
 
 		data = {
+			'Categoria':ObjCategoria,
+			'Etiqueta':ObjEtiqueta,
 			'Menu':ObjMenu,
 			'PostMatriz':ObjGetPost,
 			#'ObjPostAdd':ObjPostAdd,

@@ -5,12 +5,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from django.views.generic import TemplateView, RedirectView, FormView, ListView
 
-from categorias.models import Categoria
-from etiquetas.models import Etiqueta
-
 from django.contrib.auth import logout
 
-from post.ModelPost import MenuMixin, MenuMixin, QueryPostMixin
+from post.ModelPost import MenuMixin, AsideMixin,  MenuMixin, QueryPostMixin
 
 def log_out(request):
     logout(request)
@@ -25,26 +22,6 @@ def acceso_user(backend, user, response, *args, **kwargs):
         profile = user
         print profile
         #profile.gender = response.get('gender')
-
-
-
-	
-
-class AsideMixin(object):
-	def Etiquetas(self):
-		ObjEtiqueta = Etiqueta.objects.all()
-		EtiquetaMatriz = []
-		for E in ObjEtiqueta:
-			file_info = {}
-			file_info['title_etiqueta'] = E.title
-			EtiquetaMatriz.append(file_info)
-	
-		return EtiquetaMatriz
-	
-	def Categorias(self):
-		ObjCategoria = Categoria.objects.all()
-		return ObjCategoria
-			
 
 
 class ValidaAccesoView(RedirectView):

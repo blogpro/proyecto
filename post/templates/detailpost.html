@@ -64,13 +64,12 @@
           </label>
         </div>
         
-        <h3><a href="/blog/{{p.slug}}/">{{p.title}}</a></h3>    
+        <h3><a href="single.html">{{p.title}}</a></h5>    
 
         <h4>Escrito por: {{p.first_name}} {{p.last_name}}</h4>
 
+        {{p.descripcion|safe}}
 
-          {{p.descripcion|safe|slice:":400"}}...
-          </strong></p>
 
         <div class="movie">
           <ul class="comment">
@@ -80,40 +79,12 @@
         <div class="clearfix"> </div>
         </div>
 
-        <div class="movie">       
-          <a href="/add-item-post/{{p.id}}/" class="more">Acceso </a>
-        <div class="clearfix"> </div>
-        </div>
-
-        <div class="movie">       
-          <a href="/blog/{{p.slug}}/" class="more">Ver más </a>
-        <div class="clearfix"> </div>
-        </div>
-
 
       </div>
     {% endfor %} 
       <!---->
 
-      <!---->
-      {% for p in PostMatriz|slice:":1" %}
-      <div class="older-top">
-      {% if p.previous_page_number > 0 %}
-            <a href="?page={{p.previous_page_number}}" class="older"><i> </i>Anterior</a>
-        {% endif %}
 
-        <span class="currents">
-          Pagina {{p.number}} de {{p.num_pages}}.
-        </span>
-
-        {% if p.next_page_number <= p.num_pages %}
-            <a href="?page={{p.next_page_number}}" class="older top-old"><i > </i>Siguiente</a>
-        {% endif %}
-        
-        <div class="clearfix"> </div>
-      </div>
-      {% endfor %}
-      <!---->
   </div>
 {% endblock %}
 
@@ -138,19 +109,6 @@
   </div>
 -->
 <!---->
-<!---->
-  <div class="grid-top">
-    <h4>Login</h4>
-    </br>
-    {% if not user.is_authenticated %}
-      <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary" role="button">Facebook</a>
-    {% endif %}
-    
-    {% if user.is_authenticated %}
-      <a href="{% url 'log-out' %}" class="btn btn-danger" role="button">Logout</a>
-    {% endif %}
-  </div>
-<!---->
   <div class="grid-top">
     <h4>Categorias</h4>
     <ul>
@@ -170,7 +128,7 @@
       {% endfor %}
      </ul>       
   </div>
-<!---->  
+  <!---->
 </div>
 {% endblock %}
 
