@@ -7,8 +7,9 @@
 {% endblock %}
 
 {% block configFacebook %}
+    <meta property="og:site_name" content="Systab Blog | Development, Marketing &amp; Web Design" />
     <meta property="og:url"           content="http://systab.herokuapp.com/blog/{{id_post}}/" />
-    <meta property="og:type"          content="Post" />
+    <meta property="og:type"          content="article" />
     {% for p in PostMatriz %}
     <meta property="og:title"         content="{{p.title}}" />
     {% endfor %}
