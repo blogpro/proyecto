@@ -70,7 +70,8 @@
         <h4>Escrito por: {{p.first_name}} {{p.last_name}}</h4>
 
         {{p.descripcion|safe|slice:":400"}}...
-          </strong></p>
+          
+          </pre></strong></p>
 
 
           {% for lp in p.postList|slice:":3" %}
