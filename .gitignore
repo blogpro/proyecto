@@ -8,9 +8,12 @@
 comentarios/migrations/
 etiquetas/migrations/
 post/migrations/
-proyecto/migrations/
 respuestas/migrations/
 votos/migrations/
+
+proyecto/migrations/
+proyecto/images/
+
 
 
 videos/
