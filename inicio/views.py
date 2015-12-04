@@ -35,7 +35,11 @@ class ValidaAccesoView(RedirectView):
 			#return redirect('InicioViewInvitado')
 		#return HttpResponseRedirect(url)
 
+class ValidaINicioView(RedirectView):
+	def get(self, args, **kwargs):
+		return redirect('InicioViewInvitado')
 
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
     template_name = 'index.html'
 
@@ -65,8 +69,6 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 
 		context.update(data)
 		return context	
-
-
 class InicioViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
     template_name = 'inicio_admin.html'
 
@@ -96,3 +98,4 @@ class InicioViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 
 		context.update(data)
 		return context
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<		

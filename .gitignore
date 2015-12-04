@@ -10,6 +10,7 @@ etiquetas/migrations/
 post/migrations/
 respuestas/migrations/
 votos/migrations/
+migrations/
 
 proyecto/migrations/
 proyecto/images/

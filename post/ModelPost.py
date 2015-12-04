@@ -151,15 +151,16 @@ class MenuMixin(object):
 	def Menus(self):
 		#-------clases css del template para el diseño---
 		#ClassCssMenu = ['color1','color2','color3','color4','color5','color6']
-		ClassCssMenu = ['color1']
+		ClassCssMenu = ['color1','color1','color1','color1','color1','color1,','color1']
 		#-------clases css del template para el diseño---
-		ObjMenu = Menu.objects.all()
+		ObjMenu = Menu.objects.all().order_by('order')
 		cont = 0
 		MenuMatriz = []
 		for M in ObjMenu:
 			file_info = {}
 			file_info['title_menu'] = M.descripcion
 			file_info['css_menu'] = ClassCssMenu[cont]
+			file_info['slug'] = M.slug
 			MenuMatriz.append(file_info)
 			if cont != 5:
 				cont = cont + 1
