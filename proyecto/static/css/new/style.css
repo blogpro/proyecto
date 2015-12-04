@@ -198,6 +198,20 @@ h2.resp-accordion {
 	background:#fafafa;
 }
 /*----*/
+.number h1{
+	font-size:2.5em;
+
+	font-weight:700;
+	line-height:1.3em;
+}
+.number h1 a{
+	text-decoration:none;
+	color:#000;
+}
+.number h1 a:hover{
+	color:#5261ac;
+}
+
 .number h3{
 	font-size:2.5em;
 
