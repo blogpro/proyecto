@@ -58,7 +58,7 @@
           <ul class="nav">
 
             {% for m in Menu %}
-              <li><a class="{{m.css_menu}}" href="index.html">{{m.title_menu}}</a></li>
+              <li><a class="{{m.css_menu}}" href="/{{m.slug}}/">{{m.title_menu}}</a></li>
             {% endfor %}
 
             <div class="clearfix"></div>
