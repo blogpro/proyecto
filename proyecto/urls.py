@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     #url(r'^',include('subtitulos.urls')),
     #url(r'^',include('codigos.urls')),
     url(r'^',include('imagenes.urls')),
+    url(r'^',include('service.urls')),
 
     url('', include('social.apps.django_app.urls', namespace='social')),
 

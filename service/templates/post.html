@@ -1,0 +1,114 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+	Sistemas Tabasco
+{% endblock %}
+
+
+{% block menu %}
+	<div class="row">
+        <div class="large-12 columns">
+			<div class="nav-bar right">
+				<ul class="button-group">
+
+          {% for me in Menu %}
+            <li><a href="#" class="button">{{me.descripcion}}</a></li>
+          {% endfor %}
+
+				</ul>
+			</div>
+			<h1>Systab <small>Rediseñando la web.</small></h1>
+			<hr/>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block contenido %}
+	<div class="large-9 columns" role="content">
+          <article>
+            <div class="row">
+
+              <form name="actividades" class="form-horizontal left-align" id="actividades" method="POST" action="">
+                  {% csrf_token %}
+
+                  <link href="/static/suit-ckeditor/ckeditor.css" type="text/css" media="all" rel="stylesheet" />
+                  <script type="text/javascript" src="/static/suit-ckeditor/ckeditor/ckeditor.js"></script>
+                  
+                  {{ form.as_p }}
+
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" >Guardar</button>
+                     <button type="submit" class="btn btn-danger">Cancelar</button>
+                  </div>
+
+                </form>
+               
+            </div>
+     
+          
+          </article>
+          <hr/>
+        </div>
+{% endblock %}
+
+{% block aside %}
+	<aside class="large-3 columns">
+
+	<div class="panel">
+		<h5>Configuración</h5>
+    &ltpre class="brush: py"&gt
+    &lt/pre&gt
+    <br>
+
+    py<br>
+    sql<br>
+    c<br> 
+    c++<br>
+    csharp<br>
+    css<br>
+    java<br>
+    javascript<br>
+    php<br>
+    vb<br>
+    xhtml<br>
+
+		<h5>Imagenes Subidas</h5>
+		<ul class="side-nav">
+
+      
+			
+		</ul>
+	</div>
+     
+    </aside>
+{% endblock %}
+
+{% block footer %}
+	<footer class="row">
+        <div class="large-12 columns">
+
+          <hr/>
+          <div class="row">
+            <div class="large-6 columns">
+              <p>© Copyright 2015.</p>
+            </div>
+            <div class="large-6 columns">
+              <ul class="inline-list right">
+                <li><a href="#">Link 1</a></li>
+                <li><a href="#">Link 2</a></li>
+                <li><a href="#">Link 3</a></li>
+                <li><a href="#">Link 4</a></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </footer>
+{% endblock %}
+
+
+
+

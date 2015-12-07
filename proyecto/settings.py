@@ -67,6 +67,16 @@ CKEDITOR_CONFIGS = {
 #Editor
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
+
 
 # Application definition
 
@@ -90,11 +100,13 @@ INSTALLED_APPS = (
     #'descripciones',
     #'codigos',
     'imagenes',
+    'service',
 
     'social.apps.django_app.default',#Login con facebook
 
     'ckeditor',
     'suit_ckeditor',
+    'rest_framework',
 
 )
 
