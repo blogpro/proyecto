@@ -26,16 +26,23 @@ class User(APIView):
 	def post(self, request, *args, **kwargs):
 		email_f = request.POST['email']
 
-		ObjUserServicesave = UserService()
-		ObjUserServicesave.email = email_f
-		ObjUserServicesave.save()
-		idu=ObjUserServicesave.save()
-		objUser = UserService.objects.get(email=email_f)
+		ObjModelGet = UserService.objects.filter(email=email_f).count()
+		if ObjModelGet == 0:
+			ObjUserServicesave = UserService()
+			ObjUserServicesave.email = email_f
+			ObjUserServicesave.save()
+			idu=ObjUserServicesave.save()
+			objUser = UserService.objects.get(email=email_f)
 
-		data = {
-		'user_id': objUser.id,
-		'email': objUser.email,
-		}
+			data = {
+			'user_id': objUser.id,
+			'email': objUser.email,
+			}
+		else:
+			data = {
+			'user_id': "",
+			'email': "",
+			}	
 		return Response(data)
 	def get(self, request, *args, **kwargs):
 		"""
