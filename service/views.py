@@ -39,8 +39,9 @@ class User(APIView):
 			'email': objUser.email,
 			}
 		else:
+			objUser = UserService.objects.get(email=email_f)
 			data = {
-			'user_id': "",
+			'user_id': objUser.id,
 			'email': "",
 			}	
 		return Response(data)

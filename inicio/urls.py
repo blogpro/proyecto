@@ -6,8 +6,10 @@ from .views import ValidaAccesoView, InicioViewInvitado, InicioViewAdmin, Valida
 urlpatterns = patterns('',
 	url(r'^validar-acceso/$', ValidaAccesoView.as_view(), name='validaAcceso'),
 
+    #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Url para el acceso <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     url(r'^$', InicioViewInvitado.as_view(), name='InicioViewInvitado'),#Invitado
     url(r'^access-admin-site/$', InicioViewAdmin.as_view(), name='InicioViewAdmin'),#Admin
+    #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Url para el acceso <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
     url(r'^log-out/$', 'inicio.views.log_out', name='log-out'),
