@@ -110,7 +110,7 @@ class DetailPostViewPost(MenuMixin,AsideMixin,GetPostSlugMixin, DetailView):
 
 
 class AddItemPostView(LoginRequiredMixin,GetPostMixin,TemplateView):
-    template_name = 'additempost.html'
+    template_name = 'dashAddItemPost.html'
       
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
