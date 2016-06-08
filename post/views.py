@@ -51,18 +51,12 @@ class PostView(LoginRequiredMixin,FormView):
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
 		context = super(PostView, self).get_context_data(**kwargs)
-		ObjCategoria = Categoria.objects.all()
-		ObjEtiqueta = Etiqueta.objects.all()
-		ObjMenu = Menu.objects.all()
 		ObjPost = Post.objects.all()
 
 		ObjFormPost = PostForm()
 		#Mandamos a llamar al formulario del Post
 
 		data = {
-			'Categoria':ObjCategoria,
-			'Etiqueta':ObjEtiqueta,
-			'Menu':ObjMenu,
 			'ObjFormPost':ObjFormPost,
 			'Post':ObjPost,
 		}
