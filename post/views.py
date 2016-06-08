@@ -31,7 +31,7 @@ class LoginRequiredMixin(object):
 
 # Create your views here.
 class PostView(LoginRequiredMixin,FormView):
-    template_name = 'dashpost.html'
+    template_name = 'post.html'
     form_class = PostForm
     #success_url = '/add-item-post/'
 
