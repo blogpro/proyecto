@@ -1,41 +1,9 @@
 {% extends "baseDash.html" %}
 
 {% block title %}
-  Sistemas Tabasco
+  Dashboard
 {% endblock %}
 
-
-{% block SidebarMenuItems %}
-<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav side-nav">
-            <li class="active">
-                <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-            </li>
-
-            <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo">
-                	<i class="fa fa-fw fa-thumb-tack"></i> Posts <i class="fa fa-fw fa-caret-down"></i>
-                </a>
-                <ul id="demo" class="collapse">
-                    <li>
-                        <a href="/new-post/">Nuevo</a>
-                    </li>
-                </ul>
-            </li>
-
-            <li>
-                <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
-            </li>
-            <li>
-                <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
-            </li>
-            
-
-        </ul>
-    </div>
-    <!-- /.navbar-collapse -->
-{% endblock %}
 
 {% block container-fluid %}
 <div class="container-fluid">
