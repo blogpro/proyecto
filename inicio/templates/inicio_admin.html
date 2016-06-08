@@ -143,7 +143,7 @@
     <h4>Post</h4>
     <br>
     <ul>
-     <li><a href="new-post/">Nuevo. </a></li>
+     <li><a href="/new-post/">Nuevo. </a></li>
     </ul>
   </div>
   {% endif %}
@@ -166,7 +166,7 @@
     <h4>Categorias</h4>
     <ul>
       {% for ca in Categoria %}
-        <li><a href="single.html">{{ca.title}}. </a></li>
+        <li><a href="#">{{ca.title}}. </a></li>
       {% endfor %}
     </ul>
   </div>
@@ -177,7 +177,7 @@
     <h4>Tag</h4>
     <ul>
       {% for e in Etiqueta %}
-      <li><a href="single.html">{{e.title_etiqueta}}. </a></li>
+      <li><a href="#">{{e.title_etiqueta}}. </a></li>
       {% endfor %}
      </ul>       
   </div>
