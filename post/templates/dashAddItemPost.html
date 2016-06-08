@@ -27,13 +27,11 @@
             <div class="col-lg-7">
                 {% for p in PostMatriz %}
 
-                    <p>{{p.fecha|date:"d"}}</p>
-                    <p>{{p.fecha|date:"M"}}</p>
+                    <p>{{p.fecha|date:"d"}} - {{p.fecha|date:"M"}}</p>
 
                     <h3><a href="#">{{p.title}}</a></h5> 
 
                     <h4>Escrito por: {{p.first_name}} {{p.last_name}}</h4>
-                    <br>
                     <p>{{p.descripcion|safe}}</p> 
 
                      <a href="/edit-post/{{id_post}}/">Editar post</a> 
