@@ -40,44 +40,14 @@
 
             </div>
             <div class="col-lg-5">
-                <h1>Configuración para ingresar código</h1>
+                <h1>Items</h1>
                 <p>
-                    &ltpre class="brush: py"&gt
-                    &lt/pre&gt
-                    <br>
-                    py<br>
-                    sql<br>
-                    c<br> 
-                    c++<br>
-                    csharp<br>
-                    css<br>
-                    java<br>
                     javascript<br>
                     php<br>
                     vb<br>
                     xhtml<br>
                 </p>
-                <h1>Último post</h1>
-                <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <th>Fecha creación</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for post in Post %}
-                                    <tr>
-                                        <td>{{post.title}}</td>
-                                        <td>{{post.fecha_registro}}</td>
-                                        <td>{{post.status.title}}</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                </div>
+
             </div>
         </div>
         <!-- /.row -->
