@@ -104,7 +104,7 @@ class DashViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
-		context = super(InicioViewAdmin, self).get_context_data(**kwargs)
+		context = super(DashViewAdmin, self).get_context_data(**kwargs)
 
 		try:
 			page = int(self.request.GET.get('page', '1'))
