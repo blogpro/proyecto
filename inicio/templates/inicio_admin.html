@@ -138,13 +138,15 @@
 -->
 <!---->
 <!---->
+{% if user.is_authenticated %}
   <div class="grid-top">
-    <h4>Redes Sociales</h4>
+    <h4>Post</h4>
     <br>
     <ul>
-     <div class="fb-like"></div>
+     <li><a href="new-post/">Nuevo. </a></li>
     </ul>
   </div>
+  {% endif %}
 <!---->
 
 <!---->
