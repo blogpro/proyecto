@@ -68,12 +68,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
-                                     <tr>
-                                        <td>java al maximmo</td>
-                                        <td>12/12/2016</td>
-                                        <td>Publicado</td>
+                                    {% for post in Post %}
+                                    <tr>
+                                        <td>{{post.title}}</td>
+                                        <td>{{post.fecha_registro}}/td>
+                                        <td>{{post.status.title}}</td>
                                     </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                 </div>

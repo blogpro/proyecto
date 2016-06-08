@@ -52,9 +52,7 @@ class PostView(LoginRequiredMixin,FormView):
     def get_context_data(self, **kwargs):
 		context = super(PostView, self).get_context_data(**kwargs)
 		ObjPost = Post.objects.all().order_by('-id')[:1]
-
 		ObjFormPost = PostForm()
-		#Mandamos a llamar al formulario del Post
 
 		data = {
 			'ObjFormPost':ObjFormPost,
