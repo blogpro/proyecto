@@ -4,6 +4,7 @@
 # sublimetext
 /*.sublime-project
 *.sublime-workspace
+*.DS_Store
 
 comentarios/migrations/
 etiquetas/migrations/
