@@ -19,6 +19,7 @@ class PostForm(forms.ModelForm):
 		model = Post
 		fields = ('status','title','etiquetas','categoria','descripcion')
 		widgets = {
+			'status': Select(attrs={'class':'form-control','id':'status'}),
 			'title': TextInput(attrs={'class':'form-control','id':'Descripcion','placeholder':'Descripcion'}),
 			'etiquetas': SelectMultiple(attrs={'class':'form-control','size':'5'}),
 			'categoria': Select(attrs={'class':'form-control','id':'categoria'}),
