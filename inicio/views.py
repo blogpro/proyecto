@@ -70,7 +70,7 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		context.update(data)
 		return context	
 class InicioViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
-    template_name = 'inicio_admin.html'
+    template_name = 'indexAngular.html'
 
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
