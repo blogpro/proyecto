@@ -1,4 +1,7 @@
-var angularRoutingApp = angular.module('blog', ['ngRoute']);
+var angularRoutingApp = angular.module('blog', [
+	'ngRoute',
+	'indexModule'
+	]);
 
 // Configuración de las rutas
 angularRoutingApp.config(function($routeProvider) {
