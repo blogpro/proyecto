@@ -72,33 +72,6 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 class InicioViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
     template_name = 'indexAngular.html'
 
-    #Retorna los valores al template como nuevas variables
-    def get_context_data(self, **kwargs):
-		context = super(InicioViewAdmin, self).get_context_data(**kwargs)
-
-		try:
-			page = int(self.request.GET.get('page', '1'))
-		except ValueError:
-			page = 1
-
-		ObjMenu = self.Menus()
-		ObjEtiqueta = self.Etiquetas()
-		ObjCategoria = self.Categorias()
-
-		#-------------Lista de post QueryPostMixin----------
-		ObjQueryPost = self.QueryPost(page)
-		#-------------Lista de post QueryPostMixin----------
-
-		data = {
-			'Categoria':ObjCategoria,
-			'Etiqueta':ObjEtiqueta,
-			'Menu':ObjMenu,
-			'PostMatriz':ObjQueryPost,
-		}
-
-		context.update(data)
-		return context
-
 class acercaViewAdmin(TemplateView):
     template_name = 'acercaAngular.html'	
 
