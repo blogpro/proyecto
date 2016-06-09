@@ -5,7 +5,7 @@ angularRoutingApp.config(function($routeProvider) {
 
     $routeProvider
         .when('/prueba-angular', {
-            templateUrl : 'pages/acerca.html',
+            templateUrl : 'static/index.html',
             //controller  : 'aboutController'
         })
         .otherwise({
