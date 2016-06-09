@@ -8,8 +8,8 @@ angularRoutingApp.config(function($routeProvider) {
 
     $routeProvider
         .when('/acerca', {
-            templateUrl : 'static/acerca.html',
-            //controller  : 'aboutController'
+            templateUrl : 'inicio/templates/acercaAngular.js.html',
+            controller  : 'indexController'
         })
         .otherwise({
             redirectTo: '/'
