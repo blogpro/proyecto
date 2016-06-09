@@ -8,7 +8,7 @@ angularRoutingApp.config(function($routeProvider) {
 
     $routeProvider
         .when('/acerca', {
-            templateUrl : 'inicio/templates/acercaAngular.js.html',
+            templateUrl : 'inicio/templates/acercaAngular.html',
             controller  : 'indexController'
         })
         .otherwise({
