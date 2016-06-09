@@ -66,7 +66,7 @@ class UpdateContactViewPost(UpdateView):
 
 	form_class=PostForm
 	model = Post
-	template_name = 'post.html'
+	template_name = 'dashpost.html'
 
 
 	def get_success_url(self):
