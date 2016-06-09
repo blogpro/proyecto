@@ -7,8 +7,8 @@ var angularRoutingApp = angular.module('blog', [
 angularRoutingApp.config(function($routeProvider) {
 
     $routeProvider
-        .when('/prueba-angular', {
-            templateUrl : 'static/index.html',
+        .when('/acerca', {
+            templateUrl : 'static/acerca.html',
             //controller  : 'aboutController'
         })
         .otherwise({
