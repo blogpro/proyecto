@@ -229,4 +229,24 @@ class PostViewp(LoginRequiredMixin,FormView):
 		}
 
 		context.update(data)
+		return context
+class ListPostViewPost(MenuMixin,AsideMixin,GetPostSlugMixin, TemplateView):
+	model = Post
+	template_name = 'dashlistpost.html'
+	#Retorna los valores al template como nuevas variables
+	def get_context_data(self, **kwargs):
+		context = super(ListPostViewPost, self).get_context_data(**kwargs)
+
+		ObjMenu = self.Menus()
+		ObjEtiqueta = self.Etiquetas()
+		ObjCategoria = self.Categorias()
+
+		data = {
+			'Categoria':ObjCategoria,
+			'Etiqueta':ObjEtiqueta,
+			'Menu':ObjMenu,
+			'id_post':id_post,
+		}
+
+		context.update(data)
 		return context			
