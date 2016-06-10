@@ -245,7 +245,6 @@ class ListPostViewPost(MenuMixin,AsideMixin,GetPostSlugMixin, TemplateView):
 			'Categoria':ObjCategoria,
 			'Etiqueta':ObjEtiqueta,
 			'Menu':ObjMenu,
-			'id_post':id_post,
 		}
 
 		context.update(data)
