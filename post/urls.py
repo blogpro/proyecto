@@ -16,7 +16,5 @@ urlpatterns = patterns('',
     url(r'^list-post/$', ListPostViewPost.as_view(), name='ListPostViewPost'),
 
     
-
-
     url(r'^postp/$', PostViewp.as_view(), name='PostViewp'),
 )
