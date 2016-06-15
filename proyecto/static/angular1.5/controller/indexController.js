@@ -1,8 +1,9 @@
 angular.module('indexModule', [])
 
-	.controller('indexController',['$scope', '$rootScope',
-        function($scope,$rootScope)
+	.controller('indexController',['$scope', '$rootScope','ServiceHTTP',
+        function($scope,$rootScope,ServiceHTTP)
         {
+        	
 
         }
     ]);        	
