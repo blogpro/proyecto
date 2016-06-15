@@ -1,6 +1,7 @@
 var angularRoutingApp = angular.module('blog', [
 	'ngRoute',
-	'indexModule'
+    'factoryModule',
+	'indexModuleController'
 	]);
 
 // Configuración de las rutas
