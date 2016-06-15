@@ -213,4 +213,7 @@ class ListPostViewPost(MenuMixin,AsideMixin,GetPostSlugMixin, TemplateView):
 		}
 
 		context.update(data)
-		return context			
+		return context
+
+class indexViewDashAngular(TemplateView):
+    template_name = 'dashlistpost.html'
