@@ -197,7 +197,7 @@ class DeleteItemPostView(RedirectView):
 
 class ListPostViewPost(MenuMixin,AsideMixin,GetPostSlugMixin, TemplateView):
 	model = Post
-	template_name = 'dashlistpost.html'
+	template_name = 'baseDashAngular.html'
 	#Retorna los valores al template como nuevas variables
 	def get_context_data(self, **kwargs):
 		context = super(ListPostViewPost, self).get_context_data(**kwargs)
