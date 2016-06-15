@@ -69,12 +69,6 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 
 		context.update(data)
 		return context	
-class InicioViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
-    template_name = 'indexAngular.html'
-
-class acercaViewAdmin(TemplateView):
-    template_name = 'acercaAngular.html'	
-
 class DashViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
     template_name = 'indexDash.html'
 
