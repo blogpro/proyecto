@@ -7,14 +7,14 @@ var angularRoutingApp = angular.module('blog', [
 angularRoutingApp.config(function($routeProvider) {
 
     $routeProvider
-        .when('/', {
+        when('/', {
             templateUrl : '/index-list-post-anglar/',
             controller  : 'indexController'
-        }).
+        })
         .when('/acerca', {
             templateUrl : '/acerca/',
             controller  : 'indexController'
-        }).
+        })
         .otherwise({
             redirectTo: '/'
         });
