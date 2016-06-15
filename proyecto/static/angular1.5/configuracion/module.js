@@ -12,7 +12,6 @@ angularRoutingApp.config(function($routeProvider) {
             controller  : 'indexController'
         })
         .otherwise({
-            rtemplateUrl : '/index-list-post-anglar/',
-            controller  : 'indexController'
+            redirectTo: '/'
         });
 });
