@@ -14,5 +14,5 @@ urlpatterns = patterns('',
     url(r'^delete-item-post/(?P<pk1>[0-9]+)/(?P<pk2>[0-9]+)/$', DeleteItemPostView.as_view(), name='DeleteItemPostView'),
 
     url(r'^list-post/$', ListPostViewPost.as_view(), name='ListPostViewPost'),
-    url(r'^index-list-post-anglar/$', indexViewDashAngular.as_view(), name='indexViewDashAngular'),#Admin Angular
+    url(r'^index-list-post-angular/$', indexViewDashAngular.as_view(), name='indexViewDashAngular'),#Admin Angular
 )

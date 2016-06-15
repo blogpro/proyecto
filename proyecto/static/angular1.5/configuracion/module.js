@@ -9,7 +9,7 @@ angularRoutingApp.config(function($routeProvider) {
 
     $routeProvider
         .when('/', {
-            templateUrl : '/index-list-post-anglar/',
+            templateUrl : '/index-list-post-angular/',
             controller  : 'indexController'
         })
         .when('/acerca', {
