@@ -1,6 +1,5 @@
 var angularRoutingApp = angular.module('blog', [
 	'ngRoute',
-    'factoryModule',
 	'indexModuleController'
 	]);
 
