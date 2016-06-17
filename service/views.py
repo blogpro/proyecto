@@ -50,8 +50,13 @@ class User(APIView):
 		"""
 		Return the user id associated with this session if one exists.
 		"""
-		ObjUser = Post.objects.all()
-		return Response(ObjUser)
+		ObjUser = UserService.objects.all()
+		SocialArray = list()
+		for s in ObjUser:
+			SocialArray.append({
+			"email": str(s.email),
+			})
+		return Response(SocialArray)
 
 
 class Nota(APIView):
