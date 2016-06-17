@@ -20,6 +20,9 @@ from rest_framework import generics
 
 
 from django.core.urlresolvers import reverse
+
+from post.models import Post
+
 from .models import UserService, Note
 
 class User(APIView):
@@ -86,16 +89,8 @@ class Nota(APIView):
 		"""
 		Return the user id associated with this session if one exists.
 		"""
-		objNote = Note.objects.all().order_by('id')
-		SocialArray = list()
-		for s in objNote:
-			SocialArray.append({
-			"user": str(s.user.email),
-			"title": str(s.title),
-			"text": str(s.text),
-			"fecha": str(s.fecha_registro),
-			})
-		return Response(SocialArray)
+		objNote = Post.objects.all().order_by('id')
+		return Response(objNote)
 
 class NotaDetail(APIView):
 	def get(self, request, pk, *args, **kwargs):
