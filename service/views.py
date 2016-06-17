@@ -21,6 +21,7 @@ from rest_framework import generics
 
 from django.core.urlresolvers import reverse
 from .models import UserService, Note
+from post.models import Post
 
 class User(APIView):
 	def post(self, request, *args, **kwargs):
