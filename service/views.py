@@ -54,14 +54,20 @@ class User(APIView):
 		Return the user id associated with this session if one exists.
 		"""
 		ObjUser = UserService.objects.all()
-		ObjPostQuery = Post.objects.all()
-		serializers = PostQuerySerializer(ObjPostQuery)
-		SocialArray = list()
-		for s in ObjUser:
-			SocialArray.append({
-			"email": str(s.email),
-			})
-		return Response(SocialArray)
+		serializers = Post.objects.all()
+
+		try:
+			serializer = PostQuerySerializer(serializers, many=True)
+		except (TypeError, ValueError) as err:
+			print 'ERROR:', err
+		return Response(serializer.data)
+
+		# SocialArray = list()
+		# for s in ObjUser:
+		# 	SocialArray.append({
+		# 	"email": str(s.email),
+		# 	})
+		# return Response(SocialArray)
 
 
 class Nota(APIView):
