@@ -21,7 +21,10 @@ from rest_framework import generics
 
 from django.core.urlresolvers import reverse
 from .models import UserService, Note
+
 from post.models import Post
+
+from service.serializers import PostQuerySerializer
 
 class User(APIView):
 	def post(self, request, *args, **kwargs):
@@ -57,7 +60,7 @@ class User(APIView):
 			SocialArray.append({
 			"email": str(s.email),
 			})
-		return Response(ObjPostQuery)
+		return Response(SocialArray)
 
 
 class Nota(APIView):
