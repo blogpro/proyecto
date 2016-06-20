@@ -8,14 +8,7 @@ angular.module('factoryModule', [])
                 var resource   = $resource(urlApi + servicio),
                 	resultado = "";
 
-				resource.query().$promise.then(function(result) {
-					   resultado = result;
-					}, function(errResponse) {
-					   resultado = errResponse;
-					});
-                
-                console.log("re "+resultado);
-
+                resultado = resource.query();	
                 return resultado;
             }
         }
