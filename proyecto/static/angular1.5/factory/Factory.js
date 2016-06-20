@@ -10,11 +10,13 @@ angular.module('factoryModule', [])
 
 				resource.query().$promise.then(function(result) {
 					   resultado = result;
-					   return resultado;
 					}, function(errResponse) {
 					   resultado = errResponse;
-					   return resultado;
 					});
+                
+                console.log("re "+resultado);
+
+                return resultado;
             }
         }
     }]);        	
