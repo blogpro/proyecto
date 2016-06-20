@@ -6,8 +6,8 @@ angular.module('factoryModule', [])
                 $http.defaults.headers.post['Content-Type'] = 'application/json; charset=UTF-8';
                 var urlApi = "http://systab.herokuapp.com/";
                 	resource   = $resource(urlApi + servicio),
-                	resultado  = resource.save({}, datos);
-                console.log("dato1 "+JSON.stringify(resultado));
+
+                console.log("dato1 "+JSON.stringify(resource));
                 return resultado;
             }
         }
