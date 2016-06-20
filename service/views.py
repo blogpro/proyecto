@@ -51,6 +51,7 @@ class User(APIView):
 		Return the user id associated with this session if one exists.
 		"""
 		ObjUser = UserService.objects.all()
+		ObjPostQuery = PostQuery.objects.all()
 		SocialArray = list()
 		for s in ObjUser:
 			SocialArray.append({
