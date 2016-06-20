@@ -10,6 +10,10 @@ class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
 		fields = ('first_name',)
+class StatusSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Status_Post
+		fields = ('title',)		
 # class StatusSerializer(serializers.ModelSerializer):
 # 	class Meta:
 # 		model Status_Post
