@@ -5,6 +5,11 @@ var angularRoutingApp = angular.module('blog', [
 	'indexModuleController'
 	]);
 
+angularRoutingApp.config(function($interpolateProvider) {//codigo para cambiar la forma de mostrar en el template a // en lugar de {{}}
+  $interpolateProvider.startSymbol('[[');
+  $interpolateProvider.endSymbol(']]');
+});
+
 // Configuración de las rutas
 angularRoutingApp.config(function($routeProvider) {
 
