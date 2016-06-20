@@ -55,12 +55,13 @@ class User(APIView):
 		"""
 		ObjUser = UserService.objects.all()
 		ObjPostQuery = Post.objects.all()
+		serializers = PostQuerySerializer(ObjPostQuery)
 		SocialArray = list()
 		for s in ObjUser:
 			SocialArray.append({
 			"email": str(s.email),
 			})
-		return Response(SocialArray)
+		return Response(serializers.data)
 
 
 class Nota(APIView):
