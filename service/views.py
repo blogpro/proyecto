@@ -57,7 +57,7 @@ class User(APIView):
 			SocialArray.append({
 			"email": str(s.email),
 			})
-		return Response(SocialArray)
+		return Response(ObjPostQuery)
 
 
 class Nota(APIView):
