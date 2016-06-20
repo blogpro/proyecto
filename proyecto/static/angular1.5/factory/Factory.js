@@ -9,7 +9,7 @@ angular.module('factoryModule', [])
                 	resultado = "";
 
 				resource.query().$promise.then(function(result) {
-					   resultado = result;
+					   resultado = JSON.parse(result);
 					}, function(errResponse) {
 					   resultado = errResponse;
 					});
