@@ -4,6 +4,7 @@ angular.module('indexModuleController', [])
         function($scope,$rootScope,ServiceHTTP)
         {
         	$scope.postQuery = ServiceHTTP.query('service-post-query/');
+        	console.log("result "+$scope.postQuery);
 
         }
     ]);        	
