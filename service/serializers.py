@@ -6,13 +6,13 @@ from django.contrib.auth.models import User
 
 from post.models import Post, Status_Post
 
-class UserPerSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
 		fields = ('first_name',)
 
 class PostQuerySerializer(serializers.ModelSerializer):
-	user = UserPerSerializer()
+	user = UserSerializer()
 	class Meta:
 		model = Post
 		fields = ('id','title','status','user')
