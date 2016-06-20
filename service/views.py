@@ -20,35 +20,12 @@ from rest_framework import generics
 
 
 from django.core.urlresolvers import reverse
-from .models import UserService, Note
 
 from post.models import Post
 
 from service.serializers import PostQuerySerializer
 
-class User(APIView):
-	def post(self, request, *args, **kwargs):
-		email_f = request.POST['email']
-
-		ObjModelGet = UserService.objects.filter(email=email_f).count()
-		if ObjModelGet == 0:
-			ObjUserServicesave = UserService()
-			ObjUserServicesave.email = email_f
-			ObjUserServicesave.save()
-			idu=ObjUserServicesave.save()
-			objUser = UserService.objects.get(email=email_f)
-
-			data = {
-			'user_id': objUser.id,
-			'email': objUser.email,
-			}
-		else:
-			objUser = UserService.objects.get(email=email_f)
-			data = {
-			'user_id': objUser.id,
-			'email': "",
-			}	
-		return Response(data)
+class ServicePostQuery(APIView):
 	def get(self, request, *args, **kwargs):
 		"""
 		Return the user id associated with this session if one exists.
@@ -59,58 +36,3 @@ class User(APIView):
 		except (TypeError, ValueError) as err:
 			print 'ERROR:', err
 		return Response(serializer.data)
-
-class Nota(APIView):
-	def post(self, request, *args, **kwargs):
-		pk_f = request.POST['pk']
-		title_f = request.POST['title']
-		text_f = request.POST['text']
-
-		objUser = UserService.objects.get(pk=pk_f)
-		ObjNotesave = Note()
-		ObjNotesave.user = objUser
-		ObjNotesave.title = title_f
-		ObjNotesave.text = text_f
-		ObjNotesave.save()
-
-		objNote = Note.objects.filter(user__id=objUser.id)
-		SocialArray = list()
-		for s in objNote:
-			SocialArray.append({
-			"user": str(s.user.email),
-			"title": str(s.title),
-			"text": str(s.text),
-			"fecha": str(s.fecha_registro),
-			})
-		return Response(SocialArray)
-
-	def get(self, request, *args, **kwargs):
-		"""
-		Return the user id associated with this session if one exists.
-		"""
-		objNote = Note.objects.all().order_by('id')
-		SocialArray = list()
-		for s in objNote:
-			SocialArray.append({
-			"user": str(s.user.email),
-			"title": str(s.title),
-			"text": str(s.text),
-			"fecha": str(s.fecha_registro),
-			})
-		return Response(SocialArray)
-
-class NotaDetail(APIView):
-	def get(self, request, pk, *args, **kwargs):
-		"""
-		Return the user id associated with this session if one exists.
-		"""
-		objNote = Note.objects.filter(user__id=pk).order_by('id')
-		SocialArray = list()
-		for s in objNote:
-			SocialArray.append({
-			"user": str(s.user.email),
-			"title": str(s.title),
-			"text": str(s.text),
-			"fecha": str(s.fecha_registro),
-			})
-		return Response(SocialArray)					
