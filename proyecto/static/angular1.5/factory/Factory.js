@@ -3,7 +3,7 @@ angular.module('factoryModule', [])
 	.factory('ServiceHTTP', ['$resource', '$rootScope','$http',function ($resource, $rootScope, $http) {
         return {
             post: function (datos, servicio) {
-                var urlApi = $resource("http://systab.herokuapp.com/");
+                var urlApi = $resource("http://systab.herokuapp.com/service-post-query/");
                 	//resource   = $resource(urlApi + "service-post-query/"),
 				urlApi.query().$promise.then(function(todos) {
 					   // success
@@ -14,7 +14,7 @@ angular.module('factoryModule', [])
 					});
 
                 
-                return resultado;
+                return 0;
             }
         }
     }]);        	
