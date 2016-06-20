@@ -24,7 +24,7 @@ from .models import UserService, Note
 
 from post.models import Post
 
-from service.serializers import PostQuerySerializer
+#from service.serializers import PostQuerySerializer
 
 class User(APIView):
 	def post(self, request, *args, **kwargs):
