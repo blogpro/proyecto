@@ -6,7 +6,7 @@ angular.module('factoryModule', [])
             	var urlApi = "http://systab.herokuapp.com/";
 
                 //var resource = $resource("http://systab.herokuapp.com/service-post-query/");
-                var resource   = $resource(urlApi + servicio),
+                var resource   = $resource(urlApi + servicio);
 				resource.query().$promise.then(function(todos) {
 					   // success
 					   console.log("success "+JSON.stringify(todos));
