@@ -61,7 +61,7 @@ class User(APIView):
 			SocialArray.append({
 			"email": str(s.email),
 			})
-		return Response(serializers.data)
+		return Response(SocialArray)
 
 
 class Nota(APIView):
