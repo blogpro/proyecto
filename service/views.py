@@ -53,22 +53,12 @@ class User(APIView):
 		"""
 		Return the user id associated with this session if one exists.
 		"""
-		ObjUser = UserService.objects.all()
-		serializers = Post.objects.all()
-
+		serializers = Post.objects.all().order_by('-id')
 		try:
 			serializer = PostQuerySerializer(serializers, many=True)
 		except (TypeError, ValueError) as err:
 			print 'ERROR:', err
 		return Response(serializer.data)
-
-		# SocialArray = list()
-		# for s in ObjUser:
-		# 	SocialArray.append({
-		# 	"email": str(s.email),
-		# 	})
-		# return Response(SocialArray)
-
 
 class Nota(APIView):
 	def post(self, request, *args, **kwargs):
