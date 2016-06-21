@@ -13,7 +13,12 @@ class UserSerializer(serializers.ModelSerializer):
 class StatusSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Status_Post
-		fields = ('title',)
+		fields = ('title',)		
+# class StatusSerializer(serializers.ModelSerializer):
+# 	class Meta:
+# 		model Status_Post
+# 		fields = ('title',)		
+
 class PostQuerySerializer(serializers.ModelSerializer):
 	user = UserSerializer()
 	status = StatusSerializer()
