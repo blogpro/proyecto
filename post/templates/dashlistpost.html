@@ -29,15 +29,15 @@
                                                 <th>Nombre</th>
                                                 <th>Status</th>
                                                 <th>Autor</th>
-                                                <th>Acción</th>
+                                                <th class="text-center">Acción</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="pq in postQuery">
-                                                <td class="text-center"> [[ pq.title ]]  </td>
+                                                <td> [[ pq.title ]]  </td>
                                                 <td> [[ pq.status.title ]]  </td>
                                                 <td> [[ pq.user.first_name ]]  </td>
-                                                <td> <a href="edit/[[ pq.id ]]/"> <button type="button" class="btn btn-xs btn-info">Info</button> </a>   </td>
+                                                <td class="text-center"> <a href="edit/[[ pq.id ]]/"> <button type="button" class="btn btn-xs btn-info">Info</button> </a>   </td>
                                             </tr>
                                         </tbody>
                                     </table>
