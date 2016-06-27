@@ -154,7 +154,7 @@
     <h4>Categorias</h4>
     <ul>
       {% for ca in Categoria %}
-        <li><a href="single.html">{{ca.title}}. </a></li>
+        <li><a href="/categorias/{{ca.id}}/">{{ca.title}}. </a></li>
       {% endfor %}
     </ul>
   </div>
@@ -165,7 +165,7 @@
     <h4>Tag</h4>
     <ul>
       {% for e in Etiqueta %}
-      <li><a href="single.html">{{e.title_etiqueta}}. </a></li>
+      <li><a href="/etiquetas/{{e.id}}/">{{e.title_etiqueta}}. </a></li>
       {% endfor %}
      </ul>       
   </div>
