@@ -94,7 +94,7 @@ class GetPostMixin(object):
 
 class QueryPostMixin(object):
 	def QueryPost(self,page):
-		ObjPost = Post.objects.all().order_by('-id')
+		ObjPost = Post.objects.filter(status__id=1).order_by('-id')
 
 		paginator = Paginator(ObjPost,7) # Mustra 7 post en el index
 		try:
