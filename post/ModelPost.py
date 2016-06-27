@@ -10,13 +10,7 @@ from menu.models import Menu
 
 class AsideMixin(object):
 	def Etiquetas(self):
-		ObjEtiqueta = Etiqueta.objects.all()
-		EtiquetaMatriz = []
-		for E in ObjEtiqueta:
-			file_info = {}
-			file_info['title_etiqueta'] = E.title
-			EtiquetaMatriz.append(file_info)
-	
+		EtiquetaMatriz = Etiqueta.objects.all()
 		return EtiquetaMatriz
 	
 	def Categorias(self):
