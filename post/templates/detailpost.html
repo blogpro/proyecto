@@ -91,7 +91,7 @@
 
         <div class="movie">
           <ul class="comment">
-            <li><span>Categoria : <a href="single.html"> {{p.categoria}}</a> </span></li>
+            <li><span>Categoria : <a href="#"> {{p.categoria}}</a> </span></li>
             <li><a href="#"><i> </i>{{p.comentarios}} Comentarios  </a></li>
           </ul>       
         <div class="clearfix"> </div>
@@ -101,53 +101,32 @@
       </div>
     {% endfor %} 
       <!---->
-
-
   </div>
 {% endblock %}
 
 {% block aside %}
-<div class="col-md-4 content-bottom">
-  <!--
-  <div class="story"><h4  class="stories"><span>Top Stories</span></h4></div>
-  --> 
-<!--
-  <div class="might">
-    <h4>YOU MIGHT ALSO LIKE</h4>
-    <div class="might-grid">
-      <div class="grid-might">
-        <a href="single.html"><img src="/static/images/mi.jpg" class="img-responsive" alt=""> </a>
-      </div>
-      <div class="might-top">
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> 
-        <a href="single.html">Medication <i> </i></a>
-      </div>
-    <div class="clearfix"></div>
+  <div class="col-md-4 content-bottom">
+    <div class="grid-top">
+      <h4>Categorias</h4>
+      <ul>
+        {% for ca in Categoria %}
+          <li><a href="single.html">{{ca.title}}. </a></li>
+        {% endfor %}
+      </ul>
     </div>
-  </div>
--->
-<!---->
-  <div class="grid-top">
-    <h4>Categorias</h4>
-    <ul>
-      {% for ca in Categoria %}
-        <li><a href="single.html">{{ca.title}}. </a></li>
-      {% endfor %}
-    </ul>
-  </div>
-<!---->
-
-<!---->
-  <div class="grid-top">
-    <h4>Tag</h4>
-    <ul>
-      {% for e in Etiqueta %}
-      <li><a href="single.html">{{e.title_etiqueta}}. </a></li>
-      {% endfor %}
-     </ul>       
-  </div>
   <!---->
-</div>
+
+  <!---->
+    <div class="grid-top">
+      <h4>Tag</h4>
+      <ul>
+        {% for e in Etiqueta %}
+        <li><a href="single.html">{{e.title_etiqueta}}. </a></li>
+        {% endfor %}
+       </ul>       
+    </div>
+    <!---->
+  </div>
 {% endblock %}
 
 {% block footer %}
