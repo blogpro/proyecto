@@ -116,6 +116,8 @@ class CategoriaQueryPost(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		ObjEtiqueta = self.Etiquetas()
 		ObjCategoria = self.Categorias()
 
+		idCategoria = self.kwargs['pk']
+
 		#-------------Lista de post QueryPostMixin----------
 		ObjQueryPost = self.QueryPost(page)
 		#-------------Lista de post QueryPostMixin----------
