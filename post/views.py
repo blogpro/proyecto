@@ -20,7 +20,7 @@ from comentarios.models import Comentario
 
 from .form import PostForm
 
-from .ModelPost import MenuMixin, AsideMixin, GetPostMixin, GetPostSlugMixin, QueryPostMixin, CategoriasPostMixin
+from .ModelPost import MenuMixin, AsideMixin, GetPostMixin, GetPostSlugMixin, QueryPostMixin
 from django.core.urlresolvers import reverse
 
 class LoginRequiredMixin(object): 

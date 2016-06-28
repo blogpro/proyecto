@@ -7,7 +7,7 @@ from django.views.generic import TemplateView, RedirectView, FormView, ListView
 
 from django.contrib.auth import logout
 
-from post.ModelPost import MenuMixin, AsideMixin,  MenuMixin, QueryPostMixin
+from post.ModelPost import MenuMixin, AsideMixin,  MenuMixin, QueryPostMixin, CategoriasPostMixin
 
 def log_out(request):
     logout(request)
