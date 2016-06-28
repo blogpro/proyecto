@@ -100,7 +100,7 @@ class DashViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		return context		
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<	
 #>************************************* vista para mostrar los post por categorias ******************************≤
-class CategoriaQueryPost(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
+class CategoriaQueryPost(MenuMixin,CategoriasPostMixin,AsideMixin,TemplateView):
     template_name = 'index.html'
 
     #Retorna los valores al template como nuevas variables
@@ -118,9 +118,9 @@ class CategoriaQueryPost(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 
 		idCategoria = self.kwargs['pk']
 
-		#-------------Lista de post QueryPostMixin----------
-		ObjQueryPost = self.CategoriasPostMixin(page,idCategoria)
-		#-------------Lista de post QueryPostMixin----------
+		#-------------Lista de post CategoriasPostMixin----------
+		ObjQueryPost = self.QueryPost(page,idCategoria)
+		#-------------Lista de post CategoriasPostMixin----------
 
 		data = {
 			'Categoria':ObjCategoria,
