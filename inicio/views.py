@@ -98,4 +98,4 @@ class DashViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 
 		context.update(data)
 		return context		
-#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<		
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<	
