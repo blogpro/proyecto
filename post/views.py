@@ -219,34 +219,34 @@ class indexViewDashAngular(TemplateView):
 	template_name = 'dashlistpost.html'
 
 
-# #>************************************* vista para mostrar los post por categorias ******************************≤
-# class CategoriaQueryPost(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
-# 	template_name = 'index.html'
+#>************************************* vista para mostrar los post por categorias ******************************≤
+class CategoriaQueryPost(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
+	template_name = 'index.html'
 
-# 	#Retorna los valores al template como nuevas variables
-#     def get_context_data(self, **kwargs):
-# 		context = super(CategoriaQueryPost, self).get_context_data(**kwargs)
+	#Retorna los valores al template como nuevas variables
+    def get_context_data(self, **kwargs):
+		context = super(CategoriaQueryPost, self).get_context_data(**kwargs)
 
-# 		try:
-# 			page = int(self.request.GET.get('page', '1'))
-# 		except ValueError:
-# 			page = 1
+		try:
+			page = int(self.request.GET.get('page', '1'))
+		except ValueError:
+			page = 1
 
-# 		ObjMenu = self.Menus()
-# 		ObjEtiqueta = self.Etiquetas()
-# 		ObjCategoria = self.Categorias()
+		ObjMenu = self.Menus()
+		ObjEtiqueta = self.Etiquetas()
+		ObjCategoria = self.Categorias()
 
-# 		#-------------Lista de post QueryPostMixin----------
-# 		ObjQueryPost = self.QueryPost(page)
-# 		#-------------Lista de post QueryPostMixin----------
+		#-------------Lista de post QueryPostMixin----------
+		ObjQueryPost = self.QueryPost(page)
+		#-------------Lista de post QueryPostMixin----------
 
-# 		data = {
-# 			'Categoria':ObjCategoria,
-# 			'Etiqueta':ObjEtiqueta,
-# 			'Menu':ObjMenu,
-# 			'PostMatriz':ObjQueryPost,
-# 		}
+		data = {
+			'Categoria':ObjCategoria,
+			'Etiqueta':ObjEtiqueta,
+			'Menu':ObjMenu,
+			'PostMatriz':ObjQueryPost,
+		}
 
-# 		context.update(data)
-# 		return context	
-# #>************************************* vista para mostrar los post por categorias ******************************≤
+		context.update(data)
+		return context	
+#>************************************* vista para mostrar los post por categorias ******************************≤
