@@ -101,9 +101,9 @@ class DashViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<	
 #>************************************* vista para mostrar los post por categorias ******************************≤
 class CategoriaQueryPost(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
-	template_name = 'index.html'
+    template_name = 'index.html'
 
-	#Retorna los valores al template como nuevas variables
+    #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
 		context = super(CategoriaQueryPost, self).get_context_data(**kwargs)
 
@@ -128,5 +128,5 @@ class CategoriaQueryPost(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		}
 
 		context.update(data)
-		return context	
+		return context
 #>************************************* vista para mostrar los post por categorias ******************************≤
