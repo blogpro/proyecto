@@ -7,7 +7,7 @@ from django.views.generic import TemplateView, RedirectView, FormView, ListView
 
 from django.contrib.auth import logout
 
-from post.ModelPost import MenuMixin, AsideMixin,  MenuMixin, QueryPostMixin, CategoriasPostMixin
+from post.ModelPost import MenuMixin, AsideMixin,  MenuMixin, QueryPostMixin, AsidePostMixin
 
 def log_out(request):
     logout(request)
@@ -100,7 +100,7 @@ class DashViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		return context		
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<	
 #>************************************* vista para mostrar los post por categorias ******************************≤
-class CategoriaQueryPost(MenuMixin,CategoriasPostMixin,AsideMixin,TemplateView):
+class CategoriaQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
     template_name = 'index.html'
 
     #Retorna los valores al template como nuevas variables
@@ -118,9 +118,9 @@ class CategoriaQueryPost(MenuMixin,CategoriasPostMixin,AsideMixin,TemplateView):
 
 		idCategoria = self.kwargs['pk']
 
-		#-------------Lista de post CategoriasPostMixin----------
+		#-------------Lista de post AsidePostMixin----------
 		ObjQueryPost = self.QueryPost(page,idCategoria)
-		#-------------Lista de post CategoriasPostMixin----------
+		#-------------Lista de post AsidePostMixin----------
 
 		data = {
 			'Categoria':ObjCategoria,

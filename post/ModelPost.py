@@ -140,7 +140,7 @@ class QueryPostMixin(object):
 			PostMatriz.append(file_info)
 		return PostMatriz
 
-class CategoriasPostMixin(object):
+class AsidePostMixin(object):
 	def QueryPost(self,page,cat):
 		ObjPost = Post.objects.filter(categoria__id=cat,status__id=1).order_by('-id')
 
