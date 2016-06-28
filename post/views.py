@@ -225,7 +225,7 @@ class CategoriaQueryPost(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
-		context = super(InicioViewInvitado, self).get_context_data(**kwargs)
+		context = super(CategoriaQueryPost, self).get_context_data(**kwargs)
 
 		try:
 			page = int(self.request.GET.get('page', '1'))
