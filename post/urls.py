@@ -15,7 +15,4 @@ urlpatterns = patterns('',
 
     url(r'^list-post/$', ListPostViewPost.as_view(), name='ListPostViewPost'),
     url(r'^index-list-post-angular/$', indexViewDashAngular.as_view(), name='indexViewDashAngular'),#Admin Angular
-
-    #Post por categorias
-    #url(r'^categorias/(?P<pk>[0-9]+)/$', CategoriaQueryPost.as_view(), name='CategoriaQueryPost'),
 )
