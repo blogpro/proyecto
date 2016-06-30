@@ -194,8 +194,8 @@ class AsidePostMixin(object):
 			PostMatriz.append(file_info)
 		return PostMatriz
 
-	def QueryPostEtiquetas(self,page,eti):
-		ObjPost = Post.objects.filter(categoria__in=eti,status__id=1).order_by('-id')
+	def QueryPostEtiquetas(self,page,tag):
+		ObjPost = Post.objects.filter(etiquetas__in=tag,status__id=1).order_by('-id')
 
 		paginator = Paginator(ObjPost,7) # Mustra 7 post en el index
 		try:
