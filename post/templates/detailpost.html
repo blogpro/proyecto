@@ -111,7 +111,7 @@
       <h4>Categorias</h4>
       <ul>
         {% for ca in Categoria %}
-          <li><a href="/categorias/{{ca.id}}/">{{ca.title}}. </a></li>
+          <li><a href="/blog/categorias/{{ca.id}}/">{{ca.title}}. </a></li>
         {% endfor %}
       </ul>
     </div>
@@ -122,7 +122,7 @@
       <h4>Tag</h4>
       <ul>
         {% for e in Etiqueta %}
-        <li><a href="/etiquetas/{{e.id}}/">{{e.title}}. </a></li>
+        <li><a href="/blog/etiquetas/{{e.id}}/">{{e.title}}. </a></li>
         {% endfor %}
        </ul>        
     </div>
