@@ -56,15 +56,6 @@
 <div class="col-md-8 content-top">
     {% for p in PostMatriz %}
       <div class="number">
-        <div class="feb">
-          <b>
-            {{p.fecha|date:"d"}}
-          </b>
-          <label>
-            {{p.fecha|date:"M"}}
-          </label>
-        </div>
-        
         <h3><a href="/blog/{{p.slug}}/">{{p.title}}</a></h3>    
 
         <h4>Escrito por: {{p.first_name}} {{p.last_name}}</h4>
