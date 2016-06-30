@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from .views import ValidaAccesoView, InicioViewInvitado, DashViewAdmin,ValidaINicioView, CategoriaQueryPost
+from .views import ValidaAccesoView, InicioViewInvitado, DashViewAdmin,ValidaINicioView, CategoriaQueryPost, EtiquetasQueryPost
 
 urlpatterns = patterns('',
 	url(r'^validar-acceso/$', ValidaAccesoView.as_view(), name='validaAcceso'),
@@ -18,4 +18,5 @@ urlpatterns = patterns('',
     
     #Post por categorias
     url(r'^categorias/(?P<pk>[0-9]+)/$', CategoriaQueryPost.as_view(), name='CategoriaQueryPost'),
+    url(r'^etiquetas/(?P<pk>[0-9]+)/$', EtiquetasQueryPost.as_view(), name='EtiquetasQueryPost'),
 )
