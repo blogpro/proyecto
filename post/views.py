@@ -90,13 +90,10 @@ class DetailPostViewPost(MenuMixin,AsideMixin,GetPostSlugMixin, DetailView):
 		ObjEtiqueta = self.Etiquetas()
 		ObjCategoria = self.Categorias()
 
-		vSlug = self.kwargs['slug']
+		id_post = self.kwargs['slug']
 
-		query = self.request.GET.get('s', '')
-		if query:
-			ObjQueryPost = self.GetPostBusqueda(vSlug)
-		else:
-			ObjGetPost = self.GetPost(vSlug)
+		ObjGetPost = self.GetPost(id_post)
+		#ObjPostAdd = PostAdd.objects.filter(post__id=id_post)
 
 		data = {
 			'Categoria':ObjCategoria,
