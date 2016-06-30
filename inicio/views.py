@@ -56,31 +56,7 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		ObjEtiqueta = self.Etiquetas()
 		ObjCategoria = self.Categorias()
 
-		#-------------Lista de post QueryPostMixin----------
-		ObjQueryPost = self.QueryPost(page)
-		#-------------Lista de post QueryPostMixin----------
-
-		data = {
-			'Categoria':ObjCategoria,
-			'Etiqueta':ObjEtiqueta,
-			'Menu':ObjMenu,
-			'PostMatriz':ObjQueryPost,
-		}
-
-		context.update(data)
-		return context
-
-	def get(self, **kwargs):
-		context = super(InicioViewInvitado, self).get_context_data(**kwargs)
-
-		try:
-			page = int(self.request.GET.get('page', '1'))
-		except ValueError:
-			page = 1
-
-		ObjMenu = self.Menus()
-		ObjEtiqueta = self.Etiquetas()
-		ObjCategoria = self.Categorias()
+		query = request.GET.get('s', '')
 
 		#-------------Lista de post QueryPostMixin----------
 		ObjQueryPost = self.QueryPost(page)
@@ -94,7 +70,7 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		}
 
 		context.update(data)
-		return context		
+		return context	
 class DashViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
     template_name = 'indexDash.html'
 
