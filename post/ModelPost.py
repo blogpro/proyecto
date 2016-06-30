@@ -3,6 +3,8 @@ from post.models import Post,PostAdd
 from comentarios.models import Comentario
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
+from django.db.models import Q
+
 from categorias.models import Categoria
 from etiquetas.models import Etiqueta
 
