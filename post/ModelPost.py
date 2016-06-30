@@ -140,7 +140,7 @@ class QueryPostMixin(object):
 			PostMatriz.append(file_info)
 		return PostMatriz
 	def QueryPostBusqueda(self,page,query):
-		ObjPost = Post.objects.filter(Q(title__icontains=query) | Q(descripcion__icontains=query)).order_by('-id')
+		ObjPost = Post.objects.filter(title__icontains=query).order_by('-id')
 
 		paginator = Paginator(ObjPost,7) # Mustra 7 post en el index
 		try:
