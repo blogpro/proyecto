@@ -28,8 +28,9 @@
             <a href="/"><img src="/static/images/logo.png" alt="" ></a>
           </div>
           <div class="search">
-            <form>
-              <input type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
+            <form action="." method="GET">
+            <form role="search" method="get" class="search-form" action="http://systab.herokuapp.com/blog/">
+              <input type="search"  value="" name="s" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
               <input type="submit" value="SEARCH">
             </form>
           </div>
@@ -110,7 +111,7 @@
       <h4>Categorias</h4>
       <ul>
         {% for ca in Categoria %}
-          <li><a href="single.html">{{ca.title}}. </a></li>
+          <li><a href="/categorias/{{ca.id}}/">{{ca.title}}. </a></li>
         {% endfor %}
       </ul>
     </div>
@@ -121,9 +122,9 @@
       <h4>Tag</h4>
       <ul>
         {% for e in Etiqueta %}
-        <li><a href="single.html">{{e.title}}. </a></li>
+        <li><a href="/etiquetas/{{e.id}}/">{{e.title}}. </a></li>
         {% endfor %}
-       </ul>       
+       </ul>        
     </div>
     <!---->
   </div>
