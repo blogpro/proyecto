@@ -57,11 +57,11 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		ObjCategoria = self.Categorias()
 
 		query = self.request.GET.get('s', '')
-
-		#-------------Lista de post QueryPostMixin----------
-		ObjQueryPost = self.QueryPost(page)
-		#-------------Lista de post QueryPostMixin----------
-
+		if query:
+			ObjQueryPost = self.QueryPost(page)
+		else:	
+			ObjQueryPost = self.QueryPost(page)
+			
 		data = {
 			'Categoria':ObjCategoria,
 			'Etiqueta':ObjEtiqueta,
