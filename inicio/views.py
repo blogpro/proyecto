@@ -97,10 +97,7 @@ class DashViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		}
 
 		context.update(data)
-		return context
-	def get(self, args, **kwargs):
-		s = self.kwargs['s']
-		return self.render_to_response(s)
+		return context		
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<	
 #>************************************* vista para mostrar los post por categorias ******************************≤
 class CategoriaQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
