@@ -89,6 +89,16 @@ ul.social-in li  i.facebook:hover{
 	font-size:1em;
 	color:#a9a7a7;		
 }
+
+.search input[type="search"] {
+	outline: none;
+	padding:8px 15px;
+	background: none;
+	width: 77%;
+	border: none;
+	font-size:1em;
+	color:#a9a7a7;		
+}
 .search input[type="submit"] {	
 	border: none;
 	cursor: pointer;
