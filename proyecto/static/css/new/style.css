@@ -454,8 +454,8 @@ a.more:hover,.comment li a:hover{
 	vertical-align: middle;
 }
 .grid-top h4,.grid-top-in h4 {
-	background: #5261ac;
-	color: #fff;
+	/* background: #5261ac; */
+	color: #1F1D1D;
 	padding: 10px 20px;
 	font-size: 1.35em;
 	font-weight: 700;

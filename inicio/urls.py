@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^log-out/$', 'inicio.views.log_out', name='log-out'),
     url(r'^inicio/$', ValidaINicioView.as_view(), name='ValidaINicioView'),
     
-    #Post por categorias
+    #QUERY POST BY ASIDE
     url(r'^categorias/(?P<pk>[0-9]+)/$', CategoriaQueryPost.as_view(), name='CategoriaQueryPost'),
     url(r'^etiquetas/(?P<pk>[0-9]+)/$', EtiquetasQueryPost.as_view(), name='EtiquetasQueryPost'),
 )
