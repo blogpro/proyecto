@@ -19,4 +19,7 @@ urlpatterns = patterns('',
     #QUERY POST BY ASIDE
     url(r'^categorias/(?P<pk>[0-9]+)/$', CategoriaQueryPost.as_view(), name='CategoriaQueryPost'),
     url(r'^etiquetas/(?P<pk>[0-9]+)/$', EtiquetasQueryPost.as_view(), name='EtiquetasQueryPost'),
+
+    #URL PARA LA BUSQUEDA
+    #url(r'^etiquetas/(?P<pk>[0-9]+)/$', EtiquetasQueryPost.as_view(), name='EtiquetasQueryPost'),
 )
