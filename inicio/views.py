@@ -58,10 +58,10 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 
 		query = self.request.GET.get('s', '')
 		if query:
-			ObjQueryPost = self.QueryPost(page)
+			ObjQueryPost = self.QueryPostBusqueda(page,query)
 		else:	
 			ObjQueryPost = self.QueryPost(page)
-			
+
 		data = {
 			'Categoria':ObjCategoria,
 			'Etiqueta':ObjEtiqueta,
