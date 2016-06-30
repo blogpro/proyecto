@@ -118,9 +118,7 @@ class CategoriaQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
 
 		idCategoria = self.kwargs['pk']
 
-		#-------------Lista de post AsidePostMixin----------
-		ObjQueryPost = self.QueryPost(page,idCategoria)
-		#-------------Lista de post AsidePostMixin----------
+		ObjQueryPost = self.QueryPostCategoria(page,idCategoria)
 
 		data = {
 			'Categoria':ObjCategoria,

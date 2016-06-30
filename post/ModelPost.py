@@ -141,7 +141,7 @@ class QueryPostMixin(object):
 		return PostMatriz
 
 class AsidePostMixin(object):
-	def QueryPost(self,page,cat):
+	def QueryPostCategoria(self,page,cat):
 		ObjPost = Post.objects.filter(categoria__id=cat,status__id=1).order_by('-id')
 
 		paginator = Paginator(ObjPost,7) # Mustra 7 post en el index
