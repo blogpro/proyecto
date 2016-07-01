@@ -70,7 +70,7 @@ class UpdatePostViewPost(UpdateView):
 
 
 	def get_success_url(self):
-		return HttpResponseRedirect('/list-post//')
+		return HttpResponseRedirect('/list-post/')
 		#return reverse('InicioViewAdmin')
 
 	def get_context_data(self, **kwargs):
