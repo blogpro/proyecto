@@ -3,11 +3,20 @@ from django.shortcuts import render, render_to_response, get_object_or_404,rende
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 
+#Seguridad para las vistas
+from django.contrib.auth.decorators import login_required, permission_required
+from django.utils.decorators import method_decorator
+
 from django.views.generic import TemplateView, RedirectView, FormView, ListView
 
 from django.contrib.auth import logout
 
 from post.ModelPost import MenuMixin, AsideMixin,  MenuMixin, QueryPostMixin, AsidePostMixin
+
+class LoginRequiredInicio(object): 
+	@method_decorator(permission_required('post.add_post'))
+	def dispatch(self, request, *args, **kwargs): 
+		return super(LoginRequiredInicio, self).dispatch(request, *args, **kwargs)
 
 def log_out(request):
     logout(request)
@@ -71,7 +80,7 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 
 		context.update(data)
 		return context	
-class DashViewAdmin(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
+class DashViewAdmin(LoginRequiredInicio,MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
     template_name = 'indexDash.html'
 
     #Retorna los valores al template como nuevas variables
