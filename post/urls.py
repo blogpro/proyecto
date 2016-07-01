@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from .views import PostView, UpdatePostViewPost, DetailPostViewPost, AddItemPostView, EditItemPostView, DeleteItemPostView, ListPostViewPost, indexViewDashAngular
+from .views import PostView, UpdatePostViewPost, DetailPostViewPost, AddItemPostView, EditItemPostView, DeleteItemPostView, ListPostViewPost, indexViewDashAngular, ListCategoriasView
 
 urlpatterns = patterns('',
     url(r'^new-post/$', PostView.as_view(), name='PostView'),
@@ -15,4 +15,6 @@ urlpatterns = patterns('',
 
     url(r'^list-post/$', ListPostViewPost.as_view(), name='ListPostViewPost'),
     url(r'^index-list-post-angular/$', indexViewDashAngular.as_view(), name='indexViewDashAngular'),#Admin Angular
+
+    url(r'^category-post/$', ListCategoriasView.as_view(), name='ListCategoriasView'),
 )
