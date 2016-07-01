@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.shortcuts import render, render_to_response, get_object_or_404,render,redirect
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse_lazy
 from django.views.generic import TemplateView, RedirectView, FormView, DetailView, UpdateView
 
 #Seguridad para las vistas
@@ -62,7 +63,7 @@ class PostView(LoginRequiredMixin,FormView):
 		context.update(data)
 		return context
 
-class UpdatePostViewPost(UpdateView):
+class UpdatePostViewPost(LoginRequiredMixin,UpdateView):
 
 	form_class=PostForm
 	model = Post
@@ -71,7 +72,6 @@ class UpdatePostViewPost(UpdateView):
 
 	def form_valid(self, form):
 		return HttpResponseRedirect('/list-post/')
-		#return reverse('InicioViewAdmin')
 
 	def get_context_data(self, **kwargs):
 
@@ -80,7 +80,7 @@ class UpdatePostViewPost(UpdateView):
 
 		return context
 
-class DetailPostViewPost(MenuMixin,AsideMixin,GetPostSlugMixin, DetailView):
+class DetailPostViewPost(LoginRequiredMixin,MenuMixin,AsideMixin,GetPostSlugMixin, DetailView):
 	model = Post
 	template_name = 'detailpost.html'
 	#Retorna los valores al template como nuevas variables
