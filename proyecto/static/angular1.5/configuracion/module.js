@@ -2,7 +2,8 @@ var angularRoutingApp = angular.module('blog', [
 	'ngRoute',
     'ngResource',
     'factoryModule',
-	'indexModuleController'
+	'indexModuleController',
+    'categoriaModuleController'
 	]);
 
 angularRoutingApp.config(function($interpolateProvider) {//codigo para cambiar la forma de mostrar en el template a // en lugar de {{}}
@@ -18,8 +19,8 @@ angularRoutingApp.config(function($routeProvider) {
             templateUrl : '/index-list-post-angular/',
             controller  : 'indexController'
         })
-        .when('/acerca', {
-            templateUrl : '/acerca/',
+        .when('/category-post', {
+            templateUrl : '/category-post/',
             controller  : 'indexController'
         })
         .otherwise({
