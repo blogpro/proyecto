@@ -69,15 +69,7 @@
 <div class="col-md-8 content-top">
     {% for p in PostMatriz %}
       <div class="number">
-        <div class="feb">
-          <b>
-            {{p.fecha|date:"d"}}
-          </b>
-          <label>
-            {{p.fecha|date:"M"}}
-          </label>
-        </div>
-        
+      
         <h1><a href="#">{{p.title}}</a></h1>    
 
         <h4>Escrito por: {{p.first_name}} {{p.last_name}}</h4>
