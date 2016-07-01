@@ -68,6 +68,11 @@ class UpdatePostViewPost(UpdateView):
 	model = Post
 	template_name = 'dashpost.html'
 
+
+	def form_valid(self, form):
+		return HttpResponseRedirect('/list-post/')
+		#return reverse('InicioViewAdmin')
+
 	def get_context_data(self, **kwargs):
 
 		context = super(UpdatePostViewPost, self).get_context_data(**kwargs)
