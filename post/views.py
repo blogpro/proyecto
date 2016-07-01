@@ -218,22 +218,6 @@ class ListPostViewPost(MenuMixin,AsideMixin,GetPostSlugMixin, TemplateView):
 class ListCategoriasView(MenuMixin,AsideMixin,GetPostSlugMixin, TemplateView):
 	model = Post
 	template_name = 'baseDashAngular.html'
-	#Retorna los valores al template como nuevas variables
-	def get_context_data(self, **kwargs):
-		context = super(ListCategoriasView, self).get_context_data(**kwargs)
-
-		ObjMenu = self.Menus()
-		ObjEtiqueta = self.Etiquetas()
-		ObjCategoria = self.Categorias()
-
-		data = {
-			'Categoria':ObjCategoria,
-			'Etiqueta':ObjEtiqueta,
-			'Menu':ObjMenu,
-		}
-
-		context.update(data)
-		return context		
-
+	
 class indexViewDashAngular(TemplateView):
 	template_name = 'dashlistpost.html'
