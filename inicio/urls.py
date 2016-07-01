@@ -11,8 +11,6 @@ urlpatterns = patterns('',
     url(r'^dash-admin/$', DashViewAdmin.as_view(), name='DashViewAdmin'),#Admin
     #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Url para el acceso <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-
-
     url(r'^log-out/$', 'inicio.views.log_out', name='log-out'),
     url(r'^inicio/$', ValidaINicioView.as_view(), name='ValidaINicioView'),
     
