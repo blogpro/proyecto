@@ -1,11 +1,11 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from .views import PostView, UpdateContactViewPost, DetailPostViewPost, AddItemPostView, EditItemPostView, DeleteItemPostView, ListPostViewPost, indexViewDashAngular
+from .views import PostView, UpdatePostViewPost, DetailPostViewPost, AddItemPostView, EditItemPostView, DeleteItemPostView, ListPostViewPost, indexViewDashAngular
 
 urlpatterns = patterns('',
     url(r'^new-post/$', PostView.as_view(), name='PostView'),
-    url(r'^edit-post/(?P<pk>[0-9]+)/$', UpdateContactViewPost.as_view(), name='UpdateContactViewPost'),
+    url(r'^edit-post/(?P<pk>[0-9]+)/$', UpdatePostViewPost.as_view(), name='UpdatePostViewPost'),
 
     url(r'^blog/(?P<slug>[-\w]+)/$', DetailPostViewPost.as_view(), name='DetailPostViewPost'),
 

@@ -62,7 +62,7 @@ class PostView(LoginRequiredMixin,FormView):
 		context.update(data)
 		return context
 
-class UpdateContactViewPost(UpdateView):
+class UpdatePostViewPost(UpdateView):
 
 	form_class=PostForm
 	model = Post
@@ -70,12 +70,13 @@ class UpdateContactViewPost(UpdateView):
 
 
 	def get_success_url(self):
-		return reverse('InicioViewAdmin')
+		return HttpResponseRedirect('/list-post//')
+		#return reverse('InicioViewAdmin')
 
 	def get_context_data(self, **kwargs):
 
-		context = super(UpdateContactViewPost, self).get_context_data(**kwargs)
-		context['ObjFormPost'] = reverse('UpdateContactViewPost',kwargs={'pk': self.get_object().id})
+		context = super(UpdatePostViewPost, self).get_context_data(**kwargs)
+		context['ObjFormPost'] = reverse('UpdatePostViewPost',kwargs={'pk': self.get_object().id})
 
 		return context
 
