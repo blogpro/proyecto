@@ -3,18 +3,25 @@ angular.module('categoriaModuleController', [])
 	.controller('categoriaController',['$scope', '$rootScope','ServiceHTTP',
         function($scope,$rootScope,ServiceHTTP)
         {
+        	$scope.categorias = "";
 
-        	$scope.consultaCategorias = function () {
+        	$scope.queryCategorias = function () {
 	    	    ServiceHTTP.query('service-categorias-query/').$promise.then(function(result) {
 				   $scope.postQuery = result;
 				}, function(errResponse) {
 				   console.log("error "+errResponse);
 				});
     		}
+			$scope.queryCategorias();
 
-			$scope.consultaCategorias();
+			$scope.saveCategorias = function ()
+        	{
 
+        		console.log("Save");
+        		console.log($scope.categorias.title);
+        		
 
+        	}
 
 
 
