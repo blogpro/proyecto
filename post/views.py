@@ -196,7 +196,7 @@ class DeleteItemPostView(RedirectView):
 
 		return HttpResponseRedirect(url+str(positem_id)+"/")
 
-class ListPostViewPost(LoginRequiredMixin,TemplateView):
+class ListPostViewAngular(LoginRequiredMixin,TemplateView):
 	template_name = 'dashlistpost.html'
 
 class ListCategoriasView(LoginRequiredMixin,TemplateView):
