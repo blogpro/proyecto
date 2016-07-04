@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from .views import PostView, UpdatePostViewPost, DetailPostViewPost, AddItemPostView, EditItemPostView, DeleteItemPostView, ListPostViewPost, indexViewDashAngular2, ListCategoriasView, indexViewDashAngularcategoria
+from .views import PostView, UpdatePostViewPost, DetailPostViewPost, AddItemPostView, EditItemPostView, DeleteItemPostView, ListPostViewPost, ListCategoriasView, indexViewDashAngularcategoria
 
 urlpatterns = patterns('',
     url(r'^new-post/$', PostView.as_view(), name='PostView'),
@@ -13,8 +13,7 @@ urlpatterns = patterns('',
     url(r'^edit-item-post/(?P<pk1>[0-9]+)/(?P<pk2>[0-9]+)/$', EditItemPostView.as_view(), name='EditItemPostView'),
     url(r'^delete-item-post/(?P<pk1>[0-9]+)/(?P<pk2>[0-9]+)/$', DeleteItemPostView.as_view(), name='DeleteItemPostView'),
 
-    url(r'^list-post/$', ListPostViewPost.as_view(), name='ListPostViewPost'),
-    url(r'^index-list-post-angular/$', indexViewDashAngular2.as_view(), name='indexViewDashAngular2'),#Admin Angular
+    url(r'^list-post/$', ListPostViewPost.as_view(), name='ListPostViewPost'),#Angular
 
     url(r'^category-post/$', ListCategoriasView.as_view(), name='ListCategoriasView'),
     url(r'^index-list-categoria-angular/$', indexViewDashAngularcategoria.as_view(), name='indexViewDashAngularcategoria'),#Categoria Angular
