@@ -21,7 +21,7 @@ angularRoutingApp.config(function($routeProvider) {
         })
         .when('/category-post', {
             templateUrl : '/category-post/',
-            controller  : 'indexController'
+            controller  : 'categoriaController'
         })
         .otherwise({
             redirectTo: '/'

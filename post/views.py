@@ -204,3 +204,6 @@ class ListCategoriasView(LoginRequiredMixin,TemplateView):
 
 class indexViewDashAngular(LoginRequiredMixin,TemplateView):
 	template_name = 'dashlistpost.html'
+
+class indexViewDashAngularcategoria(LoginRequiredMixin,TemplateView):
+	template_name = 'dashcategoriapost.html'	
