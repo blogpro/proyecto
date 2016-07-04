@@ -24,7 +24,7 @@ angularRoutingApp.config(function($routeProvider) {
             controller  : 'indexController'
         })
         .when('/category-post', {
-            templateUrl : '/index-list-categoria-angular/',//Url Servidor donde se hace la invocacion a el template que se cargara
+            templateUrl : '/list-cat-angular/',//Url Servidor donde se hace la invocacion a el template que se cargara
             controller  : 'categoriaController'
         })
         .otherwise({

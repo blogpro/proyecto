@@ -196,11 +196,11 @@ class DeleteItemPostView(RedirectView):
 
 		return HttpResponseRedirect(url+str(positem_id)+"/")
 
+# <<<<<<<<<<<<<<<<<<< Viws Angular >>>>>>>>>>>>>>>>>>>>>>>
 class ListPostViewAngular(LoginRequiredMixin,TemplateView):
 	template_name = 'dashlistpost.html'
 
 class ListCategoriasView(LoginRequiredMixin,TemplateView):
-	template_name = 'baseDashAngular.html'
-
-class indexViewDashAngularcategoria(LoginRequiredMixin,TemplateView):
-	template_name = 'dashcategoriapost.html'	
+	template_name = 'dashcategoriapost.html'
+	
+# <<<<<<<<<<<<<<<<<<< Viws Angular >>>>>>>>>>>>>>>>>>>>>>>	
