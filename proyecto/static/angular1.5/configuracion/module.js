@@ -20,7 +20,7 @@ angularRoutingApp.config(function($routeProvider) {
             controller  : 'indexController'
         })
         .when('/category-post', {
-            templateUrl : '/category-post/',
+            templateUrl : '/index-list-categoria-angular/',
             controller  : 'categoriaController'
         })
         .otherwise({
