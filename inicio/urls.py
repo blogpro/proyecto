@@ -1,14 +1,16 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from .views import ValidaAccesoView, InicioViewInvitado, DashViewAdmin,ValidaINicioView, CategoriaQueryPost, EtiquetasQueryPost, BaseDashViewAngular
+from .views import ValidaAccesoView, InicioViewInvitado, DashViewAdmin,ValidaINicioView, CategoriaQueryPost, EtiquetasQueryPost, BaseDashViewAngular,indexViewDashAngular
 
 urlpatterns = patterns('',
 	url(r'^validar-acceso/$', ValidaAccesoView.as_view(), name='validaAcceso'),
 
     #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Url para el acceso <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     url(r'^$', InicioViewInvitado.as_view(), name='InicioViewInvitado'),#Invitado
-    url(r'^dash-admin/$', BaseDashViewAngular.as_view(), name='BaseDashViewAngular'),#Admin
+
+    url(r'^dash-admin/$', BaseDashViewAngular.as_view(), name='BaseDashViewAngular'),#Admin Angular
+    url(r'^index-dash-post-angular/$', indexViewDashAngular.as_view(), name='indexViewDashAngular'),#Admin Angular
     #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Url para el acceso <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     url(r'^log-out/$', 'inicio.views.log_out', name='log-out'),

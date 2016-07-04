@@ -19,6 +19,10 @@ angularRoutingApp.config(function($routeProvider) {
             templateUrl : '/index-list-post-angular/',//Url Servidor donde se hace la invocacion a el template que se cargara
             controller  : 'indexController'
         })
+        .when('/list-post', {
+            templateUrl : '/index-list-post-angular/',//Url Servidor donde se hace la invocacion a el template que se cargara
+            controller  : 'indexController'
+        })
         .when('/category-post', {
             templateUrl : '/index-list-categoria-angular/',//Url Servidor donde se hace la invocacion a el template que se cargara
             controller  : 'categoriaController'
