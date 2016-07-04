@@ -19,11 +19,11 @@ angularRoutingApp.config(function($routeProvider) {
             templateUrl : '/index-dash-post-angular/',//Url Servidor donde se hace la invocacion a el template que se cargara
             controller  : 'indexController'
         })
-        .when('/list-post', {
+        .when('/list-post/', {
             templateUrl : '/list-post-angular/',//Url Servidor donde se hace la invocacion a el template que se cargara
             controller  : 'indexController'
         })
-        .when('/category-post', {
+        .when('/category-post/', {
             templateUrl : '/list-cat-angular/',//Url Servidor donde se hace la invocacion a el template que se cargara
             controller  : 'categoriaController'
         })
