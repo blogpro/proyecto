@@ -5,19 +5,22 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 
 from post.models import Post, Status_Post
+from categorias.models import Categoria
 
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
 		fields = ('first_name',)
+
 class StatusSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Status_Post
 		fields = ('title',)		
-# class StatusSerializer(serializers.ModelSerializer):
-# 	class Meta:
-# 		model Status_Post
-# 		fields = ('title',)		
+
+class CategoriasSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Categoria
+		fields = ('title',)
 
 class PostQuerySerializer(serializers.ModelSerializer):
 	user = UserSerializer()

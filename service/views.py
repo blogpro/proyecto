@@ -21,18 +21,25 @@ from rest_framework import generics
 
 from django.core.urlresolvers import reverse
 
+from categorias.models import Categoria
 from post.models import Post
 
-from service.serializers import PostQuerySerializer
+from .serializers import PostQuerySerializer, CategoriasSerializer
 
 class ServicePostQuery(APIView):
 	def get(self, request, *args, **kwargs):
-		"""
-		Return the user id associated with this session if one exists.
-		"""
 		serializers = Post.objects.all().order_by('-id')
 		try:
 			serializer = PostQuerySerializer(serializers, many=True)
 		except (TypeError, ValueError) as err:
 			print 'ERROR:', err
 		return Response(serializer.data)
+
+class ServiceCategoriasQuery(APIView):
+	def get(self, request, *args, **kwargs):
+		serializers = Categoria.objects.all().order_by('-id')
+		try:
+			serializer = CategoriasSerializer(serializers, many=True)
+		except (TypeError, ValueError) as err:
+			print 'ERROR:', err
+		return Response(serializer.data)		
