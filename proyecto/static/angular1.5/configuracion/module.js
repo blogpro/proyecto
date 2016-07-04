@@ -16,11 +16,11 @@ angularRoutingApp.config(function($routeProvider) {
 
     $routeProvider
         .when('/', {
-            templateUrl : '/index-list-post-angular/',
+            templateUrl : '/index-list-post-angular/',//Url Servidor deonde se hace la invocacion a el template que se cargara
             controller  : 'indexController'
         })
         .when('/category-post', {
-            templateUrl : '/index-list-categoria-angular/',
+            templateUrl : '/index-list-categoria-angular/',//Url Servidor deonde se hace la invocacion a el template que se cargara
             controller  : 'categoriaController'
         })
         .otherwise({
