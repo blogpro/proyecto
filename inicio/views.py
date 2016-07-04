@@ -108,7 +108,10 @@ class DashViewAdmin(LoginRequiredInicio,MenuMixin,QueryPostMixin,AsideMixin,Temp
 		}
 
 		context.update(data)
-		return context		
+		return context
+
+class BaseDashViewAngular(LoginRequiredInicio,TemplateView):
+	template_name = 'baseDashAngular.html'				
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<	
 #>************************************* vista para mostrar los post por categorias ******************************≤
 class CategoriaQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
