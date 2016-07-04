@@ -113,7 +113,7 @@ class DashViewAdmin(LoginRequiredInicio,MenuMixin,QueryPostMixin,AsideMixin,Temp
 class BaseDashViewAngular(LoginRequiredInicio,TemplateView):
 	template_name = 'baseDashAngular.html'
 	
-class indexViewDashAngular(LoginRequiredMixin,TemplateView):
+class indexViewDashAngular(LoginRequiredInicio,TemplateView):
 	template_name = 'dashlistpost.html'					
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<	
 #>************************************* vista para mostrar los post por categorias ******************************≤
