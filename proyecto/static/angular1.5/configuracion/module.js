@@ -11,6 +11,11 @@ angularRoutingApp.config(function($interpolateProvider) {//codigo para cambiar l
   $interpolateProvider.endSymbol(']]');
 });
 
+angularRoutingApp.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';    }
+]);
+
 // Configuración de las rutas
 angularRoutingApp.config(function($routeProvider) {
 
