@@ -14,9 +14,7 @@ angular.module('factoryModule', [])
                 var urlApi = "http://systab.herokuapp.com/";
                 var resource   = $resource(urlApi + servicio),
                     resultado = "";
-                console.log(resource);
-                resultado = resource.save(data);
-                console.log(resultado); 
+                resultado = resource.save({},data);   
                 return resultado;
             }
 
