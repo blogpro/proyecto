@@ -44,7 +44,7 @@ class ServiceCategoriasQuery(APIView):
 			print 'ERROR:', err
 		return Response(serializer.data)
 	def post(self, request, format=None):
-		serializer = CategoriasSerializer(data=request.DATA)
+		serializer = CategoriasSerializer(data=self.DATA)
 		if serializer.is_valid():
 			serializer.save()
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
