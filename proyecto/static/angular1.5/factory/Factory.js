@@ -10,12 +10,17 @@ angular.module('factoryModule', [])
                 return resultado;
             },
             post: function (servicio,data) {
-                console.log(data);
-                var urlApi = "http://systab.herokuapp.com/";
-                var resource   = $resource(urlApi + servicio),
-                    resultado = "";
-                resultado = resource.save({},data);   
-                return resultado;
+                var url = "http://systab.herokuapp.com/"+servicio;
+                var defer = $q.defer();
+                    $http({method: 'POST',
+                    url: url,
+                    data: data}).
+                    success(function (data, status, headers, config) {
+                        defer.resolve(data);
+                    }).error(function (data, status, headers, config) {
+                        defer.reject(status);
+                    });
+            return defer.promise;
             }
 
         }
