@@ -42,4 +42,10 @@ class ServiceCategoriasQuery(APIView):
 			serializer = CategoriasSerializer(serializers, many=True)
 		except (TypeError, ValueError) as err:
 			print 'ERROR:', err
-		return Response(serializer.data)		
+return Response(serializer.data)
+	def post(self, request, format=None):
+		serializer = CategoriasSerializer(data=request.DATA)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data, status=status.HTTP_201_CREATED)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)			
