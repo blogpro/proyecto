@@ -13,7 +13,7 @@ angular.module('factoryModule', [])
                 console.log(data);
                 var defer = $q.defer();
 
-                $http.post('/api_add_licencia/', data, {transformRequest: angular.identity,headers: {'Content-Type': undefined}
+                $http.post('http://systab.herokuapp.com/'+servicio, data, {transformRequest: angular.identity,headers: {'Content-Type': undefined}
                 }).
                 success(function (data, status, headers, config) {
                     defer.resolve(data);
