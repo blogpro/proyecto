@@ -16,10 +16,11 @@ angular.module('categoriaModuleController', [])
 
 			$scope.saveCategorias = function ()
         	{
-
-        		console.log("Save");
-        		console.log($scope.categorias.title);
-        		
+                ServiceHTTP.query('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
+                   $scope.postQuery = result;
+                }, function(errResponse) {
+                   console.log("error "+errResponse);
+                });
 
         	}
 
