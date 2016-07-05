@@ -1,7 +1,7 @@
 angular.module('categoriaModuleController', [])
 
-	.controller('categoriaController',['$scope', '$rootScope','ServiceHTTP','$http',' $q',
-        function($scope,$rootScope,ServiceHTTP,$http,)
+	.controller('categoriaController',['$scope', '$rootScope','ServiceHTTP',
+        function($scope,$rootScope,ServiceHTTP)
         {
         	$scope.categorias = "";
 
@@ -14,20 +14,14 @@ angular.module('categoriaModuleController', [])
     		}
 			$scope.queryCategorias();
 
-            PostServiceTarifas.CancularTarifas($scope.formData).then(function (data) {
-              //console.log(data);
-              $scope.FormDataTarifa = data;//cargamos el json a el formulario
-              //$scope.formData.cantidad = "";
-            }, failureCb);
-
 			$scope.saveCategorias = function ()
         	{
-                ServiceHTTP.post('service-categorias-query/',$scope.categorias).then(function(result) {
+        		console.log($scope.categorias.title);
+                ServiceHTTP.query('service-categorias-query/').$promise.then(function(result) {
                    $scope.postQuery = result;
                 }, function(errResponse) {
                    console.log("error "+errResponse);
                 });
-
         	}
 
 
