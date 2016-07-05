@@ -13,13 +13,16 @@ angular.module('factoryModule', [])
                 console.log(data);
                 var defer = $q.defer();
 
-                
+                $http.post('/api_add_licencia/', data, {transformRequest: angular.identity,headers: {'Content-Type': undefined}
+                }).
+                success(function (data, status, headers, config) {
+                    defer.resolve(data);
+                }).error(function (data, status, headers, config) {
+                    defer.reject(status);
+                });
+                return defer.promise;
 
-                var urlApi = "http://systab.herokuapp.com/";
-                var resource   = $resource(urlApi + servicio),
-                    resultado = "";
-                resultado = resource.save({},data);   
-                return resultado;
+                
             }
 
         }
