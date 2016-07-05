@@ -11,6 +11,10 @@ angular.module('factoryModule', [])
             },
             post: function (servicio,data) {
                 console.log(data);
+                var defer = $q.defer();
+
+                
+
                 var urlApi = "http://systab.herokuapp.com/";
                 var resource   = $resource(urlApi + servicio),
                     resultado = "";
