@@ -43,5 +43,5 @@ class ServiceCategoriasQuery(APIView):
 		except (TypeError, ValueError) as err:
 			print 'ERROR:', err
 		return Response(serializer.data)
-	def post(self, request, format=None):
+	def post(self, request, *args, **kwargs):
 		pass		
