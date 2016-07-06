@@ -71,7 +71,7 @@ class UpdatePostViewPost(LoginRequiredMixin,UpdateView):
 
 
 	def form_valid(self, form):
-		return HttpResponseRedirect('/list-post/')
+		return HttpResponseRedirect('/dash-admin/#/list-post//')
 
 	def get_context_data(self, **kwargs):
 
