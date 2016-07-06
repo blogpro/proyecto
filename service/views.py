@@ -44,7 +44,7 @@ class ServiceCategoriasQuery(APIView):
 			print 'ERROR:', err
 		return Response(serializer.data)
 	def post(self, request, *args, **kwargs):
-		token = request.DATA
+		token = request.POST
 		data = {
 			'login': token,
 			'message': "ok"
