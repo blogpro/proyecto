@@ -16,8 +16,10 @@ angular.module('categoriaModuleController', [])
 
 			$scope.saveCategorias = function ()
         	{
-                ServiceHTTP.post($scope.categorias,function(datos){
-                    console.log(datos);
+                ServiceHTTP.query('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
+                   $scope.postQuery = result;
+                }, function(errResponse) {
+                   console.log("error "+errResponse);
                 });
         	}
 
