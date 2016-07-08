@@ -3,15 +3,19 @@ angular.module('factoryModule', [])
 	.factory('ServiceHTTP', ['$resource', '$rootScope','$q','$http',function ($resource, $rootScope, $q, $http) {
         return {
 
-            var urlApi = "http://systab.herokuapp.com/";
-            var resultado = "";
+            
 
             query: function (servicio) {
+                var urlApi = "http://systab.herokuapp.com/";
+                var resultado = "";
+
                 var resource   = $resource(urlApi + servicio),
                 resultado = resource.query();	
                 return resultado;
             },
             post: function (servicio,data) {
+                var urlApi = "http://systab.herokuapp.com/";
+                var resultado = "";
 
                 var resource = $resource(urlApi + servicio, {}, {method:'POST'});
                 resultado = resource.save(data);
