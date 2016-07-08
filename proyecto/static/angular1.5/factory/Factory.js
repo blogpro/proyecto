@@ -19,6 +19,7 @@ angular.module('factoryModule', [])
 
                 var resource = $resource(urlApi + servicio, {}, {method:'POST'});
                 resultado = resource.save(data);
+                console.log(resultado);
                 return resultado;
 
                 // var defer = $q.defer();
