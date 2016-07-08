@@ -37,9 +37,9 @@ angular.module('factoryModule', [])
             }
 
         }
-    }]); 
+    }])
 
 .factory('ServiceHTTP2',function ($resource) {
         
         return $resource('http://systab.herokuapp.com/', {id:'@id'});
-});     	
+})     	
