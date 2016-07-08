@@ -1,7 +1,7 @@
 angular.module('categoriaModuleController', [])
 
 	.controller('categoriaController',['$scope', '$rootScope','ServiceHTTP','ServiceHTTP2',
-        function($scope,$rootScope,ServiceHTTP)
+        function($scope,$rootScope,ServiceHTTP,ServiceHTTP2)
         {
         	$scope.categorias = "";
 
