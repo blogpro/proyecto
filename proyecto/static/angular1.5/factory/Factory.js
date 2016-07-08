@@ -16,7 +16,7 @@ angular.module('factoryModule', [])
 
 
 
-                var resultado = resource.save(data);
+                var resultado = resource.save({},data).$promise;
 
                 return resultado;
 
