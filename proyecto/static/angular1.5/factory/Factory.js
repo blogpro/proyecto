@@ -16,7 +16,7 @@ angular.module('factoryModule', [])
 
 
 
-                var resultado = resource.save({method: "POST"},data);
+                var resultado = resource.save(data);
 
                 return resultado;
 
