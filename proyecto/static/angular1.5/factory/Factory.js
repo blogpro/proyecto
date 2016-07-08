@@ -2,22 +2,19 @@ angular.module('factoryModule', [])
 
 	.factory('ServiceHTTP', ['$resource', '$rootScope','$q','$http',function ($resource, $rootScope, $q, $http) {
         return {
+
+            var urlApi = "http://systab.herokuapp.com/";
+            var resultado = "";
+
             query: function (servicio) {
-            	var urlApi = "http://systab.herokuapp.com/";
                 var resource   = $resource(urlApi + servicio),
-                	resultado = "";
                 resultado = resource.query();	
                 return resultado;
             },
             post: function (servicio,data) {
-                $http.defaults.headers.post['Content-Type'] = 'application/json; charset=UTF-8';
-                var urlApi = "http://systab.herokuapp.com/";
-                var resource   = $resource(urlApi + servicio);
 
-
-
-                var resultado = resource.save({},data).$promise;
-
+                var resource = $resource(urlApi + servicio, {}, {method:'POST'});
+                resultado = resource.save(data);
                 return resultado;
 
                 // var defer = $q.defer();
