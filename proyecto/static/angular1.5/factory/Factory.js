@@ -11,15 +11,19 @@ angular.module('factoryModule', [])
             },
             post: function (servicio,data) {
                 console.log(data);
-                var defer = $q.defer();
 
-                $http.post('http://systab.herokuapp.com/'+servicio, data).
-                success(function (data, status, headers, config) {
-                    defer.resolve(data);
-                }).error(function (data, status, headers, config) {
-                    defer.reject(status);
-                });
-                return defer.promise;
+                var resource   = $resource('http://systab.herokuapp.com/' + servicio),
+                var resultado  = resource.save({}, data);
+                console.log(resultado);
+
+                // var defer = $q.defer();
+                // $http.post('http://systab.herokuapp.com/'+servicio, data).
+                // success(function (data, status, headers, config) {
+                //     defer.resolve(data);
+                // }).error(function (data, status, headers, config) {
+                //     defer.reject(status);
+                // });
+                // return defer.promise;
 
                 
             }
