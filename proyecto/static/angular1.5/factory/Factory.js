@@ -17,6 +17,7 @@ angular.module('factoryModule', [])
                     resultado = "";
                 resultado = resource.save(data);
                 console.log(resultado);
+                return resultado;
 
                 // var defer = $q.defer();
                 // $http.post('http://systab.herokuapp.com/'+servicio, data).
