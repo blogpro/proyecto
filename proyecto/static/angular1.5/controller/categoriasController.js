@@ -19,7 +19,5 @@ angular.module('categoriaModuleController', [])
                 ServiceHTTP.post('service-categorias-query/',$scope.categorias)
         	}
 
-
-
         }
     ]);        	
