@@ -11,10 +11,15 @@ angularRoutingApp.config(function($interpolateProvider) {//codigo para cambiar l
   $interpolateProvider.endSymbol(']]');
 });
 
-angularRoutingApp.config(['$httpProvider', function($httpProvider) {
+angularRoutingApp.config(function($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';    }
-]);
+);
+
+angularRoutingApp.config(function($resourceProvider) {
+  // Don't strip trailing slashes from calculated URLs
+  $resourceProvider.defaults.stripTrailingSlashes = false;
+});
 
 // Configuración de las rutas
 angularRoutingApp.config(function($routeProvider) {
