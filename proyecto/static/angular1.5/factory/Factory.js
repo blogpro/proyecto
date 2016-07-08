@@ -17,10 +17,15 @@ angular.module('factoryModule', [])
                 var urlApi = "http://systab.herokuapp.com/";
                 var resultado = "";
 
-                var resource = $resource(urlApi + servicio, {method:'POST'}, {method:'POST'});
-                resultado = resource.save(data);
-                console.log(resultado);
-                return resultado;
+                var CreditCard = $resource('http://systab.herokuapp.com/',
+                     {userId:123, cardId:'@id'}, {
+                      charge: {method:'POST', params:{charge:true}}
+                     });
+
+                // var resource = $resource(urlApi + servicio, {method:'POST'}, {method:'POST'});
+                // resultado = resource.save(data);
+                // console.log(resultado);
+                return 0;
 
                 // var defer = $q.defer();
                 // $http.post('http://systab.herokuapp.com/'+servicio, data).
