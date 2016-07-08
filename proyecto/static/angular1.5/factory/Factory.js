@@ -10,19 +10,13 @@ angular.module('factoryModule', [])
                 return resultado;
             },
             post: function (servicio,data) {
-                console.log(data);
-
-
-                
 
                 var urlApi = "http://systab.herokuapp.com/";
                 var resource   = $resource(urlApi + servicio);
 
-                resource.save(data, function(response){
-                        console.log(response.message);
-                });
 
-                var resultado = resource.save(data);
+
+                var resultado = resource.save({method: "POST"},data);
 
                 return resultado;
 
