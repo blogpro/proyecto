@@ -12,12 +12,21 @@ angular.module('factoryModule', [])
             post: function (servicio,data) {
                 console.log(data);
 
+
+                
+
                 var urlApi = "http://systab.herokuapp.com/";
                 var resource   = $resource(urlApi + servicio),
-                    resultado = "";
+
+                resource.save({firstname:$scope.firstname,lastname:$scope.lastname,address:$scope.address,email:$scope.email}, function(response){
+                        console.log(response.message);
+                });
+
+
+                var resultado = "";
                 resultado = resource.save(data);
                 console.log(resultado);
-                return resultado;
+                return defer.promise;
 
                 // var defer = $q.defer();
                 // $http.post('http://systab.herokuapp.com/'+servicio, data).
@@ -31,21 +40,5 @@ angular.module('factoryModule', [])
                 
             }
 
-        }
-    }]);
-
-    .factory('ServiceHTTP2', ['$resource', '$rootScope','$q','$http',function ($resource, $rootScope, $q, $http) {
-        return {
-            var src = $resource('http://systab.herokuapp.com/service-categorias-query',
-              //{id: "@id", cmd: "@cmd"}, //parameters default
-              {
-                ListTodos: { method: "GET", params: {} },
-                GetTodo: { method: "GET", params: { id: 0 } },                            
-                post: { method: "POST", params: { content: "", order: 0, done: false } },
-                UpdateTodo: { method: "PATCH", params: { /*...*/ } },
-                DeleteTodo: { method: "DELETE", params: { id: 0 } },
-                ResetTodos: { method: "GET", params: { cmd: "reset" } },
-              });
-            return src;
         }
     }]);        	
