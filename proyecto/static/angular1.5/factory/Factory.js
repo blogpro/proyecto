@@ -14,9 +14,8 @@ angular.module('factoryModule', [])
                 return resultado;
             },
             post: function (servicio,data) {
-                var urlApi = "http://systab.herokuapp.com/";
-                var resultado = "";
 
+                var defer = $q.defer();
                 $http.post('http://systab.herokuapp.com/'+servicio, data).
                 success(function (data, status, headers, config) {
                     defer.resolve(data);
