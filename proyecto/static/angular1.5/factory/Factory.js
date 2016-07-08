@@ -18,15 +18,13 @@ angular.module('factoryModule', [])
                 var urlApi = "http://systab.herokuapp.com/";
                 var resource   = $resource(urlApi + servicio);
 
-                resource.save({}, function(response){
+                resource.save(data, function(response){
                         console.log(response.message);
                 });
 
+                var resultado = resource.save(data);
 
-                var resultado = "";
-                resultado = resource.save(data);
-                console.log(resultado);
-                return defer.promise;
+                return resultado;
 
                 // var defer = $q.defer();
                 // $http.post('http://systab.herokuapp.com/'+servicio, data).
