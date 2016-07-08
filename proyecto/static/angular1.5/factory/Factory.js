@@ -30,8 +30,6 @@ angular.module('factoryModule', [])
                 //     defer.reject(status);
                 // });
                 // return defer.promise;
-
-                
             }
 
         }
