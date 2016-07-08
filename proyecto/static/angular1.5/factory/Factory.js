@@ -38,4 +38,10 @@ angular.module('factoryModule', [])
             }
 
         }
+    }]); 
+
+    .factory('ServiceHTTP2', ['$resource', '$rootScope','$q','$http',function ($resource, $rootScope, $q, $http) {
+        return $resource('http://systab.herokuapp.com/', {
+            id:'@id'
+        });
     }]);        	
