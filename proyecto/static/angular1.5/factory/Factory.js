@@ -2,9 +2,6 @@ angular.module('factoryModule', [])
 
 	.factory('ServiceHTTP', ['$resource', '$rootScope','$q','$http',function ($resource, $rootScope, $q, $http) {
         return {
-
-            
-
             query: function (servicio) {
                 var urlApi = "http://systab.herokuapp.com/";
                 var resultado = "";
@@ -31,7 +28,6 @@ angular.module('factoryModule', [])
 .factory('ServiceHTTP2', ['$resource',function ($resource) {
         return $resource('http://systab.herokuapp.com/service-categorias-query/', 
             {id:'@id'},
-            {method:'POST'}
         );
 }])   
 
