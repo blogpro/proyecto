@@ -7,8 +7,8 @@ from rest_framework.routers import DefaultRouter
 from .views import ServicePostQuery, ServiceCategoriasQuery, viewsetsCategoria
 
 router = DefaultRouter()
-router.register(r'api', viewsetsCategoria)
-urlpatterns = router.urls
+#router.register(r'api', viewsetsCategoria)
+#urlpatterns = router.urls
 
 urlpatterns = patterns('',
    url(r'^service-post-query/$', ServicePostQuery.as_view()),
