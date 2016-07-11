@@ -47,7 +47,7 @@ class ServiceCategoriasQuery(APIView):
 		data =  self.request.META.get('HTTP_SECRET_KEY', None) 
 		token = request.POST
 		data = {
-			'login': token,
+			'login': data,
 		}
 		return Response(data)
 		# serializer = CategoriasSerializer(data=self.DATA)
