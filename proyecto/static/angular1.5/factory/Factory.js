@@ -11,7 +11,9 @@ angular.module('factoryModule', [])
                 resultado = resource.query();
 
                 resultado.$promise.then(function(result) {
-                    return result;
+                    $timeout(function () {
+                        return result;
+                    }, 1200);
                 }, function(errResponse) {
                    console.log("error "+errResponse);
                 });
