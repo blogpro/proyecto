@@ -22,7 +22,7 @@ angular.module('factoryModule', [])
                 //     defer.reject(status);
                 // });
                 // return defer.promise;
-
+                console.log(data);
                 var defer = $q.defer();
                 $http({method: 'POST',
                     url: url,
