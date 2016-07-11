@@ -9,13 +9,7 @@ angular.module('factoryModule', [])
             query: function (url) {
                 resource   = $resource(urlApi + url);
                 resultado = resource.query();
-
-                resultado.$promise.then(function(result) {
-                    return result;
-                }, function(errResponse) {
-                   console.log("error "+errResponse);
-                });
-                console.log("exit");
+                return resultado;
             },
             post: function (url,data) {
                 resource   = $resource(urlApi + url);
