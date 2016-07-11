@@ -22,7 +22,7 @@ class CategoriasSerializer(serializers.ModelSerializer):
 	title = serializers.CharField(required=False, allow_blank=True, max_length=100)
 
 	def create(self, validated_data):
-		return Categoria.objects.create(**validated_data)
+		return	Categoria.objects.create(title=validated_data['title'])
 
 	class Meta:
 		model = Categoria
