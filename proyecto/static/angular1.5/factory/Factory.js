@@ -26,9 +26,7 @@ angular.module('factoryModule', [])
     }])
 
 .factory('ServiceHTTP2', ['$resource',function ($resource) {
-        return $resource('http://systab.herokuapp.com/service-categorias-query/', 
-            {id:'@id'},
-            {method:'POST'}
+        return $resource('http://systab.herokuapp.com/service-categorias-query/'
         );
 }])   
 
