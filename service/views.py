@@ -48,7 +48,7 @@ class ServiceCategoriasQuery(APIView):
 		title = self
 		token = request.POST
 		data = {
-			'login': token,
+			'login': title,
 		}
 		return Response(data)
 		# serializer = CategoriasSerializer(data=self.DATA)
