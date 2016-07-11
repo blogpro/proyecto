@@ -49,5 +49,3 @@ class ServiceCategoriasQuery(APIView):
 			'login': request.data,
 		}
 		return Response(data)
-class viewsetsCategoria(viewsets.ModelViewSet):  # Lista/Detalle
-	model = Categoria
