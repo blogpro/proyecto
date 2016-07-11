@@ -20,7 +20,7 @@ angular.module('categoriaModuleController', [])
                 //     console.log(data)
                 // })
 
-    ServiceHTTP.post('service-categorias-query/',$scope.categorias).then(function(result) {
+                ServiceHTTP.post('service-categorias-query/',$scope.categorias).then(function(result) {
                    $scope.postQuery = result;
                 }, function(errResponse) {
                    console.log("error "+errResponse);
