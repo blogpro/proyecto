@@ -21,7 +21,7 @@ angular.module('categoriaModuleController', [])
                 // })
 
                 ServiceHTTP.post('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
-                   $scope.postQuery = result;
+                   console.log(result)
                 }, function(errResponse) {
                    console.log("error "+errResponse);
                 });
