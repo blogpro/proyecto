@@ -2,9 +2,12 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 from rest_framework import routers
-router =routers.DefaultRouter()
 
-from .views import ServicePostQuery, ServiceCategoriasQuery
+
+from .views import ServicePostQuery, ServiceCategoriasQuery, viewsetsCategoria
+
+router =routers.DefaultRouter()
+#router.register(r'color',ViewColor)
 
 urlpatterns = patterns('',
    url(r'^service-post-query/$', ServicePostQuery.as_view()),
