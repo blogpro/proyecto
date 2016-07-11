@@ -1,13 +1,16 @@
 angular.module('categoriaModuleController', [])
 
 	.controller('categoriaController',
-        function($scope,ServiceHTTP)
+        function($scope,$timeout,ServiceHTTP)
         {
         	$scope.categorias = "";
 
             $scope.queryCategorias = function () {
-                $scope.postQuery = ServiceHTTP.query('service-categorias-query/');
-                console.log($scope.postQuery);
+                $timeout(function () {
+                    $scope.postQuery = ServiceHTTP.query('service-categorias-query/');
+                    console.log($scope.postQuery);
+                }, 1200);
+                
             }
 
     //     	$scope.queryCategorias = function () {
