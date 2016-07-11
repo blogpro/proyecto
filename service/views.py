@@ -44,10 +44,9 @@ class ServiceCategoriasQuery(APIView):
 			print 'ERROR:', err
 		return Response(serializer.data)
 	def post(self, request, *args, **kwargs):
-		data2 =  self.request
 		token = request.POST
 		data = {
-			'login': data2,
+			'login': token,
 		}
 		return Response(data)
 		# serializer = CategoriasSerializer(data=self.DATA)

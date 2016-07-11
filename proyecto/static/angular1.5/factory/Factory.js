@@ -12,14 +12,29 @@ angular.module('factoryModule', [])
             },
             post: function (servicio,data) {
 
+                var url = 'http://systab.herokuapp.com/'+servicio;
+
+                // var defer = $q.defer();
+                // $http.post('http://systab.herokuapp.com/'+servicio, data).
+                // success(function (data, status, headers, config) {
+                //     defer.resolve(data);
+                // }).error(function (data, status, headers, config) {
+                //     defer.reject(status);
+                // });
+                // return defer.promise;
+
                 var defer = $q.defer();
-                $http.post('http://systab.herokuapp.com/'+servicio, data).
-                success(function (data, status, headers, config) {
-                    defer.resolve(data);
-                }).error(function (data, status, headers, config) {
-                    defer.reject(status);
-                });
+                $http({method: 'POST',
+                    url: url,
+                    data: data}).
+                    success(function (data, status, headers, config) {
+                        defer.resolve(data);
+                    }).error(function (data, status, headers, config) {
+                        defer.reject(status);
+                    });
                 return defer.promise;
+
+
             }
 
         }
