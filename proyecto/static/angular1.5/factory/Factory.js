@@ -12,7 +12,8 @@ angular.module('factoryModule', [])
             },
             post: function (url,data) {
 
-                var url = 'http://systab.herokuapp.com/'+url;
+                var urlApi = "http://systab.herokuapp.com/";
+                var resultado = "";
 
                 // var defer = $q.defer();
                 // $http.post('http://systab.herokuapp.com/'+servicio, data).
@@ -22,17 +23,22 @@ angular.module('factoryModule', [])
                 //     defer.reject(status);
                 // });
                 // return defer.promise;
-                console.log(data);
-                var defer = $q.defer();
-                $http({method: 'POST',
-                    url: url,
-                    data: data}).
-                    success(function (data, status, headers, config) {
-                        defer.resolve(data);
-                    }).error(function (data, status, headers, config) {
-                        defer.reject(status);
-                    });
-                return defer.promise;
+                //-------------------------------------------------------------
+                // console.log(data);
+                // var defer = $q.defer();
+                // $http({method: 'POST',
+                //     url: url,
+                //     data: data}).
+                //     success(function (data, status, headers, config) {
+                //         defer.resolve(data);
+                //     }).error(function (data, status, headers, config) {
+                //         defer.reject(status);
+                //     });
+                // return defer.promise;
+
+                var resource   = $resource(urlApi + url),
+                resultado = resource.save(data);   
+                return resultado;
 
 
             }
