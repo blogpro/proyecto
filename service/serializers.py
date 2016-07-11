@@ -21,10 +21,6 @@ class CategoriasSerializer(serializers.ModelSerializer):
 	pk = serializers.IntegerField(read_only=True)
 	title = serializers.CharField(required=False, allow_blank=True, max_length=100)
 	order = serializers.IntegerField(max_value=None, min_value=None)
-	class Meta:
-		model = Categoria
-		fields = ('title',)
-
 class PostQuerySerializer(serializers.ModelSerializer):
 	user = UserSerializer()
 	status = StatusSerializer()
