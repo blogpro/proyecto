@@ -16,12 +16,9 @@ angular.module('categoriaModuleController', [])
 
 			$scope.saveCategorias = function ()
         	{
-                ServiceHTTP2.save($scope.categorias)
-                
-                // var query = ServiceHTTP2.query();
-                // query.$promise.then(function(data) {
-                //      console.log(data);
-                // });
+                ServiceHTTP2.save($scope.categorias,function(data){
+                    console.log(data)
+                })
         	}
 
         }
