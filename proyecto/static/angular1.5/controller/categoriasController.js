@@ -16,9 +16,15 @@ angular.module('categoriaModuleController', [])
 
 			$scope.saveCategorias = function ()
         	{
-                ServiceHTTP2.save($scope.categorias,function(data){
-                    console.log(data)
-                })
+                // ServiceHTTP2.save($scope.categorias,function(data){
+                //     console.log(data)
+                // })
+
+                ServiceHTTP.post('service-categorias-query/').then(function(result) {
+                   $scope.postQuery = result;
+                }, function(errResponse) {
+                   console.log("error "+errResponse);
+                });
         	}
 
         }
