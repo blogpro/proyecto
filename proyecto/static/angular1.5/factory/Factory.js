@@ -9,8 +9,9 @@ angular.module('factoryModule', [])
             query: function (url) {
                 resource   = $resource(urlApi + url);
                 resultado = resource.query();
-                
+
                 resultado.$promise.then(function(result) {
+                    console.log(result);
                    return result;
                 }, function(errResponse) {
                    console.log("error "+errResponse);
