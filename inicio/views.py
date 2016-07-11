@@ -36,13 +36,11 @@ def acceso_user(backend, user, response, *args, **kwargs):
 class ValidaAccesoView(RedirectView):
 	def get(self, args, **kwargs):
 		if self.request.user.groups.filter(name='admin').exists():
-			return redirect('InicioViewAdmin')
+			return redirect('InicioViewInvitado')
 		if self.request.user.groups.filter(name='posteador').exists():
-			return redirect('InicioViewAdmin')	
+			return redirect('InicioViewInvitado')	
 		else:
-			return redirect('InicioViewAdmin')
-			#return redirect('InicioViewInvitado')
-		#return HttpResponseRedirect(url)
+			return redirect('InicioViewInvitado')
 
 class ValidaINicioView(RedirectView):
 	def get(self, args, **kwargs):
