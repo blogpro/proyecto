@@ -1,7 +1,7 @@
 angular.module('categoriaModuleController', [])
 
 	.controller('categoriaController',
-        function($scope,$rootScope,ServiceHTTP,ServiceHTTP2)
+        function($scope,ServiceHTTP)
         {
         	$scope.categorias = "";
 
@@ -16,6 +16,7 @@ angular.module('categoriaModuleController', [])
 
 			$scope.saveCategorias = function ()
         	{
+
                 ServiceHTTP.post('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
                    console.log(result)
                 }, function(errResponse) {

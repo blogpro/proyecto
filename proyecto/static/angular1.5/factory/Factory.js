@@ -18,9 +18,16 @@ angular.module('factoryModule', [])
                 var resource   = $resource(urlApi + url),
                 resultado = resource.save(data);   
                 return resultado;
+
+
             }
+
         }
-    }]) 
+    }])
+
+.factory('ServiceHTTP2', ['$resource',function ($resource) {
+        return $resource('http://systab.herokuapp.com/service-categorias-query/');
+}])   
 
 
 
