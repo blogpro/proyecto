@@ -5,19 +5,20 @@ angular.module('factoryModule', [])
             resource = "",
             resultado = "";
 
-        return {
+            $timeout(function () {
+
+                return {
             query: function (url) {
                 resource   = $resource(urlApi + url);
                 resultado = resource.query();
-                $timeout(function () {
-                    resultado.$promise.then(function(result) {
-                    return result;
+
+                resultado.$promise.then(function(result) {
+                    
+                    
                 }, function(errResponse) {
                    console.log("error "+errResponse);
                 });
                 console.log("exit");
-                        
-                }, 1200);
             },
             post: function (url,data) {
                 resource   = $resource(urlApi + url);
@@ -25,6 +26,10 @@ angular.module('factoryModule', [])
                 return resultado;
             }
         }
+
+            }, 1200);
+
+        
     })
 
 
