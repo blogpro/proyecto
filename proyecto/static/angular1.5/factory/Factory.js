@@ -1,6 +1,6 @@
 angular.module('factoryModule', [])
 
-	.factory('ServiceHTTP', ['$resource', '$rootScope','$q','$http',function ($resource, $rootScope, $q, $http) {
+	.factory('ServiceHTTP',function ($resource,$timeout) {
         var urlApi = "http://systab.herokuapp.com/",
             resource = "",
             resultado = "";
@@ -11,7 +11,6 @@ angular.module('factoryModule', [])
                 resultado = resource.query();
 
                 resultado.$promise.then(function(result) {
-                    callback(result);
                     return result;
                 }, function(errResponse) {
                    console.log("error "+errResponse);
@@ -24,6 +23,6 @@ angular.module('factoryModule', [])
                 return resultado;
             }
         }
-    }])
+    })
 
 
