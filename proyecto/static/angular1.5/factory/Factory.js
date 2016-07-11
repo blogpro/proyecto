@@ -17,5 +17,3 @@ angular.module('factoryModule', [])
             }
         }
     })
-
-
