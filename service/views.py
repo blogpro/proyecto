@@ -44,10 +44,13 @@ class ServiceCategoriasQuery(APIView):
 			print 'ERROR:', err
 		return Response(serializer.data)
 	def post(self, request, *args, **kwargs):
+		token = request.data
+
 		serializer = CategoriasSerializer(data=request.data)
-		if serializer.is_valid():
-			serializer.save()
-			return Response(serializer.data, status=status.HTTP_201_CREATED)
-		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+		data = {
+			'login': token,
+		}
+		return Response(data)
 class viewsetsCategoria(viewsets.ModelViewSet):  # Lista/Detalle
 	model = Categoria
