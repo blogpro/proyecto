@@ -11,11 +11,10 @@ angular.module('factoryModule', [])
                 resultado = resource.query();
 
                 resultado.$promise.then(function(result) {
-                   var resultado2 =  result;
+                   return result;
                 }, function(errResponse) {
                    console.log("error "+errResponse);
                 });
-                return resultado2;
             },
             post: function (url,data) {
                 resource   = $resource(urlApi + url);
