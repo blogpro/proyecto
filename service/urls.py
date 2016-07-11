@@ -1,12 +1,14 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from rest_framework import routers
+#from rest_framework import routers
+from rest_framework.routers import DefaultRouter
 
 
 from .views import ServicePostQuery, ServiceCategoriasQuery, viewsetsCategoria
 
-router =routers.DefaultRouter()
+#router =routers.DefaultRouter()
+router = DefaultRouter()
 #router.register(r'api',viewsetsCategoria)
 
 urlpatterns = patterns('',
