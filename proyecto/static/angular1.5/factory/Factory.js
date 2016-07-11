@@ -11,7 +11,8 @@ angular.module('factoryModule', [])
                 resultado = resource.query();
 
                 resultado.$promise.then(function(result) {
-                   return result;
+                    callback(result);
+                    return result;
                 }, function(errResponse) {
                    console.log("error "+errResponse);
                 });
