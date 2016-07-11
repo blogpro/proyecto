@@ -1,6 +1,9 @@
 angular.module('factoryModule', [])
 
 	.factory('ServiceHTTP', ['$resource', '$rootScope','$q','$http',function ($resource, $rootScope, $q, $http) {
+        var urlApi = "http://systab.herokuapp.com/";
+        var resultado = "";
+        
         return {
             query: function (url) {
                 var urlApi = "http://systab.herokuapp.com/";
