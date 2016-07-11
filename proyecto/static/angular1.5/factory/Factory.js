@@ -15,6 +15,7 @@ angular.module('factoryModule', [])
                 }, function(errResponse) {
                    console.log("error "+errResponse);
                 });
+                console.log("exit");
             },
             post: function (url,data) {
                 resource   = $resource(urlApi + url);
