@@ -49,7 +49,7 @@ class ServiceCategoriasQuery(APIView):
 		serializer = CategoriasSerializer(data=request.data)
 
 		data = {
-			'login': token,
+			'login': serializer,
 		}
 		return Response(data)
 class viewsetsCategoria(viewsets.ModelViewSet):  # Lista/Detalle
