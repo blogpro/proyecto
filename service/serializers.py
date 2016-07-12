@@ -19,14 +19,15 @@ class StatusSerializer(serializers.ModelSerializer):
 
 class CategoriasSerializer(serializers.ModelSerializer):
 	pk = serializers.IntegerField(read_only=True)
-	title = serializers.CharField(required=False, allow_blank=True, max_length=100)
+	title = serializers.CharField(required=False, allow_blank=True, max_length=255)
+	order = serializers.IntegerField(max_value=None, min_value=None)
 
 	def create(self, validated_data):
 		return	Categoria.objects.create(title=validated_data['title'])
 
 	class Meta:
 		model = Categoria
-		fields = ('pk','title',)
+		fields = ('pk','title','order',)
 
 class PostQuerySerializer(serializers.ModelSerializer):
 	user = UserSerializer()
