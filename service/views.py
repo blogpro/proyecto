@@ -46,6 +46,6 @@ class ServiceCategoriasQuery(APIView):
 	def post(self, request, *args, **kwargs):
 		serializer = CategoriasSerializer(data=request.data)
 		data = {
-			'login': request.data,
+			'login': serializer,
 		}
 		return Response(data)
