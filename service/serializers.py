@@ -20,7 +20,7 @@ class StatusSerializer(serializers.ModelSerializer):
 class CategoriasSerializer(serializers.ModelSerializer):
 	pk = serializers.IntegerField(read_only=True)
 	title = serializers.CharField(required=False, allow_blank=True, max_length=255)
-	order = serializers.IntegerField(max_value=None, min_value=None)
+	order = serializers.IntegerField(default=1,max_value=None, min_value=None)
 
 	def create(self, validated_data):
 		return Snippet.objects.create(**validated_data)
