@@ -23,7 +23,7 @@ class CategoriasSerializer(serializers.ModelSerializer):
 	order = serializers.IntegerField(max_value=None, min_value=None)
 
 	def create(self, validated_data):
-		return	Categoria.objects.create(title=validated_data['title'])
+		return Snippet.objects.create(**validated_data)
 
 	class Meta:
 		model = Categoria
