@@ -22,9 +22,6 @@ class CategoriasSerializer(serializers.ModelSerializer):
 	title = serializers.CharField(required=False, allow_blank=True, max_length=255)
 	order = serializers.IntegerField(default=1,max_value=None, min_value=None)
 
-	def create(self, validated_data):
-		return Snippet.objects.create(**validated_data)
-
 	class Meta:
 		model = Categoria
 		fields = ('pk','title','order',)
