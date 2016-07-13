@@ -47,7 +47,7 @@ class ServiceCategoriasQuery(APIView):
 		title = request.data['title']
 		ObjModel = Categoria()
 		ObjModel.title = request.data['title']
-		ObjModel.order = 0
+		ObjModel.order = request.data['order']
 		ObjModel.save()
 
 		data = {
