@@ -29,9 +29,15 @@ angular.module('categoriaModuleController', [])
         	}
 
             $scope.EditarCategoria = function (id)
-            {   console.log("Edit");
+            {
                 $scope.banderasCategorias.showBtnEdit = true;
                 $scope.banderasCategorias.showBtnSave = false;
+                
+            }
+            $scope.cancelCategorias = function ()
+            {
+                $scope.banderasCategorias.showBtnSave = true;
+                $scope.banderasCategorias.showBtnEdit = false;
             }
 
         }
