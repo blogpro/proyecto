@@ -12,5 +12,7 @@ router = DefaultRouter()
 
 urlpatterns = patterns('',
    url(r'^service-post-query/$', ServicePostQuery.as_view()),
+
    url(r'^service-categorias-query/$', ServiceCategoriasQuery.as_view()),
+   url(r'^service-categorias-query/(?P<pk>[0-9]+)/$', ServiceCategoriasQuery.as_view(), name='ServiceCategoriasQuery'),
 )

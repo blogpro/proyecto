@@ -37,6 +37,8 @@ class ServicePostQuery(APIView):
 
 class ServiceCategoriasQuery(APIView):
 	def get(self, request, *args, **kwargs):
+		#pkCat = self.kwargs['pk']
+
 		serializers = Categoria.objects.all().order_by('-id')
 		try:
 			serializer = CategoriasSerializer(serializers, many=True)
