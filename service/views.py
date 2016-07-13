@@ -46,8 +46,8 @@ class ServiceCategoriasQuery(APIView):
 	def post(self, request, *args, **kwargs):
 		
 		ObjModel = Categoria()
-		ObjModel.title = request.data
-		ObjModel.save()
+		# ObjModel.title = request.data
+		# ObjModel.save()
 
 		data = {
 			'title': request.data,
