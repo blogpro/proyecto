@@ -4,6 +4,10 @@ angular.module('categoriaModuleController', [])
         function($scope,$timeout,ServiceHTTP)
         {
         	$scope.categorias = "";
+            $scope.banderasCategorias = {
+                showBtnSave: "",
+                showBtnEdit: ""
+            };
 
         	$scope.queryCategorias = function () {
 	    	    ServiceHTTP.query('service-categorias-query/').$promise.then(function(result) {
@@ -25,8 +29,8 @@ angular.module('categoriaModuleController', [])
         	}
 
             $scope.EditarCategoria = function (id)
-            {
-                console.log("ok "+id);
+            {   console.log("Edit");
+                $scope.banderasCategorias.showBtnEdit = true;
             }
 
         }
