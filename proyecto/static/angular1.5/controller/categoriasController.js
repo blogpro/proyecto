@@ -4,6 +4,7 @@ angular.module('categoriaModuleController', [])
         function($scope,$timeout,ServiceHTTP)
         {
         	$scope.categorias = "";
+            $scope.categorias.order = 0;
 
         	$scope.queryCategorias = function () {
 	    	    ServiceHTTP.query('service-categorias-query/').$promise.then(function(result) {
