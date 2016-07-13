@@ -34,8 +34,7 @@ angular.module('categoriaModuleController', [])
                 $scope.banderasCategorias.showBtnSave = false;
 
                 ServiceHTTP.get('service-categorias-query/',id).$promise.then(function(result) {
-                    $scope.categorias = "";
-                    $scope.queryCategorias();
+                    console.log("ok");
                 }, function(errResponse) {
                    console.log("error "+JSON.stringify(errResponse));
                 });
