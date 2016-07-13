@@ -50,6 +50,6 @@ class ServiceCategoriasQuery(APIView):
 		# ObjModel.save()
 
 		data = {
-			'title': request.data,
+			'title': title,
 		}
 		return Response(data)
