@@ -10,6 +10,11 @@ angular.module('factoryModule', [])
                 resultado = resource.query();
                 return resultado;
             },
+            get: function (url,id) {
+                resource   = $resource(urlApi + url);
+                resultado = resource.get(id);
+                return resultado;
+            },
             post: function (url,data) {
                 resource   = $resource(urlApi + url);
                 resultado = resource.save(data);   

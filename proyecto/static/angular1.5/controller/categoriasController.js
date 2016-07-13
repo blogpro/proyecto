@@ -32,7 +32,14 @@ angular.module('categoriaModuleController', [])
             {
                 $scope.banderasCategorias.showBtnEdit = true;
                 $scope.banderasCategorias.showBtnSave = false;
-                
+
+                ServiceHTTP.post('service-categorias-query/',id).$promise.then(function(result) {
+                    $scope.categorias = "";
+                    $scope.queryCategorias();
+                }, function(errResponse) {
+                   console.log("error "+JSON.stringify(errResponse));
+                });
+
             }
             $scope.cancelCategorias = function ()
             {
