@@ -24,5 +24,10 @@ angular.module('categoriaModuleController', [])
                 });
         	}
 
+            $scope.EditarCategoria = function (id)
+            {
+                console.log("ok "+id);
+            }
+
         }
     );        	
