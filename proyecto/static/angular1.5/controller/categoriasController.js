@@ -5,8 +5,8 @@ angular.module('categoriaModuleController', [])
         {
         	$scope.categorias = "";
             $scope.banderasCategorias = {
-                showBtnSave: "",
-                showBtnEdit: ""
+                showBtnSave: true,
+                showBtnEdit: false
             };
 
         	$scope.queryCategorias = function () {
@@ -31,6 +31,7 @@ angular.module('categoriaModuleController', [])
             $scope.EditarCategoria = function (id)
             {   console.log("Edit");
                 $scope.banderasCategorias.showBtnEdit = true;
+                $scope.banderasCategorias.showBtnSave = false;
             }
 
         }
