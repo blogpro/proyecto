@@ -51,6 +51,6 @@ class ServiceCategoriasQuery(APIView):
 		ObjModel.save()
 
 		data = {
-			'title': title,
+			'setCod': 0,
 		}
 		return Response(data)
