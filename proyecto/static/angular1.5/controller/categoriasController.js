@@ -41,7 +41,7 @@ angular.module('categoriaModuleController', [])
 
             }
             $scope.SaveEditCat = function ()
-
+            {
                 ServiceHTTP.update('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
                 }, function(errResponse) {
                    console.log("error "+JSON.stringify(errResponse));
