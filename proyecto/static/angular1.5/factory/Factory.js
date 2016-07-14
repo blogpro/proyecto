@@ -13,6 +13,7 @@ angular.module('factoryModule', [])
             get: function (url,id) {
                 resource   = $resource(urlApi + url+':id');
                 resultado = resource.get({id:id});
+                console.log(resultado);
                 return resultado;
             },
             post: function (url,data) {
