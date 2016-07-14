@@ -39,7 +39,7 @@ class ServiceCategoriasQuery(APIView):
 	def get(self, request, *args, **kwargs):
 		if 'pk' in self.kwargs:
 			ObjCategoria = Categoria.objects.get(pk=13)
-			data = {'b':'q'}
+			data = {'b':ObjCategoria}
 			return Response(data)
 
 		serializers = Categoria.objects.all().order_by('-id')
