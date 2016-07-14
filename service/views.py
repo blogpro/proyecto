@@ -38,7 +38,7 @@ class ServicePostQuery(APIView):
 class ServiceCategoriasQuery(APIView):
 	def get(self, request, *args, **kwargs):
 		if 'pk' in self.kwargs:
-			ObjCategoria = Categoria.objects.get(pk=13)
+			ObjCategoria = Categoria.objects.get(pk=self.kwargs['pk'])
 			data = {
 			'pk':ObjCategoria.id,
 			'title':ObjCategoria.title
