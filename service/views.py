@@ -38,7 +38,7 @@ class ServicePostQuery(APIView):
 class ServiceCategoriasQuery(APIView):
 	def get(self, request, *args, **kwargs):
 		if 'pk' in self.kwargs:
-			serializers = Categoria.objects.get(pk=13)
+			ObjCategoria = Categoria.objects.get(pk=13)
 			data = {'b':'q'}
 			return Response(data)
 
