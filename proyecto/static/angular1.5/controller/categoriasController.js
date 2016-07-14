@@ -41,6 +41,10 @@ angular.module('categoriaModuleController', [])
                 });
 
             }
+            $scope.SaveEditCat = function (id)
+            {
+                console.log(id);
+            }
             $scope.cancelCategorias = function ()
             {
                 $scope.banderasCategorias.showBtnSave = true;
