@@ -39,9 +39,11 @@ class ServiceCategoriasQuery(APIView):
 	def get(self, request, *args, **kwargs):
 		if 'pk' in self.kwargs:
 			ObjCategoria = Categoria.objects.get(pk=13)
-			data = {'b':ObjCategoria.id}
+			data = {
+			'pk':ObjCategoria.id,
+			'title':ObjCategoria.title
+			}
 			return Response(data)
-
 		serializers = Categoria.objects.all().order_by('-id')
 		try:
 			serializer = CategoriasSerializer(serializers, many=True)
