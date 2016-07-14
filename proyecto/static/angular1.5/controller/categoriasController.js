@@ -43,6 +43,7 @@ angular.module('categoriaModuleController', [])
             }
             $scope.SaveEditCat = function (id)
             {
+                console.log($scope.categorias);
                 console.log(id);
             }
             $scope.cancelCategorias = function ()
