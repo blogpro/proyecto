@@ -35,16 +35,14 @@ angular.module('categoriaModuleController', [])
 
                 ServiceHTTP.get('service-categorias-query/',id).$promise.then(function(result) {
                     $scope.categorias = result;
-                    $scope.idcategoria = id;
                 }, function(errResponse) {
                    console.log("error "+JSON.stringify(errResponse));
                 });
 
             }
-            $scope.SaveEditCat = function (id)
+            $scope.SaveEditCat = function ()
             {
                 console.log($scope.categorias);
-                console.log(id);
             }
             $scope.cancelCategorias = function ()
             {
