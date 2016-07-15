@@ -21,6 +21,7 @@ angular.module('factoryModule', [])
                 return resultado;
             },
             update: function (url,data) {
+                console.log("paso2");
                 return $resource(urlApi + url, null,{'update': { method:'PUT' }});
             }
         }

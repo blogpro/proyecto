@@ -42,6 +42,7 @@ angular.module('categoriaModuleController', [])
             }
             $scope.SaveEditCat = function ()
             {
+                console.log("paso");
                 ServiceHTTP.update({ id:$scope.categorias.id }, $scope.categorias);
                 // ServiceHTTP.update('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
                 // }, function(errResponse) {
