@@ -62,7 +62,8 @@ class ServiceCategoriasQuery(APIView):
 		}
 		return Response(data)
 	def put(self, request, *args, **kwargs):
+		Categoria.objects.filter(pk=request.data['id']).update(title=request.data['title'])
 		data = {
-			'setCod': request.data,
+			'setCod': 0,
 		}
 		return Response(data)
