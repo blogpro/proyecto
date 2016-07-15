@@ -63,6 +63,6 @@ class ServiceCategoriasQuery(APIView):
 		return Response(data)
 	def put(self, request, *args, **kwargs):
 		data = {
-			'setCod': 1,
+			'setCod': request.data,
 		}
 		return Response(data)
