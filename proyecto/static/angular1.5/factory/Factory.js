@@ -21,8 +21,14 @@ angular.module('factoryModule', [])
                 return resultado;
             },
             update: function (url,data) {
-                console.log("paso2");
-                return $resource(urlApi + url, null,{'update': { method:'PUT' }});
+
+                var recource = $resource('/notes/:id', null,
+                        {
+                            'update': { method:'PUT' }
+                        });
+                return resource.update({ id:12 }, data);
+
+                
             }
         }
     })
