@@ -20,15 +20,11 @@ angular.module('factoryModule', [])
                 resultado = resource.save(data);   
                 return resultado;
             },
-            put: function (url,data) {
-
-                var recource = $resource('/notes/:id', null,
-                        {
-                            'update': { method:'PUT' }
-                        });
-                return resource.update({ id:12 }, data);
-
-                
+            update: function (url,data) {
+                $id = data.id;
+                resource   = $resource(urlApi + url);
+                resultado = resource.update({id:$id}, data);   
+                return resultado;
             }
         }
     })
