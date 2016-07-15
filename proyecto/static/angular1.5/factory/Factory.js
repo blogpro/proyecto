@@ -22,6 +22,7 @@ angular.module('factoryModule', [])
             },
             update: function (url,data) {
                 $id = data.id;
+                console.log($id);
                 resource   = $resource(urlApi + url);
                 resultado = resource.update({id:$id}, data);   
                 return resultado;
