@@ -38,12 +38,12 @@ angular.module('categoriaModuleController', [])
                 }, function(errResponse) {
                    console.log("error "+JSON.stringify(errResponse));
                 });
-
             }
             $scope.SaveEditCat = function ()
             {
                 ServiceHTTP.update('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
-                    console.log(result);
+                    $scope.categorias = "";
+                    $scope.queryCategorias();
                 }, function(errResponse) {
                    console.log("error "+JSON.stringify(errResponse));
                 });
