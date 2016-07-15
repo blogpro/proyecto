@@ -19,6 +19,9 @@ angularRoutingApp.config(function($httpProvider) {
 angularRoutingApp.config(function($resourceProvider) {
   // Don't strip trailing slashes from calculated URLs
   $resourceProvider.defaults.stripTrailingSlashes = false;
+  $resourceProvider.defaults.actions.update = {
+      method: 'PUT'
+    };
 });
 
 // Configuración de las rutas
