@@ -44,7 +44,7 @@ angular.module('categoriaModuleController', [])
             {
                 console.log("paso");
 
-                ServiceHTTP.put('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
+                ServiceHTTP.update('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
                 }, function(errResponse) {
                    console.log("error "+JSON.stringify(errResponse));
                 });
