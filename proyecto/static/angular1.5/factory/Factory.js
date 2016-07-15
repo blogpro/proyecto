@@ -20,7 +20,7 @@ angular.module('factoryModule', [])
                 resultado = resource.save(data);   
                 return resultado;
             },
-            update: function (url,data) {
+            put: function (url,data) {
 
                 var recource = $resource('/notes/:id', null,
                         {
