@@ -67,7 +67,7 @@ class ServiceCategoriasQuery(APIView):
 			'setCod': 0,
 		}
 		return Response(data)
-	def delete(self, request, format=None):
+	def delete(self, request, *args, **kwargs):
 		data = {
 			'setCod': 1,
 		}
