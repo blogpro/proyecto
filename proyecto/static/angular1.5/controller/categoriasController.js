@@ -48,6 +48,14 @@ angular.module('categoriaModuleController', [])
                    console.log("error "+JSON.stringify(errResponse));
                 });
             }
+            $scope.DeleteCategoria = function (id)
+            {
+                ServiceHTTP.borrar('service-categorias-query/',id).$promise.then(function(result) {
+                    $scope.categorias = result;
+                }, function(errResponse) {
+                   console.log("error "+JSON.stringify(errResponse));
+                });
+            }
             $scope.cancelCategorias = function ()
             {
                 $scope.banderasCategorias.showBtnSave = true;

@@ -20,6 +20,11 @@ angular.module('factoryModule', [])
                 resultado = resource.save(data);   
                 return resultado;
             },
+            borrar: function (url,id) {
+                resource   = $resource(urlApi + url);
+                resultado = resource.delete(id);   
+                return resultado;
+            },
             update: function (url,data) {
                 resource   = $resource(urlApi + url);
                 resultado = resource.update(data);   
