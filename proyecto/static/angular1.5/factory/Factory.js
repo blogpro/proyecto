@@ -22,7 +22,7 @@ angular.module('factoryModule', [])
             },
             borrar: function (url,id) {
                 console.log(id);
-                resource   = $resource(urlApi + url);
+                resource   = $resource(urlApi + url+':id');
                 resultado = resource.delete({id:id});   
                 return resultado;
             },
