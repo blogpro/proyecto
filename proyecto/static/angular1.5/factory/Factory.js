@@ -21,6 +21,7 @@ angular.module('factoryModule', [])
                 return resultado;
             },
             borrar: function (url,id) {
+                console.log(id);
                 resource   = $resource(urlApi + url);
                 resultado = resource.delete(id);   
                 return resultado;
