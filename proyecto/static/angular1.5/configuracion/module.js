@@ -1,9 +1,10 @@
 var angularRoutingApp = angular.module('blog', [
-	'ngRoute',
-    'ngResource',
-    'factoryModule',
+  'ngRoute',
+  'ngDialog',
+  'ngResource',
+  'factoryModule',
 	'indexModuleController',
-    'categoriaModuleController'
+  'categoriaModuleController'
 	]);
 
 angularRoutingApp.config(function($interpolateProvider) {//codigo para cambiar la forma de mostrar en el template a // en lugar de {{}}
