@@ -1,7 +1,7 @@
 angular.module('categoriaModuleController', [])
 
 	.controller('categoriaController',
-        function($scope,$timeout,ServiceHTTP)
+        function($scope,$timeout,ServiceHTTP,ngDialog)
         {
         	$scope.categorias = "";
             $scope.banderasCategorias = {
@@ -21,6 +21,13 @@ angular.module('categoriaModuleController', [])
 			$scope.saveCategorias = function ()
         	{
                 ServiceHTTP.post('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
+
+                    ngDialog.open({
+                        template: 'externalTemplate.html',
+                        className: 'ngdialog-theme-plain',
+                        scope: $scope
+                    });
+
                     $scope.categorias = "";
                     $scope.queryCategorias();
                 }, function(errResponse) {
