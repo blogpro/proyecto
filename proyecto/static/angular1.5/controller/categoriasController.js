@@ -50,9 +50,8 @@ angular.module('categoriaModuleController', [])
             }
             $scope.DeleteCategoria = function (id)
             {
-                console.log(id);
                 ServiceHTTP.borrar('service-categorias-query/',id).$promise.then(function(result) {
-                    $scope.categorias = result;
+                    $scope.queryCategorias();
                 }, function(errResponse) {
                    console.log("error "+JSON.stringify(errResponse));
                 });
