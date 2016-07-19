@@ -70,6 +70,6 @@ class ServiceCategoriasQuery(APIView):
 	def delete(self, request, *args, **kwargs):
 		post = Categoria.objects.get(pk=self.kwargs['pk']).delete()
 		data = {
-			'setCod': 1,
+			'setCod': 0,
 		}
 		return Response(data)
