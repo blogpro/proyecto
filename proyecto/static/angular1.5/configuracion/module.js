@@ -2,6 +2,7 @@ var angularRoutingApp = angular.module('blog', [
   'ngRoute',
   'ngDialog',
   'ngResource',
+  'ngToast',
   'factoryModule',
 	'indexModuleController',
   'categoriaModuleController'
