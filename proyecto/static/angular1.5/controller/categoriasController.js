@@ -22,7 +22,7 @@ angular.module('categoriaModuleController', [])
 			$scope.saveCategorias = function ()
         	{
                 ServiceHTTP.post('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
-                    if(setCod == 0){
+                    if(result.setCod == 0){
                         NgToast.msjToast({mensaje: 'Guardado correctamente.', clase: 'danger'});
                     }
                     $scope.categorias = "";
