@@ -1,7 +1,7 @@
 angular.module('categoriaModuleController', [])
 
 	.controller('categoriaController',
-        function($scope,$timeout,ServiceHTTP,ngDialog)
+        function($scope,$timeout,ServiceHTTP,ngDialog,NgToast)
         {
         	$scope.categorias = "";
             $scope.banderasCategorias = {
@@ -11,6 +11,7 @@ angular.module('categoriaModuleController', [])
 
         	$scope.queryCategorias = function () {
 	    	    ServiceHTTP.query('service-categorias-query/').$promise.then(function(result) {
+
 				   $scope.postQuery = result;
 				}, function(errResponse) {
 				   console.log("error "+errResponse);
@@ -21,13 +22,9 @@ angular.module('categoriaModuleController', [])
 			$scope.saveCategorias = function ()
         	{
                 ServiceHTTP.post('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
-
-                    ngDialog.open({
-                        template: 'externalTemplate.html',
-                        className: 'ngdialog-theme-plain',
-                        scope: $scope
-                    });
-
+                    if(setCod == 0){
+                        NgToast.msjToast({mensaje: 'Guardado correctamente.', clase: 'danger'});
+                    }
                     $scope.categorias = "";
                     $scope.queryCategorias();
                 }, function(errResponse) {
