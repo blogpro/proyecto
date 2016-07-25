@@ -1,6 +1,25 @@
 angular.module('factoryModule', [])
 
-	.factory('ServiceHTTP',function ($resource,$timeout) {
+	.factory('NgToast',function (ngToast,$timeout) {
+        return {
+            msjToast: function (opciones) {
+                var options = {
+                    content: opciones.mensaje,
+                    animation: 'slide',
+                    horizontalPosition: 'right',
+                    verticalPosition: 'top',
+                    maxNumber: 0,
+                    className: opciones.clase,
+                    timeout: 5000
+                };
+                $timeout(function () {
+                    ngToast.create(options);
+                }, 400);
+            }
+        }
+    })
+
+    .factory('ServiceHTTP',function ($resource,$timeout) {
         var urlApi = "http://systab.herokuapp.com/",
             resource = "",
             resultado = "";
