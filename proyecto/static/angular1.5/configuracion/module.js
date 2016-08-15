@@ -42,7 +42,7 @@ angularRoutingApp.config(function($routeProvider) {
             templateUrl : '/list-cat-angular/',//Url Servidor donde se hace la invocacion a el template que se cargara
             controller  : 'categoriaController'
         })
-        .when('/etiquetas-post/', {
+        .when('/tags-post/', {
             templateUrl : '/list-tag-angular/',//Url Servidor donde se hace la invocacion a el template que se cargara
             controller  : 'categoriaController'
         })
