@@ -23,10 +23,12 @@ angular.module('categoriaModuleController', [])
         	{
                 ServiceHTTP.post('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
                     if(result.setCod == 0){
+                        $scope.categorias = "";
+                        $scope.queryCategorias();
                         NgToast.msjToast({mensaje: 'Guardado correctamente.', clase: 'success'});
+                    }else{
+                        NgToast.msjToast({mensaje: 'Error al guardar.', clase: 'danger'});
                     }
-                    $scope.categorias = "";
-                    $scope.queryCategorias();
                 }, function(errResponse) {
                    console.log("error "+JSON.stringify(errResponse));
                 });

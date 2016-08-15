@@ -15,6 +15,22 @@ angular.module('factoryModule', [])
                 $timeout(function () {
                     ngToast.create(options);
                 }, 400);
+            },
+            confirm: function (){     
+             ngDialog.openConfirm({
+                    template:
+                        '<p>Are you sure you want to delete selected conversation(s) ?</p>' +
+                        '<div>' +
+                          '<button type="button" class="btn btn-default" ng-click="closeThisDialog(0)">No&nbsp;' +
+                          '<button type="button" class="btn btn-primary" ng-click="confirm(1)">Yes' +
+                        '</button></div>',
+                    plain: true,
+                    className: 'ngdialog-theme-default'
+                }).then(function (value) {
+                    // perform delete operation
+                }, function (value) {
+                    //Do something 
+                });
             }
         }
     })
