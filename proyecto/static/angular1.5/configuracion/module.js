@@ -5,7 +5,8 @@ var angularRoutingApp = angular.module('blog', [
   'ngToast',
   'factoryModule',
 	'indexModuleController',
-  'categoriaModuleController'
+  'categoriaModuleController',
+  'etiquetaModuleController'
 	]);
 
 angularRoutingApp.config(function($interpolateProvider) {//codigo para cambiar la forma de mostrar en el template a // en lugar de {{}}
@@ -44,7 +45,7 @@ angularRoutingApp.config(function($routeProvider) {
         })
         .when('/tags-post/', {
             templateUrl : '/list-tag-angular/',//Url Servidor donde se hace la invocacion a el template que se cargara
-            controller  : 'categoriaController'
+            controller  : 'etiquetaController'
         })
         .otherwise({
             redirectTo: '/'

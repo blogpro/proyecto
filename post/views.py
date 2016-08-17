@@ -203,6 +203,6 @@ class ListPostViewAngular(LoginRequiredMixin,TemplateView):
 class ListCategoriasView(LoginRequiredMixin,TemplateView):
 	template_name = 'dashcategoriapost.html'
 class ListEtiquetasView(LoginRequiredMixin,TemplateView):
-	template_name = 'dashetiquetaspost.html'	
+	template_name = 'dashetiquetaspost.html'
 	
 # <<<<<<<<<<<<<<<<<<< Viws Angular >>>>>>>>>>>>>>>>>>>>>>>	
