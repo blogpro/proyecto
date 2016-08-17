@@ -10,7 +10,7 @@ angular.module('etiquetaModuleController', [])
             };
 
         	$scope.queryCategorias = function () {
-	    	    ServiceHTTP.query('service-categorias-query/').$promise.then(function(result) {
+	    	    ServiceHTTP.query('service-etiquetas-query/').$promise.then(function(result) {
 
 				   $scope.postQuery = result;
 				}, function(errResponse) {

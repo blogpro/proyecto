@@ -22,10 +22,12 @@ from rest_framework import generics
 from django.core.urlresolvers import reverse
 
 from categorias.models import Categoria
+from etiquetas.models import Etiqueta
 from post.models import Post
 
-from .serializers import PostQuerySerializer, CategoriasSerializer
+from .serializers import PostQuerySerializer, CategoriasSerializer, EtiquetasSerializer
 
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> POST <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class ServicePostQuery(APIView):
 	def get(self, request, *args, **kwargs):
 		serializers = Post.objects.all().order_by('-id')
@@ -34,7 +36,7 @@ class ServicePostQuery(APIView):
 		except (TypeError, ValueError) as err:
 			print 'ERROR:', err
 		return Response(serializer.data)
-
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> CATEGORIAS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class ServiceCategoriasQuery(APIView):
 	def get(self, request, *args, **kwargs):
 		if 'pk' in self.kwargs:
@@ -73,3 +75,19 @@ class ServiceCategoriasQuery(APIView):
 			'setCod': 0,
 		}
 		return Response(data)
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ETIQUETAS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+class ServiceEtiquetasQuery(APIView):
+	def get(self, request, *args, **kwargs):
+		if 'pk' in self.kwargs:
+			ObjModel = Etiqueta.objects.get(pk=self.kwargs['pk'])
+			data = {
+				'pk':ObjModel.id,
+				'title':ObjModel.title
+			}
+			return Response(data)
+		serializers = Etiqueta.objects.all().order_by('-id')
+		try:
+			serializer = EtiquetasSerializer(serializers, many=True)
+		except (TypeError, ValueError) as err:
+			print 'ERROR:', err
+		return Response(serializer.data)	
