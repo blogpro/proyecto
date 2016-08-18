@@ -21,7 +21,7 @@ angular.module('etiquetaModuleController', [])
 
 			$scope.saveObjModel = function ()
         	{
-                ServiceHTTP.post('service-etiquetas-query/',$scope.categorias).$promise.then(function(result) {
+                ServiceHTTP.post('service-etiquetas-query/',$scope.ObjModel).$promise.then(function(result) {
                     if(result.setCod == 0){
                         $scope.ObjModel = "";
                         $scope.queryObjModel();
@@ -47,7 +47,7 @@ angular.module('etiquetaModuleController', [])
             }
             $scope.SaveEditCat = function ()
             {
-                ServiceHTTP.update('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
+                ServiceHTTP.update('service-categorias-query/',$scope.ObjModel).$promise.then(function(result) {
                     $scope.ObjModel = "";
                     $scope.queryObjModel();
                 }, function(errResponse) {
