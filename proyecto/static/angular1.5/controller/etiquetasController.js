@@ -39,7 +39,7 @@ angular.module('etiquetaModuleController', [])
                 $scope.banderasbtn.showBtnEdit = true;
                 $scope.banderasbtn.showBtnSave = false;
 
-                ServiceHTTP.get('service-categorias-query/',id).$promise.then(function(result) {
+                ServiceHTTP.get('service-etiquetas-query/',id).$promise.then(function(result) {
                     $scope.ObjModel = result;
                 }, function(errResponse) {
                    console.log("error "+JSON.stringify(errResponse));
@@ -47,7 +47,7 @@ angular.module('etiquetaModuleController', [])
             }
             $scope.SaveEditObjModel = function ()
             {
-                ServiceHTTP.update('service-categorias-query/',$scope.ObjModel).$promise.then(function(result) {
+                ServiceHTTP.update('service-etiquetas-query/',$scope.ObjModel).$promise.then(function(result) {
                     $scope.ObjModel = "";
                     $scope.queryObjModel();
                 }, function(errResponse) {
@@ -56,7 +56,7 @@ angular.module('etiquetaModuleController', [])
             }
             $scope.DeleteObjModel = function (id)
             {
-                ServiceHTTP.borrar('service-categorias-query/',id).$promise.then(function(result) {
+                ServiceHTTP.borrar('service-etiquetas-query/',id).$promise.then(function(result) {
                     $scope.queryObjModel();
                 }, function(errResponse) {
                    console.log("error "+JSON.stringify(errResponse));
