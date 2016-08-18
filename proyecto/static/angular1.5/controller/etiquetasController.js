@@ -21,7 +21,7 @@ angular.module('etiquetaModuleController', [])
 
 			$scope.saveObjModel = function ()
         	{
-                ServiceHTTP.post('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
+                ServiceHTTP.post('service-etiquetas-query/',$scope.categorias).$promise.then(function(result) {
                     if(result.setCod == 0){
                         $scope.ObjModel = "";
                         $scope.queryObjModel();
