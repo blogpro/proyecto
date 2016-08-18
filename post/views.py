@@ -66,12 +66,11 @@ class PostView(LoginRequiredMixin,FormView):
 class UpdatePostViewPost(LoginRequiredMixin,UpdateView):
 
 	model = Post
-	form_class=PostForm
+	fields = ['status', 'title','etiquetas','categoria','descripcion']
 	template_name = 'dashpost.html'
 
 
 	def form_valid(self, form):
-		super(UpdatePostViewPost, self).save(form)
 		return HttpResponseRedirect('/dash-admin/#/list-post/')
 
 	def get_context_data(self, **kwargs):
