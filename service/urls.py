@@ -18,5 +18,5 @@ urlpatterns = patterns('',
    url(r'^service-categorias-query/(?P<pk>[0-9]+)/$', ServiceCategoriasQuery.as_view(), name='ServiceCategoriasQuery'),
    #Etiquetas
    url(r'^service-etiquetas-query/$', ServiceEtiquetasQuery.as_view()),
-   url(r'^service-categorias-query/(?P<pk>[0-9]+)/$', ServiceEtiquetasQuery.as_view(), name='ServiceEtiquetasQuery'),
+   url(r'^service-etiquetas-query/(?P<pk>[0-9]+)/$', ServiceEtiquetasQuery.as_view(), name='ServiceEtiquetasQuery'),
 )
