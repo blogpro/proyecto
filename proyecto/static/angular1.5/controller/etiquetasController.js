@@ -34,7 +34,7 @@ angular.module('etiquetaModuleController', [])
                 });
         	}
 
-            $scope.EditarCategoria = function (id)
+            $scope.EditarObjModel = function (id)
             {
                 $scope.banderasbtn.showBtnEdit = true;
                 $scope.banderasbtn.showBtnSave = false;
@@ -45,7 +45,7 @@ angular.module('etiquetaModuleController', [])
                    console.log("error "+JSON.stringify(errResponse));
                 });
             }
-            $scope.SaveEditCat = function ()
+            $scope.SaveEditObjModel = function ()
             {
                 ServiceHTTP.update('service-categorias-query/',$scope.ObjModel).$promise.then(function(result) {
                     $scope.ObjModel = "";
@@ -54,7 +54,7 @@ angular.module('etiquetaModuleController', [])
                    console.log("error "+JSON.stringify(errResponse));
                 });
             }
-            $scope.DeleteCategoria = function (id)
+            $scope.DeleteObjModel = function (id)
             {
                 ServiceHTTP.borrar('service-categorias-query/',id).$promise.then(function(result) {
                     $scope.queryObjModel();
@@ -62,7 +62,7 @@ angular.module('etiquetaModuleController', [])
                    console.log("error "+JSON.stringify(errResponse));
                 });
             }
-            $scope.cancelCategorias = function ()
+            $scope.cancelObjModel = function ()
             {
                 $scope.banderasbtn.showBtnSave = true;
                 $scope.banderasbtn.showBtnEdit = false;

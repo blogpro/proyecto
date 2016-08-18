@@ -101,4 +101,16 @@ class ServiceEtiquetasQuery(APIView):
 		data = {
 			'setCod': 0,
 		}
-		return Response(data)	
+		return Response(data)
+	def put(self, request, *args, **kwargs):
+		Etiqueta.objects.filter(pk=request.data['pk']).update(title=request.data['title'])
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)
+	def delete(self, request, *args, **kwargs):
+		post = Etiqueta.objects.get(pk=self.kwargs['pk']).delete()
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)			

@@ -34,8 +34,8 @@
                                 <tr ng-repeat="pq in postQuery">
                                     <td> [[ pq.title ]]  </td>
                                     <td class="text-center"> 
-                                        <button type="button" class="btn btn-lg btn-primary" ng-click="EditarCategoria([[pq.pk]])">Editar</button>
-                                        <button type="button" class="btn btn-lg btn-success" ng-click="DeleteCategoria([[pq.pk]])">Eliminar</button>
+                                        <button type="button" class="btn btn-lg btn-primary" ng-click="EditarObjModel([[pq.pk]])">Editar</button>
+                                        <button type="button" class="btn btn-lg btn-success" ng-click="DeleteObjModel([[pq.pk]])">Eliminar</button>
                                          <!-- <a href="edit/[[ pq.id ]]/"> <button type="button" class="btn btn-lg btn-warning">Info</button></a>  -->
                                     </td>
                                 </tr>
@@ -59,8 +59,8 @@
                 </div>
 
                 <button type="submit" ng-click="saveObjModel()" class="btn btn-default" ng-show="banderasbtn.showBtnSave">Guardar</button>
-                <button type="submit" ng-click="SaveEditCat()" class="btn btn-default" ng-show="banderasbtn.showBtnEdit">Guardar</button>
-                <button type="reset"  ng-click="cancelCategorias()" class="btn btn-default">Cancelar</button>
+                <button type="submit" ng-click="SaveEditObjModel()" class="btn btn-default" ng-show="banderasbtn.showBtnEdit">Guardar</button>
+                <button type="reset"  ng-click="cancelObjModel()" class="btn btn-default">Cancelar</button>
             </form>
 
         </div>
