@@ -90,4 +90,15 @@ class ServiceEtiquetasQuery(APIView):
 			serializer = EtiquetasSerializer(serializers, many=True)
 		except (TypeError, ValueError) as err:
 			print 'ERROR:', err
-		return Response(serializer.data)	
+		return Response(serializer.data)
+	def post(self, request, *args, **kwargs):
+		title = request.data['title']
+		ObjModel = Etiqueta()
+		ObjModel.title = request.data['title']
+		ObjModel.order = 0
+		ObjModel.save()
+
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)	

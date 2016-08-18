@@ -54,12 +54,12 @@
             <form role="form">
                 <div class="form-group">
                     <label>Nombre</label>
-                    <input class="form-control" ng-model="categorias.title">
+                    <input class="form-control" ng-model="ObjModel.title">
                     <p class="help-block">Ingrese el nombre de la categoria.</p>
                 </div>
 
-                <button type="submit" ng-click="saveCategorias()" class="btn btn-default" ng-show="banderasCategorias.showBtnSave">Guardar</button>
-                <button type="submit" ng-click="SaveEditCat()" class="btn btn-default" ng-show="banderasCategorias.showBtnEdit">Guardar</button>
+                <button type="submit" ng-click="saveObjModel()" class="btn btn-default" ng-show="banderasbtn.showBtnSave">Guardar</button>
+                <button type="submit" ng-click="SaveEditCat()" class="btn btn-default" ng-show="banderasbtn.showBtnEdit">Guardar</button>
                 <button type="reset"  ng-click="cancelCategorias()" class="btn btn-default">Cancelar</button>
             </form>
 

@@ -3,13 +3,13 @@ angular.module('etiquetaModuleController', [])
 	.controller('etiquetaController',
         function($scope,$timeout,ServiceHTTP,ngDialog,NgToast)
         {
-        	$scope.categorias = "";
-            $scope.banderasCategorias = {
+        	$scope.ObjModel = "";
+            $scope.banderasbtn = {
                 showBtnSave: true,
                 showBtnEdit: false
             };
 
-        	$scope.queryCategorias = function () {
+        	$scope.queryObjModel = function () {
 	    	    ServiceHTTP.query('service-etiquetas-query/').$promise.then(function(result) {
 
 				   $scope.postQuery = result;
@@ -17,14 +17,14 @@ angular.module('etiquetaModuleController', [])
 				   console.log("error "+errResponse);
 				});
     		}
-			$scope.queryCategorias();
+			$scope.queryObjModel();
 
-			$scope.saveCategorias = function ()
+			$scope.saveObjModel = function ()
         	{
                 ServiceHTTP.post('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
                     if(result.setCod == 0){
-                        $scope.categorias = "";
-                        $scope.queryCategorias();
+                        $scope.ObjModel = "";
+                        $scope.queryObjModel();
                         NgToast.msjToast({mensaje: 'Guardado correctamente.', clase: 'success'});
                     }else{
                         NgToast.msjToast({mensaje: 'Error al guardar.', clase: 'danger'});
@@ -36,11 +36,11 @@ angular.module('etiquetaModuleController', [])
 
             $scope.EditarCategoria = function (id)
             {
-                $scope.banderasCategorias.showBtnEdit = true;
-                $scope.banderasCategorias.showBtnSave = false;
+                $scope.banderasbtn.showBtnEdit = true;
+                $scope.banderasbtn.showBtnSave = false;
 
                 ServiceHTTP.get('service-categorias-query/',id).$promise.then(function(result) {
-                    $scope.categorias = result;
+                    $scope.ObjModel = result;
                 }, function(errResponse) {
                    console.log("error "+JSON.stringify(errResponse));
                 });
@@ -48,8 +48,8 @@ angular.module('etiquetaModuleController', [])
             $scope.SaveEditCat = function ()
             {
                 ServiceHTTP.update('service-categorias-query/',$scope.categorias).$promise.then(function(result) {
-                    $scope.categorias = "";
-                    $scope.queryCategorias();
+                    $scope.ObjModel = "";
+                    $scope.queryObjModel();
                 }, function(errResponse) {
                    console.log("error "+JSON.stringify(errResponse));
                 });
@@ -57,15 +57,15 @@ angular.module('etiquetaModuleController', [])
             $scope.DeleteCategoria = function (id)
             {
                 ServiceHTTP.borrar('service-categorias-query/',id).$promise.then(function(result) {
-                    $scope.queryCategorias();
+                    $scope.queryObjModel();
                 }, function(errResponse) {
                    console.log("error "+JSON.stringify(errResponse));
                 });
             }
             $scope.cancelCategorias = function ()
             {
-                $scope.banderasCategorias.showBtnSave = true;
-                $scope.banderasCategorias.showBtnEdit = false;
+                $scope.banderasbtn.showBtnSave = true;
+                $scope.banderasbtn.showBtnEdit = false;
             }
 
         }
