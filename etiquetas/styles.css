@@ -89,7 +89,7 @@ img {
  */
 nav {
 	float: left;
-	margin-left: 15px;
+	margin-left: 3.3%;
 }
 	nav ul {
 		margin: 0;
@@ -113,10 +113,38 @@ nav {
 					background: #0b76a6;
 				}
 	
-#busqueda {
+.search {
     float: right;
     position: relative;
-    margin-top: 0.9em;
+    width: 25%;
+    border: 1px solid #ededed;
+    margin-top: 1.4em;
+    margin-right: 2em;
+}
+
+.search input[type="search"] {
+    outline: none;
+    padding: 8px 15px;
+    background: white;
+    width: 77%;
+    border: none;
+    font-size: 1em;
+    color: #a9a7a7;
+}
+
+.search input[type="submit"] {
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    outline: none;
+    top: 0px;
+    right: 0px;
+    font-size: 1em;
+    background: #333;
+    color: #fff;
+    font-weight: 700;
+    padding: 8px 11px;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 
@@ -146,9 +174,28 @@ nav {
 section {
 	overflow: hidden;
 	float: left;
-	width: 80%;
+	width: 75%;
 	margin: 20px auto;
 }
+
+#descripcion-post a {
+    display: inline-block;
+    font-size: 1.12em;
+    color: #494949;
+    text-decoration: none;
+    padding: 0 1em 0 0;
+}
+
+#descripcion-post a i {
+    background: url(http://systab.herokuapp.com/static/images/img-sprite.png)no-repeat -77px -101px;
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    margin: 0 10px 0 0;
+    vertical-align: middle;
+}
+
+
 
 #fecha{
 	float: left;
@@ -160,6 +207,16 @@ section {
 	-webkit-border-radius: 5px 5px 5px 5px;
 	border: 0px solid #000000;
 }
+
+#fecha .mes{
+	font-size: small;
+}
+
+#fecha .dia{
+	font-weight: bold;
+    font-size: xx-large;
+}
+
 #cuerpotitulo{
 	float: left;
     padding: initial;
@@ -175,14 +232,42 @@ section {
 margin-top: -20px;
 }
 
+.readMore a {
+	text-decoration: none;
+	color: #D20505;
+}
+
 
 aside {
 	float: left;
-	width: 20%;
-	margin: 20px auto;
+	width: 25%;
+	margin: 45px auto;
 	
 }
 
+aside ul{
+    margin-right: 15%;
+    padding-left: 2%;
+}
+
+aside ul li {
+    list-style-image: url(http://systab.herokuapp.com/static/images/dot.png);
+    margin: 12px 0px 5px 17px;
+    border-bottom: 1px solid #E8E6E6;
+    text-decoration: none;
+}
+
+aside ul li a {
+    color: #494949;
+    line-height: 1.8em;
+    text-decoration: none;
+    font-size: 0.9em;
+    padding: 0 0 10px;
+    display: block;
+}
+.content{
+	margin-bottom: -50px;
+}
 
 
 /************
