@@ -237,6 +237,15 @@ margin-top: -20px;
 	color: #D20505;
 }
 
+#readMore a i {
+    background: url(http://systab.herokuapp.com/static/images/img-sprite.png)no-repeat -77px -101px;
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    margin: 0 10px 0 0;
+    vertical-align: middle;
+}
+
 
 aside {
 	float: left;
@@ -289,3 +298,20 @@ footer {
 	footer a {
 		color: white;
 	}
+
+/************
+//-----------------------------
+// Responsive Design
+//-----------------------------
+************/
+@media screen and (max-width: 768px) {
+
+}
+
+@media screen and (max-width: 600px) {
+
+}
+
+@media screen and (max-width: 480px) {
+
+}
