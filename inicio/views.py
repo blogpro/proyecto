@@ -49,6 +49,7 @@ class ValidaINicioView(RedirectView):
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
     template_name = 'index.html'
+    template_name = 'index-post.html'
 
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):

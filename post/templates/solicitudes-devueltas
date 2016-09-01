@@ -1,0 +1,2803 @@
+angular.module('cSolicitudesDevueltas', [])
+        .controller('solicitudesDevueltasController', ['$rootScope', '$scope', '$http', 'Flotantes', 'ServiciosHTTP', 'Camara', '_encryptAES', '_decryptAES', 'Catalogos', 'clrStr', '$timeout', 'ngDialog', 'Digitalizadora', 'Fechas', 'sesionError', 'sArreglos', 'cDatosBasicos', '$location',
+            function ($rootScope, $scope, $http, Flotantes, ServiciosHTTP, Camara, _encryptAES, _decryptAES, Catalogos, clrStr, $timeout, ngDialog, Digitalizadora, Fechas, sesionError, sArreglos, cDatosBasicos, $location) {
+
+                /*Banderas  ---- ---- ---- ---- ---- ---- ---- ---- ----  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- */
+                $scope.Cargando = Flotantes.cargando();
+                $scope.Documentos = Catalogos.catalogoArregloDocs();
+                $scope.Acciones = Catalogos.catalogoAcciones();
+                $scope.arrValidacion = clrStr.catalogoArrValidacion();
+                $scope.actualizarDatosHogar = "app/html/captacion/datos-hogar.html";
+                $scope.plantillaActiva = "";
+
+                $scope.avisoCheck = {finalidadSecundaria: false, avisoPrivacidad: false};
+                $scope.banderas = {
+                    firma: false
+                };
+
+                //Objeto para la obtencion del tipo de documento
+                var documentos = {
+                    ident: null,
+                    dom: null
+                };
+
+                var FirmaFondoColor = "#FFFFFF";
+                var FirmaAncho = 580;
+                var FirmaAlto = 420;
+                var totalServiciosConsumidos = 0;
+                $scope.nDoc = [];
+
+                $scope.photosIdentificacionAnt = true;
+                $scope.photosIdentificacionsig = false;
+                $scope.photosComprobanteAnt = true;
+                $scope.photosComprobanteSig = false;
+
+                $scope.principalIdentificacion = true;
+
+                $scope.IdentPasaporte = false;
+                $scope.IdentCedulaMigratoria = false;
+                $scope.IdentIne = false;
+
+                //Activan vista principal y formulario de seleccion dedocumento a digitalizar
+                $scope.PrincipalDomicilio = true;
+                $scope.FormularioDomicilio = false;
+
+                //Activan visor de imagen para  comprobante de domicilio
+                //Se usa en:  $scope.iniciarComprobanteDomicilio()
+                $scope.IneComprobanteDomicilio = false;
+                $scope.OtroComprobanteDomicilio = false;
+
+                $scope.ineActivo = false;
+
+                $scope.vcomproDoc = false;
+                $rootScope.altaSolicitudG = false;
+                $scope.NumActual = 1;
+
+                //Activan opcion seleccionada en la eleccion de documento a digitalizar
+                $scope.idTipoDocumentoDomicilio = "0";
+                $scope.activoCFE = false;
+                $scope.activoIFE = false;
+                $scope.activoTelmex = false;
+                $scope.activoEstadoBancario = false;
+                $scope.activoGas = false;
+                $scope.activoPredial = false;
+                $scope.activoAgua = false;
+                $scope.activoContratoArrendamiento = false;
+                $scope.imagenCapturada = false;
+                $scope.meactive = false;
+
+                $scope.validarTipoDocumento = "0";
+
+                $scope.actualizarDom = {};
+                $scope.showAnio = false;
+                $scope.showMes = false;
+                $scope.showDia = false;
+
+                $scope.actualizarDom.domicilioYear = "";
+                $scope.actualizarDom.domicilioMes = "";
+                $scope.actualizarDom.domicilioDia = "";
+
+                $scope.jsonSendIdentificacion = {};
+
+                var idEmpleado = $rootScope.idEmpleado;
+
+                //Estatus para los iconos completados sobre el menu
+                $scope.completadoIdentificacion = false;
+                $scope.completadoComprobante = false;
+
+                //Vandera para datos-hogar
+                $scope.actualizarDatosHogar = false;
+                $scope.FormularioDatosHogar = '';
+                $scope.jsonDigitalizacion = {};
+                $scope.estatus = {
+                    showFolio: false,
+                    showVigencia: false
+                };
+
+                $scope.fotoTomada = false;
+                $scope.domicilioTomada = false;
+                $scope.anios = [];
+                //$scope.mostrarRegresar = false;
+
+                $scope.estatusIdentificacion = {
+                    foto: false,
+                    cIdentificacion: false
+                };
+                $scope.estatusDomicilio = {
+                    fDatosHogar: false,
+                    cDomicilio: false
+                };
+                $scope.regresarVentana = false;
+
+                $scope.msjDomicilio = false;
+                $scope.msjIdentificacion = false;
+
+                $scope.vcontratosvalidar = false;
+
+                $scope.menuprincipal = false;
+                $scope.numvisor = 1;
+                /*---- ---- ----  ---- ---- ---- ---- ---- ---- ---- ---- ----  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- */
+
+                var anioActual = new Date().getFullYear();
+                for (var i = anioActual; i <= (anioActual + 10); i++) {
+                    $scope.anios.push(i);
+                }
+                //Obtneemos el anio actual
+                $scope.anioActual = Fechas.anioActual();
+
+                //Inicializa los datos en pantalla
+                (function ()
+                {
+                    //Verifica de donde proviene la solicitud: Desde una busqueda o desde Expedientes Devueltos
+                    if (!esVacio($rootScope.enviadoDesdeExpediente)) {
+
+                        if ($rootScope.enviadoDesdeExpediente) {
+
+                            $rootScope.idEmpleado = $rootScope.datosExpediente.idClienteBig;
+                            
+                            recuperaRevision($rootScope.idEmpleado,function (e)
+                            {
+                              if(e==0){
+                                recuperaRutas($rootScope.idEmpleado);
+                                recuperaFoto($rootScope.idEmpleado);
+                              }
+                            });
+                            $scope.Documentos.nombreCliente = $rootScope.nombre + ' ' + $rootScope.apPat + ' ' + $rootScope.apMat;
+                            $scope.nombreClte = $rootScope.nombre;
+                            $scope.apellidoCliente = $rootScope.apPat + ' ' + $rootScope.apMat;
+                        }
+
+                    } else {
+                        recuperaRevision($rootScope.idEmpleado,function (e)
+                        {
+                          if(e==0){
+                              recuperaRutas($rootScope.idEmpleado);
+                            recuperaFoto($rootScope.idEmpleado);
+                          }
+                        });
+                        $scope.Documentos.nombreCliente = $scope.nombre + ' ' + $scope.apPat + ' ' + $scope.apMat;
+                        $scope.nombreClte = $scope.nombre;
+                        $scope.apellidoCliente = $scope.apPat + ' ' + $scope.apMat;
+                    }
+                })();
+                function validacionDeServicios() {
+                    totalServiciosConsumidos++;
+                    if (totalServiciosConsumidos == 3)
+                        $scope.Cargando = Flotantes.cargandoCerrar();
+                }
+                //Funcion para validar cadena vacia
+                function esVacio(str) {
+                    if (typeof (str) == 'undefined' || str == null || str == "" || str == "0") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                ;
+                /*---- ---- ----  ---- ---- ---- ---- ---- ---- ---- ---- ----  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----- */
+
+                /*Consumo de servicios  ---- ---- ---- ---- ---- ---- ---- ----  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- */
+                function recuperaRevision(_idCliente,callback) {
+                    var jsonSend = {// Asignacion de solicitud a consultar
+                        idCliente: _idCliente
+                    };
+                    jsonSend = JSON.stringify(jsonSend);
+                    jsonSend = _encryptAES.convertidor(jsonSend);
+                    ServiciosHTTP.post(jsonSend, '/api/externo/solicitud/recuperarevision').$promise.then(
+                            function (response) {
+                                validacionDeServicios();
+                                response = _decryptAES.convertidor(response.resultado);
+                                response = JSON.parse(response);
+                                console.log(response.jsonResultado);
+                                
+                                for(obj in response.jsonResultado[0].revision){
+                                   if (response.jsonResultado[0].revision[obj].idDocumento != undefined) {
+                                       if ((response.jsonResultado[0].revision[obj].idRubro == '1' && response.jsonResultado[0].revision[obj].idStatusRevision == '10') && (response.jsonResultado[0].revision[obj].idRechazo == '3' || response.jsonResultado[0].revision[obj].idRechazo == '8')){
+                                           $scope.fotoine = true;
+                                           $scope.fotoineco = response.jsonResultado[0].revision[obj].comentario;
+                                           $scope.fotoineid = response.jsonResultado[0].revision[obj].idRechazo;
+                                       }
+                                       if (response.jsonResultado[0].revision[obj].idRubro == '2' && response.jsonResultado[0].revision[obj].idStatusRevision == '10'){
+                                           $scope.nombreine = true;
+                                           $scope.nombreineco = response.jsonResultado[0].revision[obj].comentario;
+                                           $scope.nombreineid = response.jsonResultado[0].revision[obj].idRechazo;
+                                       }
+                                       if (response.jsonResultado[0].revision[obj].idRubro == '3' && response.jsonResultado[0].revision[obj].idStatusRevision == '10'){
+                                           $scope.vigenciaine = true;
+                                           $scope.vigenciaineco = response.jsonResultado[0].revision[obj].comentario;
+                                           $scope.vigenciaineid = response.jsonResultado[0].revision[obj].idRechazo;
+                                       }
+                                       if (response.jsonResultado[0].revision[obj].idRubro == '4' && response.jsonResultado[0].revision[obj].idStatusRevision == '10'){
+                                           $scope.firmaine = true;
+                                           $scope.firmaineco = response.jsonResultado[0].revision[obj].comentario;
+                                           $scope.firmaineid = response.jsonResultado[0].revision[obj].idRechazo;
+                                       }
+                                       
+                                       if ((response.jsonResultado[0].revision[obj].idRubro == '5' && response.jsonResultado[0].revision[obj].idStatusRevision == '10') && (response.jsonResultado[0].revision[obj].idRechazo == '4' || response.jsonResultado[0].revision[obj].idRechazo == '8')){
+                                           $scope.datosHogard = true;
+                                           $scope.datosHogardco = response.jsonResultado[0].revision[obj].comentario;
+                                           $scope.datosHogardid = response.jsonResultado[0].revision[obj].idRechazo;
+                                       }
+                                       
+                                       if (response.jsonResultado[0].revision[obj].idRubro == '6' && response.jsonResultado[0].revision[obj].idStatusRevision == '10'){
+                                           $scope.vigenciaHogard = true;
+                                           $scope.vigenciaHogardco = response.jsonResultado[0].revision[obj].comentario;
+                                           $scope.vigenciaHogardid = response.jsonResultado[0].revision[obj].idRechazo;
+                                       }
+                                   } 
+                                }
+                                
+                                $scope.nDoc = recuperarevisionMesa(response.jsonResultado);
+                                console.log($scope.nDoc);
+                                
+                                if($scope.nDoc.length == 0){
+                                    $scope.plantillaActiva = "app/html/captacion/tmp-errorRevision.html";
+                                    ngDialog.open({
+                                        template: 'app/html/captacion/aviso-calificaciones.html',
+                                        className: 'ngdialog-theme-plain',
+                                        plain: false,
+                                        closeByDocument: false,
+                                        preCloseCallback: function () {
+                                            document.body.style.position = "initial";
+                                        },
+                                        scope: $scope
+                                    });
+                                    callback(1);
+                               }else{
+                                if (response.codE == 0) {
+                                    callback(response.codE);
+                                    if ($scope.nDoc[0].idDocumento === 1) {
+                                        $scope.plantillaActiva = "app/html/captacion/tmp-ident-oficial.html";
+                                        $scope.posiciond = 0;
+                                        $scope.idDocumentod = $scope.nDoc[0].idDocumento;
+                                        $scope.menuprincipal = true;
+//                                        if((response.jsonResultado[0].revision[0].idStatusRevision == 10 && response.jsonResultado[0].revision[0].idRubro == 2) || (response.jsonResultado[0].revision[1].idStatusRevision == 10 && response.jsonResultado[0].revision[1].idRubro == 2)){
+//                                          $scope.validaidenoficial = true;
+//                                          console.log("Se devolvio foto");
+//                                        }else{
+//                                            console.log("No se devolvio foto");
+//                                        }
+                                        
+                                        
+                                    } else if ($scope.nDoc[0].idDocumento === 2) {
+                                        $scope.plantillaActiva = "app/html/captacion/tmp-comprobante.html";
+                                        $scope.posiciond = 0;
+                                        $scope.idDocumentod = $scope.nDoc[0].idDocumento;
+                                        $scope.menuprincipal = true;
+                                    } else {
+                                        $scope.menuprincipal = true;
+                                        $scope.nContratod = $scope.nDoc[0].descripcion;
+                                        $scope.idContratod = $scope.nDoc[0].idRechazo;
+                                        $scope.comentariod = $scope.nDoc[0].comentario;
+                                        $scope.idDocumentod = $scope.nDoc[0].idDocumento;
+                                        $scope.posiciond = 0;
+                                        $timeout(function () {
+                                            $scope.inicializarContratos();
+                                        }, 200);
+                                        $scope.plantillaActiva = "app/html/captacion/tmp-contratos.html";
+                                    }
+                                } else {
+                                    Flotantes.mensajeToast({
+                                        mensaje: 'Respuesta inadecuada (recuperaRevision)-> codE:' + response.codE + ' msgE: ' + response.msgE + ' jsonResultado : ' + angular.toJson(response.jsonResultado),
+                                        clase: 'danger'
+                                    });
+                                }
+                                }
+                            },
+                            function (errResponse) {
+                                validacionDeServicios();
+                                Flotantes.mensajeToast({
+                                    mensaje: 'Error al consultar recuperaRevision codE: ' + codE,
+                                    clase: 'danger'
+                                });
+                            });
+                }
+
+
+                function consultaDocumento_C(_url, callBack) {
+                    var jsonSend = {
+                        url: _url
+                    };
+
+                    jsonSend = JSON.stringify(jsonSend);
+                    jsonSend = _encryptAES.convertidor(jsonSend);
+                    ServiciosHTTP.post(jsonSend, '/api/externo/mesacontrol/captacion/documentos/png').$promise.then(
+                            function (response) {
+                                response = _decryptAES.convertidor(response.resultado);
+                                response = JSON.parse(response);
+                                var jsonResultado = "data:image/png;base64," + response.jsonResultado;
+
+                                callBack(jsonResultado);
+                            }
+                    );
+
+                }
+
+                function recuperaRutas(_idCliente) {
+                    var seq = new Sequence();
+                    var jsonSend = {
+                        idCliente: _idCliente
+                    };
+                    jsonSend = JSON.stringify(jsonSend);
+                    jsonSend = _encryptAES.convertidor(jsonSend);
+                    ServiciosHTTP.post(jsonSend, '/api/externo/mesacontrol/captacion/documentos/rutas').$promise.then(
+                            function (response) {
+                                validacionDeServicios();
+                                console.log('Response recuperaRutas : ', response);
+                                response = _decryptAES.convertidor(response.resultado);
+                                response = JSON.parse(response);
+                                console.log(response);
+
+                                if (response.codE == 0) {
+                                    $scope.Documentos.dAviso = clrStr.validacionRutas(response.jsonResultado['CAP - Aviso de Privacidad']);
+                                    $scope.Documentos.dCaratula = clrStr.validacionRutas(response.jsonResultado['CAP - Caratula']);
+                                    $scope.Documentos.dContrato = clrStr.validacionRutas(response.jsonResultado['CAP - Contrato Firmado']);
+                                    $scope.Documentos.dSolicitud = clrStr.validacionRutas(response.jsonResultado['CAP - Solicitud de Apertura de Cuenta']);
+                                    $scope.Documentos.dBuro = clrStr.validacionRutas(response.jsonResultado['CRE - Autorizacion para consulta BNC del Cliente']);
+                                    if (clrStr.validacionRutas(response.jsonResultado['CAP - Identificacion Oficial del Cliente']) != null) {
+                                        $scope.Documentos.dIfe = invertirArray(clrStr.validacionRutas(response.jsonResultado['CAP - Identificacion Oficial del Cliente']));
+
+                                    }
+                                    if (clrStr.validacionRutas(response.jsonResultado['CAP - Comprobante de Domicilio del Cliente']) != null) {
+                                        $scope.Documentos.dComprobante = invertirArray(clrStr.validacionRutas(response.jsonResultado['CAP - Comprobante de Domicilio del Cliente']));
+
+                                    }
+                                    if($scope.nDoc[0].idDocumento === 1){
+                                        $scope.cargar = Flotantes.cargar();
+                                        $scope.cargar2 = Flotantes.cargar();
+                                        if ($scope.Documentos.dIfe != null) {
+                                        seq.set(function (i) {
+                                            
+                                            consultaDocumento_C($scope.Documentos.dIfe[0], function (an) {
+                                                $scope.ifeDocAnberso = an;
+                                                $scope.ifeimgActual = $scope.ifeDocAnberso;
+                                                $scope.cargar = Flotantes.cargarCerrar();
+                                                $scope.bandera = true;
+                                                seq.next();
+                                            });
+                                        }, 0);
+
+                                        seq.set(function (i) {
+                                            
+                                            consultaDocumento_C($scope.Documentos.dIfe[1], function (re) {
+                                                $scope.ifeDocReverso = re;
+                                                seq.next();
+                                                $scope.cargar2 = Flotantes.cargarCerrar();
+                                                $scope.bandera = true;
+                                            });
+                                        }, 1);
+                                    } else {
+                                            $scope.cargar = Flotantes.cargarCerrar();
+                                            $scope.cargar2 = Flotantes.cargarCerrar();
+                                            $scope.banderaerrorI = true;
+                                        }
+                                    }
+                                    
+                                    if($scope.nDoc[0].idDocumento === 2 || ($scope.nDoc[1]!= null && $scope.nDoc[1].idDocumento === 2)){
+                                        $scope.cargar3 = Flotantes.cargar();
+                                        if ($scope.Documentos.dComprobante != null) {
+                                            seq.set(function (i) {   
+                                                consultaDocumento_C($scope.Documentos.dComprobante[0], function (co) {
+                                                    $scope.comDocReverso = co;
+                                                    $scope.compimgActual = $scope.comDocReverso;
+                                                    $scope.cargar3 = Flotantes.cargarCerrar();
+                                                    $scope.bandera3 = true;
+                                                    seq.next();
+                                                });
+                                            }, 2);
+                                            seq.set(function (i) {   
+                                                consultaDocumento_C($scope.Documentos.dComprobante[1], function (co2) {
+                                                    $scope.comDocAmberso = co2;
+                                                    $scope.cargar3 = Flotantes.cargarCerrar();
+                                                    $scope.bandera3 = true;
+                                                    seq.next();
+                                                });
+                                            }, 3);
+                                    }else {
+                                            $scope.cargar3 = Flotantes.cargarCerrar();
+                                            $scope.banderaerrorC = true;
+                                        }
+                                    }
+                                    
+                                    seq.commit(function () {
+                                    });
+
+                                    $scope.Documentos.dCredito = clrStr.validacionRutas(response.jsonResultado['CAP - Contrato de credito']);
+
+                                } else {
+                                    Flotantes.mensajeToast({
+                                        mensaje: 'Respuesta inadecuada (recuperaRutas)-> codE:' + response.codE + ' msgE: ' + response.msgE + ' jsonResultado : ',
+                                        clase: 'danger'
+                                    });
+                                }
+                            },
+                            function (errResponse) {
+                                validacionDeServicios();
+                                Flotantes.mensajeToast({
+                                    mensaje: 'Error al consultar recuperaRutas codE: ',
+                                    clase: 'danger'
+                                });
+                            });
+                }
+
+                function recuperaFirma(_idCliente) {
+                    var jsonSend = {
+                        idCliente: _idCliente
+                    };
+                    jsonSend = JSON.stringify(jsonSend);
+                    jsonSend = _encryptAES.convertidor(jsonSend);
+                    ServiciosHTTP.post(jsonSend, '/api/externo/digitalizacion/recuperaFirma').$promise.then(
+                            function (response) {
+                                validacionDeServicios();
+                                response = _decryptAES.convertidor(response.resultado);
+                                response = JSON.parse(response);
+                                console.log('Response recuperaFirma : ', response);
+
+                                if (response.codE == 0) {
+                                    $scope.Documentos.Firma = "data:image/jpg;base64," + response.jsonResultado.firma;
+                                } else {
+                                    Flotantes.mensajeToast({
+                                        mensaje: 'Respuesta inadecuada (recuperaFirma)-> codE:' + response.codE + ' msgE: ' + response.msgE + ' jsonResultado : ' + angular.toJson(response.jsonResultado),
+                                        clase: 'danger'
+                                    });
+                                }
+                            },
+                            function (errResponse) {
+                                validacionDeServicios();
+                                Flotantes.mensajeToast({
+                                    mensaje: 'recuperaFirma codE: ',
+                                    clase: 'danger'
+                                });
+                            });
+                }
+
+                function recuperaFoto(_idCliente) {
+                    var jsonSend = {
+                        idCliente: _idCliente
+                    };
+                    jsonSend = JSON.stringify(jsonSend);
+                    jsonSend = _encryptAES.convertidor(jsonSend);
+                    ServiciosHTTP.post(jsonSend, '/api/externo/mesacontrol/obtenFoto').$promise.then(
+                            function (response) {
+                                validacionDeServicios();
+                                response = _decryptAES.convertidor(response.resultado);
+                                response = JSON.parse(response);
+                                console.log('Response recuperaFoto : ', response);
+
+                                if (response.codE == 0) {
+                                    $scope.Documentos.Foto = "data:image/jpg;base64," + response.jsonResultado;
+                                } else {
+                                    Flotantes.mensajeToast({
+                                        mensaje: 'Respuesta inadecuada (recuperaFoto)-> codE:' + response.codE + ' msgE: ' + response.msgE + ' jsonResultado : ' + angular.toJson(response.jsonResultado),
+                                        clase: 'danger'
+                                    });
+                                }
+                            },
+                            function (errResponse) {
+                                validacionDeServicios();
+                                Flotantes.mensajeToast({
+                                    mensaje: 'Error en la consulta del servicio: recuperaFoto',
+                                    clase: 'danger'
+                                });
+                            });
+                }
+                /* Fin Consumo de servicios  ---- ---- ---- ---- ---- ---- ---- ----  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- */
+
+                $scope.qryMtvsRechazo = function (_idMotivo) {
+                    return Catalogos.catalogoMotivos(_idMotivo);
+                }
+
+                /* Control para Foto ---- ------- ---- ---- ---- ---- ---- ---- ----  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- */
+                $scope.evtTomarFoto = function () {
+                    $scope.respuestasConsultas = 'evtTomarFoto';
+                    Camara.tomarFoto('moduloTomarFotoCliente', 'respuestaComponenteCamara', {});
+                }
+                $scope.respuestaComponenteCamara = function (responseCamara) {
+                    if (responseCamara.cadenaJPG != "") {
+                        $scope.banderas.firma = false;
+                        $scope.nuevaFotoCliente = responseCamara.cadenaJPG;
+                        $scope.nuevaFotoCliente1 = "data:image/png;base64," + responseCamara.cadenaJPG;
+                        $scope.respuestasConsultas = responseCamara.cadenaJPG;
+                        $scope.fotoTomada = true;
+
+                        // $scope.Acciones.btnaceptar = true;
+
+
+                        $scope.nDoc[$scope.posiciond].status = true;
+                        $scope.nDoc[$scope.posiciond].foto = true;
+                        $scope.nDoc[$scope.posiciond].completado = true;
+                        activarBoton();
+                    } else {
+                        Flotantes.mensajeToast({
+                            mensaje: 'No se capturo correctamente la foto',
+                            clase: 'danger'
+                        });
+                    }
+                }
+
+                /* ---- ---- ---- ---- ---- ---- ---- ---- fin Control Foto ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- */
+
+
+                $scope.CambiarVentana = function (tipoVentana, idDocumento, posicion) {
+                    if (tipoVentana === 'Identificacion') {
+                        $scope.posiciond = posicion;
+                        $scope.plantillaActiva = "app/html/captacion/tmp-ident-oficial.html";
+                        $scope.msjDomicilio = false;
+                    } else if (tipoVentana === 'Domicilio') {
+                        $scope.idDocumentod = $scope.nDoc[posicion].idDocumento;
+                        $scope.posiciond = posicion;
+                        $scope.msjIdentificacion = false;
+                        $scope.plantillaActiva = "app/html/captacion/tmp-comprobante.html";
+
+                    } else if (tipoVentana === 'contrato') {
+                        $scope.nContratod = $scope.nDoc[posicion].descripcion;
+                        $scope.idContratod = $scope.nDoc[posicion].idRechazo;
+                        $scope.comentariod = $scope.nDoc[posicion].comentario;
+                        $scope.idDocumentod = $scope.nDoc[posicion].idDocumento;
+                        $scope.posiciond = posicion;
+
+                        $scope.plantillaActiva = "app/html/captacion/tmp-contratos.html";
+                        $timeout(function () {
+                            $scope.inicializarContratos();
+                        }, 200);
+//                    $scope.msjIdentificacion = false;
+                    }
+                };
+
+
+
+                $scope.evtCapturarInformacion = function (_in) {
+                    $scope.tipoOcr = {};
+                    $scope.estatus = {
+                        showFolio: false,
+                        showVigencia: false,
+                        principal: true,
+                        edicionIdentificacion: true,
+                        edicionDomicilio: true,
+                        opcionRegresar: 'menu',
+                        pasaporteActivo: true
+                    };
+                    $scope.jsonDigitalizacion = {};
+
+                    if (_in == 'digitalizarIfe') {
+                        $scope.showMensaje = false;
+                        $scope.tipoOcr.tipo = "";
+                        $scope.estatus.tipoIdentificacion = true;
+
+                        // Cargamos la opcion de regresar
+                        $scope.estatus.opcionRegresar = 'principal';
+
+                        document.body.style.position = "fixed";
+                        $timeout(function () {
+                            ngDialog.open({
+                                template: 'ngDialogIndentificacionForm',
+                                className: 'ngdialog-theme-plain',
+                                plain: false,
+                                closeByDocument: false,
+                                preCloseCallback: function () {
+                                    document.body.style.position = "initial";
+                                },
+                                scope: $scope
+                            });
+                        }, 75);
+
+                    } else if (_in == 'digitalizarComprobante') {
+                        $scope.showMensajeDomi = false;
+                        $scope.estatus.cedulaMigratoriaActivo = true;
+                        $scope.tipoOcrDomi = {};
+                        $scope.vigenciaYear = "";
+                        // Cargamos la opcion de regresar
+                        $scope.estatus.opcionRegresar = 'principal';
+
+                        document.body.style.position = "fixed";
+
+                        $timeout(function () {
+                            ngDialog.open({
+                                template: 'ngDialogDomicilioForm',
+                                className: 'ngdialog-theme-plain',
+                                plain: false,
+                                closeByDocument: false,
+                                preCloseCallback: function () {
+                                    document.body.style.position = "initial";
+                                },
+                                scope: $scope
+                            });
+                        }, 75);
+                    } else if (_in == 'actualizarDatosHogar') {
+                        $scope.PrincipalDomicilio = false;
+                        $scope.actualizarDatosHogar = true;
+                        $scope.FormularioDatosHogar = 'app/html/captacion/tmp-datos-hogar.html';
+
+                    }
+                };
+
+                //Tipo de verificacion -> Identificacion Oficial: Selecciona entre tres posibles documentos de identificacion oficial -> Ine, pasaporte o cedula
+                $scope.iniciarOcrIne = function () {
+
+                    $scope.FrenteIFE = true;
+                    $scope.DetrasIFE = false;
+
+                    if ($scope.tipoOcr.tipo == undefined || $scope.tipoOcr.tipo == null || $scope.tipoOcr.tipo == "") {
+                        $scope.showMensaje = true;
+                        Flotantes.mensajeToast({
+                            mensaje: 'Debe seleccionar un tipo de identificación.',
+                            clase: 'danger'
+                        });
+                    } else {
+                        $scope.showMensaje = false;
+                        $scope.estatus.pasaporteActivo = false;
+                        $scope.estatus.cedulaMigratoriaActivo = false;
+                        //Inicia el ocrIne
+                        if ($scope.tipoOcr.tipo == 1) {
+                            $scope.NumActual = 2;
+                            $scope.closeNgDialog();
+                            $scope.IdentIne = true;
+                            $scope.iniciarIne();
+                        }
+                        //Inicia el ocr de Pasaporte
+                        if ($scope.tipoOcr.tipo == 2) {
+                            $scope.NumActual = 1;
+                            $scope.closeNgDialog();
+                            $scope.IdentPasaporte = true;
+                            $scope.iniciarPasaporte();
+                        }
+                        //Incia Formato migratorio
+                        if ($scope.tipoOcr.tipo == 5) {
+                            $scope.NumActual = 2;
+                            $scope.closeNgDialog();
+                            $scope.IdentCedulaMigratoria = true;
+                            $scope.iniciarCedulaMigratoria();
+                        }
+                    }
+                };
+
+                //Tipo de verificacion -> Comprobante de domicilio
+                $scope.iniciarComprobanteDomicilio = function () {
+                    //Verificamos que no venga vacio
+                    if ($scope.tipoOcrDomi.tipo == undefined || $scope.tipoOcrDomi.tipo == null || $scope.tipoOcrDomi.tipo == "") {
+
+                        $scope.showMensajeDomi = true;
+                        Flotantes.mensajeToast({
+                            mensaje: 'Debe seleccionar un tipo de comprobante de domicilio.',
+                            clase: 'danger'
+                        });
+                    } else {
+
+                        // $scope.Acciones.btnaceptar = true;
+                        activarBoton();
+                        $scope.showMensajeDomi = false;
+
+                        //Parametros para el componente de digitalizacion
+                        var jsonParams = {
+                            numFotos: 1,
+                            tiposFoto: ["Capturar foto del frente del comprobante de domicilio"],
+                            tipoDocumento: "2" //Para presentar domicilio
+                        };
+
+                        try {
+                            //Si el comprobante es de tipo  IFE o Identificacion oficial
+                            if ($scope.tipoOcrDomi.tipo == 1) {
+                                var jsonOCR = {
+                                    datos: false
+                                };
+                                Camara.ocr("moduloExpediente", "respuestaComponenteOcr", jsonOCR);
+                                $scope.cerrarDialogTipoIdentificacion();
+
+                                //Obtenemos respuesta desde el componente
+                                $scope.respuestaComponenteOcr = function (response) {
+                                    //Si la operacion es exitosa
+                                    if (response.codigo == 0 && response.imagenes.length > 0 && response.imagenes != "" && response.imagenes != null && typeof (response.imagenes) != 'undefined' &&
+                                            response.imagenes.length > 0 && response.imagenes != "" && response.imagenes != null && typeof (response.imagenes) != 'undefined') {
+                                        //Inicia obtencion de iNE
+                                        //Se obtienen los datos de la imagen resultante
+                                        $scope.jsonOcrIFE = JSON.stringify(response);
+                                        $scope.jsonDigitalizacion.ifeFrenteImg = 'data:image/jpg;base64,' + response.imagenes[0];
+                                        $scope.jsonDigitalizacion.ifeFrenteNombre = response.nombres[0];
+                                        $scope.jsonDigitalizacion.ifeReversoImg = 'data:image/jpg;base64,' + response.imagenes[1];
+                                        $scope.jsonDigitalizacion.ifeReversoNombre = response.nombres[1];
+                                        // Limpiamos campos para la potencial actualizacion
+
+                                        $scope.jsonDigitalizacion.folioNacional = (response.persona.folio != null && response.persona.folio != "(null)" && (typeof response.persona.folio !== 'undefined')) ? response.persona.folio.trim() : "";
+
+                                        $scope.folioNacional = $scope.jsonDigitalizacion.folioNacional;
+
+                                        // Asignamos los datos obtenidos para mostrar en el JSP
+                                        $scope.ifeFrenteImg = $scope.jsonDigitalizacion.ifeFrenteImg;
+                                        $scope.ifeReversoImg = $scope.jsonDigitalizacion.ifeReversoImg;
+
+                                        $scope.principalIdentificacion = false;
+                                        $scope.cuadroIdentificacion = true;
+                                        $scope.regresarVentana = true;
+
+
+
+                                        $rootScope.ifeVigencia = $scope.jsonDigitalizacion.ifeVigencia;
+                                        $rootScope.ifefoliomesa = $scope.jsonDigitalizacion.folioNacional;
+                                        $rootScope.imgifeFrenteImg = $scope.ifeFrenteImg;
+                                        $rootScope.imgifeReversoImg = $scope.ifeReversoImg;
+
+                                        $scope.vcomproDoc = true;
+                                        //Fin de la obtencion de INE
+
+
+                                        //Asignamos la imagen resultante:
+                                        //Se asigna de esta manera para no romper el esquema que se trabaja en actualizacion de identOficial y
+                                        //comprobante de domicilio
+
+                                        $scope.jsonDigitalizacion.domicilioImg = $scope.jsonDigitalizacion.ifeFrenteImg;
+                                        $scope.jsonDigitalizacion.domicilioNombre = $scope.jsonDigitalizacion.ifeFrenteNombre
+                                        $scope.nuevaComprobante = $scope.jsonDigitalizacion.domicilioImg;
+
+                                        //Asignamos banderas de muestra en el formulario
+                                        $scope.PrincipalDomicilio = false;
+                                        $scope.FormularioDomicilio = true;
+                                        $scope.IneComprobanteDomicilio = true;
+                                        $scope.imagenCapturada = true;
+                                        //Para el select de tipo de identificacion oficial
+                                        $scope.ineActivo = true;
+
+                                        $scope.idTipoDocumentoDomicilio = $scope.tipoOcrDomi.tipo;
+
+                                        $scope.activoIFE = true;
+                                        $scope.showVigenciaCompleta = false;
+                                        $scope.vigenciaYear = "anchoCienXciento";
+
+                                    } else {
+                                        $scope.cerrarDialogTipoIdentificacion();
+                                        Flotantes.mensajeToast({
+                                            mensaje: 'No se capturó la Identificación Oficial.',
+                                            clase: 'danger'
+                                        });
+                                    }
+                                };
+
+                            }
+                            //Si el documento de identificacion es diferente del IFE
+                            else {
+                                //Se asignan banderas para la eleccion de selects
+
+                                Digitalizadora.digitalizar("moduloExpediente", 'capturaComprobante', jsonParams);
+                                $scope.cerrarDialogTipoIdentificacion();
+
+                                //Se inicializa el componente
+                                $scope.capturaComprobante = function (response) {
+                                    //Se verifica la respuesta del componente
+                                    if (response.codigo == 0 && response.arrArchBase64.length > 0 && response.arrArchBase64 != "" && response.arrArchBase64 != null && typeof (response.arrArchBase64) != 'undefined' &&
+                                            response.arrNomArchBase64.length > 0 && response.arrNomArchBase64 != "" && response.arrNomArchBase64 != null && typeof (response.arrNomArchBase64) != 'undefined') {
+
+                                        $scope.jsonDigitalizacion.domicilioImg = 'data:image/jpg;base64,' + response.arrArchBase64[0];
+                                        $scope.jsonDigitalizacion.domicilioNombre = response.arrNomArchBase64[0];
+                                        $scope.nuevaComprobante = $scope.jsonDigitalizacion.domicilioImg;
+
+                                        $scope.PrincipalDomicilio = false;
+                                        $scope.FormularioDomicilio = true;
+                                        $scope.OtroComprobanteDomicilio = true;
+                                        $scope.imagenCapturada = true;
+                                        $scope.idTipoDocumentoDomicilio = $scope.tipoOcrDomi.tipo;
+
+                                        $scope.showVigenciaCompleta = true;
+                                        //Se evaluan los tipos de documentos posibles acorde al select
+                                        if ($scope.tipoOcrDomi.tipo === '12') {
+                                            $scope.activoPredial = true;
+                                        } else if ($scope.tipoOcrDomi.tipo === '13') {
+                                            $scope.activoCFE = true;
+                                            $scope.meactive = true;
+                                        } else if ($scope.tipoOcrDomi.tipo === '14') {
+                                            $scope.activoAgua = true;
+                                        } else if ($scope.tipoOcrDomi.tipo === '15') {
+                                            $scope.activoGas = true;
+                                        } else if ($scope.tipoOcrDomi.tipo === '16') {
+                                            $scope.activoTelmex = true;
+                                        } else if ($scope.tipoOcrDomi.tipo === '18') {
+                                            $scope.activoEstadoBancario = true;
+                                        } else {
+                                            $scope.activoContratoArrendamiento = true;
+                                        }
+                                    } else {
+                                        $scope.cerrarDialogTipoIdentificacion();
+                                        Flotantes.mensajeToast({
+                                            mensaje: 'No se capturó el Comprobante de Domicilio.',
+                                            clase: 'danger'
+                                        });
+                                    }
+                                };
+                            }
+                        } catch (err) {
+                            Flotantes.mensajeToast({
+                                mensaje: 'No se capturó el Comprobante de Domicilio.',
+                                clase: 'danger'
+                            });
+                        }
+                    }
+                };
+
+                //Valida y Guarda los datos de un comprobante de domicilio obtenido diferente al tipo INE
+                $scope.guardarComprobanteDevolucion = function () {
+
+                    //Se verifica que los datos de la fcha no vengan vacios
+                    if ($scope.idTipoDocumentoDomicilio == "0" || $scope.idTipoDocumentoDomicilio == "") {
+                        $scope.showMensajeTipoDom = true;
+                        Flotantes.mensajeToast({
+                            mensaje: 'Seleccione un tipo de documento.',
+                            clase: 'danger'
+                        });
+                        return;
+                    } else if (esVacio($scope.actualizarDom.domicilioYear)) {
+                        $scope.showAnio = true;
+                        Flotantes.mensajeToast({
+                            mensaje: 'Seleccione el Año.',
+                            clase: 'danger'
+                        });
+                        return;
+                    } else if ($scope.showVigenciaCompleta == true && esVacio($scope.actualizarDom.domicilioMes)) {
+                        $scope.showMes = true;
+                        Flotantes.mensajeToast({
+                            mensaje: 'Seleccione el Mes.',
+                            clase: 'danger'
+                        });
+                        return;
+                    } else if ($scope.showVigenciaCompleta == true && esVacio($scope.actualizarDom.domicilioDia)) {
+                        $scope.showDia = true;
+                        Flotantes.mensajeToast({
+                            mensaje: 'Seleccione el Día.',
+                            clase: 'danger'
+                        });
+                        return;
+                    } else {
+                        var domicilioMesSplit = $scope.actualizarDom.domicilioMes.split('-');
+                        var domicilioMes = domicilioMesSplit[1];
+
+                        //Tratamiento de datos
+                        $scope.jsonDigitalizacion.domicilioVigencia = ($scope.showVigenciaCompleta === true) ? $scope.actualizarDom.domicilioDia + '-' + domicilioMes + '-' + $scope.actualizarDom.domicilioYear : $scope.actualizarDom.domicilioYear;
+                        $scope.domicilioVigencia = $scope.jsonDigitalizacion.domicilioVigencia;
+
+                        //Se prepara la variable
+                        documentos.dom = {
+                            idEmpleado: idEmpleado.toString(),
+                            idDocumento: "2",
+                            vigencia: $scope.jsonDigitalizacion.domicilioVigencia,
+                            idTipoDocumento: $scope.idTipoDocumentoDomicilio,
+                            imagen1: ($scope.jsonDigitalizacion.domicilioImg).replace(/^data:image\/(png|jpeg|jpg);base64,/, "")
+                        };
+
+                        //actualizarDomicilio(documentos);
+                        $scope.PrincipalDomicilio = true;
+                        $scope.FormularioDomicilio = false;
+                        $scope.OtroComprobanteDomicilio = false
+                        $scope.imagenCapturada = true;
+
+                        $scope.nDoc[$scope.posiciond].status = true;
+                        $scope.nDoc[$scope.posiciond].comprobante = true;
+                        $scope.nDoc[$scope.posiciond].completado = true;
+                    }
+
+                };
+
+                //Valida y Guarda los datos de un comprobante de domicilio obtenido
+                $scope.guardarComprobanteDevolucionTipoIne = function () {
+
+                    if ($scope.jsonDigitalizacion.folioNacional === undefined || $scope.jsonDigitalizacion.folioNacional === "") {
+                        $scope.estatus.showFolio = true;
+                    } else if ($scope.jsonDigitalizacion.ifeVigencia === undefined || $scope.jsonDigitalizacion.ifeVigencia === "") {
+                        $scope.estatus.showVigencia = true;
+                    } else {
+                        $scope.domicilioVigencia = $scope.jsonDigitalizacion.ifeVigencia;
+                        //Se prepara la variable
+                        documentos.dom = {
+                            idEmpleado: idEmpleado.toString(),
+                            idDocumento: "2",
+                            vigencia: $scope.domicilioVigencia,
+                            idTipoDocumento: $scope.idTipoDocumentoDomicilio,
+                            imagen1: ($scope.jsonDigitalizacion.domicilioImg).replace(/^data:image\/(png|jpeg|jpg);base64,/, "")
+                        };
+
+                        $scope.estatusDomicilio.cDomicilio = true;
+
+                        $scope.PrincipalDomicilio = true;
+                        $scope.FormularioDomicilio = false;
+                        $scope.IneComprobanteDomicilio = false;
+                        $scope.imagenCapturada = true;
+
+                        $scope.nDoc[$scope.posiciond].status = true;
+                        $scope.nDoc[$scope.posiciond].comprobante = true;
+                        $scope.nDoc[$scope.posiciond].completado = true;
+                    }
+                };
+
+                //Valida y Guarda los datos de una identificacion oficial
+                $scope.guardarIdentificacion = function () {
+                    if ($scope.jsonDigitalizacion.folioNacional === undefined || $scope.jsonDigitalizacion.folioNacional === "") {
+                        $scope.estatus.showFolio = true;
+                    } else if ($scope.jsonDigitalizacion.ifeVigencia === undefined || $scope.jsonDigitalizacion.ifeVigencia === "") {
+                        $scope.estatus.showVigencia = true;
+                    } else {
+                        $rootScope.ifeVigencia = $scope.jsonDigitalizacion.ifeVigencia;
+                        $scope.principalIdentificacion = true;
+                        $scope.cuadroIdentificacion = false;
+                        $scope.photosIdentificacionAnt = false;
+                        $scope.photosIdentificacionsig = true;
+                        $scope.identificacionTomada = true;
+
+                        $scope.estatusIdentificacion.cIdentificacion = true;
+
+                        if ($scope.IdentPasaporte)
+                        {
+                            // Objeto generado para el envio de datos a Digitalizacion
+                            documentos.ident = {
+                                idEmpleado: idEmpleado.toString(),
+                                idDocumento: "1",
+                                vigencia: $scope.jsonDigitalizacion.ifeVigencia,
+                                idTipoDocumento: "2",
+                                folio: $scope.jsonDigitalizacion.folioNacional,
+                                imagen1: ($rootScope.imgifeFrenteImg).replace(/^data:image\/(png|jpeg|jpg);base64,/, "")
+                            };
+
+                        } else if ($scope.IdentCedulaMigratoria) {
+
+                            documentos.ident = {
+                                idEmpleado: idEmpleado.toString(),
+                                idDocumento: "1",
+                                vigencia: $scope.jsonDigitalizacion.ifeVigencia,
+                                idTipoDocumento: "5",
+                                folio: $scope.jsonDigitalizacion.folioNacional,
+                                imagen1: ($rootScope.imgifeFrenteImg).replace(/^data:image\/(png|jpeg|jpg);base64,/, "")
+
+                            };
+
+                        } else
+                        {
+                            // Objeto generado para el envio de datos a Digitalizacion
+                            documentos.ident = {
+                                idEmpleado: idEmpleado.toString(),
+                                idDocumento: "1",
+                                vigencia: $scope.jsonDigitalizacion.ifeVigencia,
+                                idTipoDocumento: "1",
+                                folio: $scope.jsonDigitalizacion.folioNacional,
+                                imagen1: ($rootScope.imgifeFrenteImg).replace(/^data:image\/(png|jpeg|jpg);base64,/, ""),
+                                imagen2: ($rootScope.imgifeReversoImg).replace(/^data:image\/(png|jpeg|jpg);base64,/, "")
+
+                            };
+                        }
+                        // $scope.Acciones.btnaceptar = true;
+                        activarBoton();
+                        $scope.nDoc[$scope.posiciond].status = true;
+                        $scope.nDoc[$scope.posiciond].identificacion = true;
+                        $scope.nDoc[$scope.posiciond].completado = true;
+                    }
+                };
+
+                $scope.closeAvisoTipoComprobante = function (tipo) {
+                    if (tipo === 'folioIfe') {
+                        $scope.estatus.showFolio = false;
+                    }
+                    if (tipo === 'vigenciaIfe') {
+                        $scope.estatus.showVigencia = false;
+                    }
+                    if (tipo == 'tipoDomicilio') {
+                        $scope.showMensajeDomi = false;
+                    }
+                }
+
+                $scope.cerrarDialogTipoIdentificacion = function () {
+                    ngDialog.close();
+                };
+
+                $scope.closeNgDialog = function () {
+                    Flotantes.cerrarVentanaModal();
+                };
+
+                $scope.iniciarIne = function () {
+
+                    var jsonOCR = {
+                        numFotos: 2,
+                        tiposFoto: ["Capturar foto del frente del ife", "Capturar foto del reverso del ife"],
+                        tipoDocumento: "1"
+                    };
+                    try {
+
+                        var jsonOCR = {
+                            datos: false
+                        };
+                        Camara.ocr("moduloExpediente", "respuestaComponenteOcr", jsonOCR);
+                        $scope.respuestaComponenteOcr = function (response) {
+
+                            if (response.codigo == 0 &&
+                                    response.imagenes.length > 0 && response.imagenes != "" && response.imagenes != null && typeof (response.imagenes) != 'undefined' &&
+                                    response.imagenes.length > 0 && response.imagenes != "" && response.imagenes != null && typeof (response.imagenes) != 'undefined') {
+                                $scope.jsonOcrIFE = JSON.stringify(response);
+                                $scope.jsonDigitalizacion.ifeFrenteImg = 'data:image/jpg;base64,' + response.imagenes[0];
+                                $scope.jsonDigitalizacion.ifeFrenteNombre = response.nombres[0];
+                                $scope.jsonDigitalizacion.ifeReversoImg = 'data:image/jpg;base64,' + response.imagenes[1];
+                                $scope.jsonDigitalizacion.ifeReversoNombre = response.nombres[1];
+                                // Limpiamos campos para la potencial actualizacion
+
+                                $scope.jsonDigitalizacion.folioNacional = (response.persona.folio != null && response.persona.folio != "(null)" && (typeof response.persona.folio !== 'undefined')) ? response.persona.folio.trim() : "";
+
+
+                                $scope.ifeFrenteImg = $scope.jsonDigitalizacion.ifeFrenteImg;
+                                $scope.ifeReversoImg = $scope.jsonDigitalizacion.ifeReversoImg;
+
+                                $scope.principalIdentificacion = false;
+                                $scope.cuadroIdentificacion = true;
+                                $scope.regresarVentana = true;
+
+                                $rootScope.ifeVigencia = $scope.jsonDigitalizacion.ifeVigencia;
+                                $rootScope.ifefoliomesa = $scope.jsonDigitalizacion.folioNacional;
+                                $rootScope.imgifeFrenteImg = $scope.ifeFrenteImg;
+                                $rootScope.imgifeReversoImg = $scope.ifeReversoImg;
+
+
+
+
+                                $scope.vcomproDoc = true;
+
+                            } else {
+                                Flotantes.mensajeToast({
+                                    mensaje: 'No se capturó la Identificación Oficial.',
+                                    clase: 'danger'
+                                });
+                            }
+                        };
+                    } catch (err) {
+                        //$scope.mostrarOcultarVentanas("cerrarIdentificacion");
+                        Flotantes.mensajeToast({
+                            mensaje: 'No se capturó la Identificación Oficial.',
+                            clase: 'danger'
+                        });
+                    }
+                };
+
+                //Inicia y recupera datos desde el componente Digitalizadora para Cedula migratoria
+                $scope.iniciarCedulaMigratoria = function () {
+
+                    $scope.estatus.cedulaMigratoriaActivo = true;
+                    var jsonParams = {
+                        numFotos: 1,
+                        tiposFoto: ["Captura de fotografia para Cedula Migratoria"],
+                        tipoDocumento: "1" // Indicamos que que Pasaporte
+                    };
+                    // Se inicia el proceso
+                    try
+                    {
+                        // Se invoca el componente del IPAD
+                        Digitalizadora.digitalizar("moduloExpediente", 'respuestaComponente', jsonParams);
+
+                        $scope.respuestaComponente = function (response)
+                        {
+
+
+                            if (response.codigo == 0
+                                    && response.arrArchBase64.length > 0 && response.arrArchBase64 != "" && response.arrArchBase64 != null && typeof (response.arrArchBase64) != 'undefined'
+                                    && response.arrNomArchBase64.length > 0 && response.arrNomArchBase64 != "" && response.arrNomArchBase64 != null && typeof (response.arrNomArchBase64) != 'undefined')
+                            {
+                                $scope.jsonDigitalizacion.ifeFrenteImg = 'data:image/jpg;base64,' + response.arrArchBase64[0];
+                                $scope.jsonDigitalizacion.ifeFrenteNombre = response.arrNomArchBase64[0];
+                                $scope.jsonDigitalizacion.ifeReversoImg = 'data:image/jpg;base64,' + response.arrArchBase64[0];
+                                $scope.jsonDigitalizacion.ifeReversoNombre = response.arrNomArchBase64[0];
+
+                                // Limpiamos campos para la potencial actualizacion
+                                $scope.jsonDigitalizacion.folioNacional = "";
+                                $scope.jsonDigitalizacion.ifeVigencia = "";
+
+                                // Asignamos los datos obtenidos para mostrar en el JSP
+                                $scope.ifeFrenteImg = $scope.jsonDigitalizacion.ifeFrenteImg;
+                                $scope.ifeReversoImg = $scope.jsonDigitalizacion.ifeReversoImg;
+
+                                $scope.principalIdentificacion = false;
+                                $scope.cuadroIdentificacion = true;
+                                $scope.regresarVentana = true;
+
+                                $rootScope.ifeVigencia = $scope.jsonDigitalizacion.ifeVigencia;
+                                $rootScope.ifefoliomesa = $scope.jsonDigitalizacion.folioNacional;
+                                $rootScope.imgifeFrenteImg = $scope.ifeFrenteImg;
+                                $rootScope.imgifeReversoImg = $scope.ifeReversoImg;
+
+                                $scope.vcomproDoc = true;
+                            } else
+                            {
+                                Flotantes.mensajeToast({mensaje: 'No se capturó la Identificación Oficial.', clase: 'danger'});
+                            }
+                        };
+                    } catch (err)
+                    {
+                        Flotantes.mensajeToast({mensaje: 'No se capturó la Identificación Oficial.', clase: 'danger'});
+                    }
+                };
+
+                //Inicia y recupera datos desde el componente Digitalizadora para Pasaporte
+                $scope.iniciarPasaporte = function () {
+                    // Parametros para el pasaporte
+
+                    $scope.estatus.pasaporteActivo = true;
+
+                    var jsonParams = {
+                        numFotos: 1,
+                        tiposFoto: ["Captura de fotografia para Pasaporte"],
+                        tipoDocumento: "1" // Indicamos que que Pasaporte
+                    };
+
+                    // Se inicia el proceso
+                    try
+                    {
+                        // Se invoca el componente del IPAD
+                        Digitalizadora.digitalizar("moduloExpediente", 'respuestaComponente', jsonParams);
+
+                        $scope.respuestaComponente = function (response)
+                        {
+
+
+                            if (response.codigo == 0
+                                    && response.arrArchBase64.length > 0 && response.arrArchBase64 != "" && response.arrArchBase64 != null && typeof (response.arrArchBase64) != 'undefined'
+                                    && response.arrNomArchBase64.length > 0 && response.arrNomArchBase64 != "" && response.arrNomArchBase64 != null && typeof (response.arrNomArchBase64) != 'undefined')
+                            {
+                                $scope.jsonDigitalizacion.ifeFrenteImg = 'data:image/jpg;base64,' + response.arrArchBase64[0];
+                                $scope.jsonDigitalizacion.ifeFrenteNombre = response.arrNomArchBase64[0];
+                                $scope.jsonDigitalizacion.ifeReversoImg = 'data:image/jpg;base64,' + response.arrArchBase64[0];
+                                $scope.jsonDigitalizacion.ifeReversoNombre = response.arrNomArchBase64[0];
+
+                                // Limpiamos campos para la potencial actualizacion
+                                $scope.jsonDigitalizacion.folioNacional = "";
+                                $scope.jsonDigitalizacion.ifeVigencia = "";
+
+                                // Asignamos los datos obtenidos para mostrar en el JSP
+                                $scope.ifeFrenteImg = $scope.jsonDigitalizacion.ifeFrenteImg;
+                                $scope.ifeReversoImg = $scope.jsonDigitalizacion.ifeReversoImg;
+
+                                $scope.principalIdentificacion = false;
+                                $scope.cuadroIdentificacion = true;
+                                $scope.regresarVentana = true;
+
+                                $rootScope.ifeVigencia = $scope.jsonDigitalizacion.ifeVigencia;
+                                $rootScope.ifefoliomesa = $scope.jsonDigitalizacion.folioNacional;
+                                $rootScope.imgifeFrenteImg = $scope.ifeFrenteImg;
+                                $rootScope.imgifeReversoImg = $scope.ifeReversoImg;
+
+                                $scope.vcomproDoc = true;
+                            } else
+                            {
+                                Flotantes.mensajeToast({mensaje: 'No se capturó la Identificación Oficial.', clase: 'danger'});
+                            }
+                        };
+                    } catch (err)
+                    {
+                        Flotantes.mensajeToast({mensaje: 'No se capturó la Identificación Oficial.', clase: 'danger'});
+                    }
+                };
+
+                function enviaContrato(datosContrato, callback) {
+                    datosContrato = JSON.stringify(datosContrato);
+                    datosContrato = _encryptAES.convertidor(datosContrato);
+
+                    // Consumimos el Service, obteniendo un promise con la cual se trabajara el resultado
+                    ServiciosHTTP.post(datosContrato, '/operacionReporteContrato').$promise.then(function (data) {
+                        data = _decryptAES.convertidor(data.resultado);
+                        data = JSON.parse(data);
+
+                        // Asignamos a variables del JSON
+                        var codE = (data.codE != null && (typeof (data.codE) != 'undefined' && !isNaN(parseInt(data.codE))) ? data.codE : 1);
+                        var msgE = ((typeof (data.msgE) != 'undefined' && data.msgE != null) ? data.msgE : "");
+
+                        if (codE == 0) {
+                            $rootScope.contratoEnviado = true;
+
+                            $timeout(function () {
+                                //$scope.Cargando = Flotantes.cargandoCerrar();
+                                Flotantes.cerrarToast();
+                                //Flotantes.mensajeToast({mensaje: "Se guardó el contrato exitosamente.", clase: "success"});
+                                //$scope.limpiarFirma();
+                            }, 1000);
+
+
+                        } else {
+                            if (codE == "301") {
+                                $rootScope.contratoEnviado = false;
+                                $timeout(function () {
+                                    $scope.Cargando = Flotantes.cargandoCerrar();
+                                }, 1000);
+                                Flotantes.mensajeToast({mensaje: "El cliente no tiene número de cuenta.", clase: "danger"});
+
+
+                            } else {
+                                $rootScope.contratoEnviado = false;
+                                $timeout(function () {
+                                    $scope.Cargando = Flotantes.cargandoCerrar();
+                                }, 1000);
+                                Flotantes.mensajeToast({mensaje: "No se pudo enviar el contrato error\"" + codE + "\", intentelo más tarde.", clase: "danger"});
+
+                            }
+                        }
+                        callback(codE);
+                    }, function (errResponse) {
+                        $scope.Cargando = Flotantes.cargandoCerrar();
+                        sesionError.sesionError(errResponse);
+                    });
+                }
+
+                $scope.btnlimpiar = false;
+                function activarBoton() {
+
+                    var nDocumentos = $scope.nDoc;
+                    var nDoumentoLen = nDocumentos.length;
+                    $scope.enviar = false;
+                    var cont = 0;
+                    for (btn in nDocumentos) {
+                        if (nDocumentos[btn].completado == true) {
+                            cont++;
+                            if (nDoumentoLen == cont) {
+                                $scope.btnlimpiar = true;
+                                evtActualizarInformacionSecuencia();
+                            }
+                        }
+                    }
+                    $scope.Acciones.btnaceptar = true;
+
+                }
+
+                $scope.evtActualizarInformacion = function () {
+
+                    var acceso = true;
+                    if ($scope.vcontratosvalidar == true) {
+                        if (!validarFirma2()) {
+                            acceso = false;
+                            Flotantes.mensajeToast({mensaje: "Para continuar debe firmar el Contrato.", clase: "danger"});
+                        }
+                    }
+
+                    if (acceso == true) {
+                        console.log($scope.posiciond);
+
+
+                        var nDocumentos = $scope.nDoc;
+
+                        var posicionR = $scope.posiciond;
+                        var idDocumentoR = nDocumentos[$scope.posiciond].idDocumento;
+
+
+                        if (posicionR == 0 && idDocumentoR == 1) {
+                            var pos = posicionR;
+                            if (nDocumentos[pos + 1] != undefined && nDocumentos[pos + 1].status == false && nDocumentos[pos + 1].idDocumento == 2) {
+                                $scope.plantillaActiva = "app/html/captacion/tmp-comprobante.html";
+                            } else {
+                                if (nDocumentos[pos + 1] != undefined && nDocumentos[pos + 1].status == false) {
+                                    $scope.plantillaActiva = "app/html/captacion/tmp-contratos.html";
+                                    $timeout(function () {
+                                        $scope.inicializarContratos();
+                                    }, 200);
+                                } else if (nDocumentos[pos + 2] != undefined && nDocumentos[pos + 2].status == false) {
+                                    $scope.plantillaActiva = "app/html/captacion/tmp-contratos.html";
+                                    $timeout(function () {
+                                        $scope.inicializarContratos();
+                                    }, 200);
+                                    $scope.menuSiguiente(pos);
+                                } else {
+                                    evtActualizarInformacionSecuencia();
+                                }
+
+                            }
+                        }
+                        if (posicionR == 0 && idDocumentoR == 2) {
+                            var pos = posicionR;
+                            if (nDocumentos[pos - 1] != undefined && nDocumentos[pos - 1].status == false && nDocumentos[pos - 1].idDocumento == 1) {
+                                $scope.idDocumentod = $scope.idDocumentod - 1;
+                                $scope.posiciond = $scope.posiciond - 1;
+                                $scope.plantillaActiva = "app/html/captacion/tmp-ident-oficial.html";
+                            } else if (nDocumentos[pos + 1] != undefined && nDocumentos[pos + 1].status == false) {
+                                $scope.plantillaActiva = "app/html/captacion/tmp-contratos.html";
+                                $timeout(function () {
+                                    $scope.inicializarContratos();
+                                }, 200);
+                            } else {
+                                evtActualizarInformacionSecuencia();
+                            }
+
+                        }
+                        if (posicionR == 1 && idDocumentoR == 2) {
+                            var pos = posicionR;
+                            if (nDocumentos[pos - 1] != undefined && nDocumentos[pos - 1].status == false && nDocumentos[pos - 1].idDocumento == 1) {
+                                $scope.idDocumentod = $scope.idDocumentod - 1;
+                                $scope.posiciond = $scope.posiciond - 1;
+                                $scope.plantillaActiva = "app/html/captacion/tmp-ident-oficial.html";
+                            } else if (nDocumentos[pos + 1] != undefined && nDocumentos[pos + 1].status == false) {
+                                $scope.plantillaActiva = "app/html/captacion/tmp-contratos.html";
+                                $timeout(function () {
+                                    $scope.inicializarContratos();
+                                }, 200);
+                                $scope.menuSiguiente(pos);
+                            } else {
+                                evtActualizarInformacionSecuencia();
+                            }
+
+                        } else {
+                            var nposi = $scope.posiciond;
+                            var posicionmenu = nposi;
+                            var vIdocumento = nDocumentos[posicionmenu].idDocumento;
+                            $scope.siguienteContrato(vIdocumento, posicionmenu);
+                            $scope.menuSiguiente(posicionmenu);
+                        }
+                    }
+                }
+
+                function evtActualizarInformacionSecuencia() {
+                    var newArray = $scope.nDoc;
+                    var seq = new Sequence();
+                    var c = 0;
+                    $scope.global = false;
+                    $scope.Cargando = Flotantes.cargando();
+                    for (obj in newArray) {
+                        if (newArray[obj].status == true) {
+                            if (newArray[obj].idDocumento == 1) {
+                                if (newArray[obj].identificacion == true) {
+                                    seq.set(function (i) {
+                                        actualizarIdentificacionOficial(function (e) {
+                                            if (e == 0) {
+                                                $scope.global = true;
+                                                seq.next();
+                                            } else {
+                                                $scope.global = false;
+                                                seq.finish();
+                                            }
+                                        });
+                                    }, obj);
+
+                                }
+                                if (newArray[obj].foto == true) {
+                                    seq.set(function (i) {
+                                        actualizaFoto($rootScope.idEmpleado, $scope.nuevaFotoCliente, function (e) {
+                                            invertirArray
+                                            if (e == 0) {
+                                                $scope.global = true;
+                                                seq.next();
+                                            } else {
+                                                $scope.global = false;
+                                                seq.finish();
+                                            }
+                                        });
+                                    }, obj);
+                                }
+                            }
+
+                            if (newArray[obj].idDocumento == 2) {
+                                if (newArray[obj].comprobante == true) {//
+                                    seq.set(function (i) {
+                                        actualizarDomicilio(documentos, function (e) {
+                                            if (e == 0) {
+                                                $scope.global = true;
+                                                seq.next();
+                                            } else {
+                                                $scope.global = false;
+                                                seq.finish();
+                                            }
+
+
+                                        });
+                                    }, obj);
+                                }
+
+                                if (newArray[obj].dhogar == true) {//
+                                    seq.set(function (i) {
+                                        fntActualizarDatosHogar(function (e) {
+                                            if (e == 0) {
+                                                $scope.global = true;
+                                                seq.next();
+                                            } else {
+                                                $scope.global = false;
+                                                seq.finish();
+                                            }
+                                        });
+                                    }, obj);
+                                }
+
+                            }
+
+                            if (newArray[obj].idDocumento == 3) {
+                                seq.set(function (i) {
+                                    enviaContrato($scope.aperturadcuenta, function (e) {
+                                        if (e == 0) {
+                                            $scope.global = true;
+                                            seq.next();
+                                        } else {
+                                            $scope.global = false;
+                                            seq.finish();
+                                        }
+                                    });
+                                }, obj);
+                            }
+
+                            if (newArray[obj].idDocumento == 6) {
+                                seq.set(function (i) {
+                                    enviaContrato($scope.consultaburo, function (e) {
+                                        if (e == 0) {
+                                            $scope.global = true;
+                                            seq.next();
+                                        } else {
+                                            $scope.global = false;
+                                            seq.finish();
+                                        }
+                                    });
+                                }, obj);
+                            }
+
+                            if (newArray[obj].idDocumento == 5) {
+                                seq.set(function (i) {
+                                    enviaContrato($scope.avisoprivacidad, function (e) {
+                                        if (e == 0) {
+                                            $scope.global = true;
+                                            seq.next();
+                                        } else {
+                                            $scope.global = false;
+                                            seq.finish();
+                                        }
+                                    });
+                                }, obj);
+                            }
+
+                            if (newArray[obj].idDocumento == 7) {
+                                seq.set(function (i) {
+                                    enviaContrato($scope.contratofirmado, function (e) {
+                                        if (e == 0) {
+                                            $scope.global = true;
+                                            seq.next();
+                                        } else {
+                                            $scope.global = false;
+                                            seq.finish();
+                                        }
+
+                                    });
+                                }, obj);
+                            }
+
+                            if (newArray[obj].idDocumento == 30) {
+                                seq.set(function (i) {
+                                    enviaContrato($scope.contratodcredito, function (e) {
+                                        if (e == 0) {
+                                            $scope.global = true;
+                                            seq.next();
+                                        } else {
+                                            $scope.global = false;
+                                            seq.finish();
+                                        }
+                                    });
+                                }, obj);
+                            }
+                        }
+                    }
+
+                    seq.commit(function () {
+                        if ($scope.global == true) {
+                            envioMesaControl();
+                        }
+                    });
+                }
+
+                function actualizaFoto(_idCliente, _foto, callBack) {
+                    if (_foto != undefined) {
+                        var _imageBase64 = _foto.replace(/^data:image\/(png|jpeg);base64,/, "");
+                        var jsonSend = {
+                            idCliente: _idCliente,
+                            foto: _imageBase64
+                        };
+                        jsonSend = JSON.stringify(jsonSend);
+                        jsonSend = _encryptAES.convertidor(jsonSend);
+                        $scope.Cargando = Flotantes.cargando();
+                        ServiciosHTTP.post(jsonSend, '/devolucion/guardarfoto').$promise.then(
+                                function (response) {
+                                    response = _decryptAES.convertidor(response.resultado);
+                                    response = JSON.parse(response);
+                                    $scope.respuestasConsultas = response;
+                                    callBack(response.codE);
+                                },
+                                function (errResponse) {
+                                    $rootScope.altaSolicitudG = false;
+                                    $scope.Cargando = Flotantes.cargandoCerrar();
+                                    $scope.respuestasConsultas = errResponse;
+                                });
+                    }
+                }
+
+                function actualizarIdentificacionOficial(callBack) {
+                    var data = JSON.stringify(documentos.ident);
+                    $scope.jsonIdentificacion = data;
+                    data = _encryptAES.convertidor(data);
+                    var nombreDocumento = "la Identificación Oficial";
+                    ServiciosHTTP.post(data, '/guardarDatosExpedientes').$promise.then(function (result) {
+                        result = _decryptAES.convertidor(result.resultado);
+                        result = JSON.parse(result);
+                        $scope.respuestasConsultas = result;
+                        if (result.codE == 0) {
+
+                        } else if (result.codE == 301) {
+                            $timeout(function () {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                Flotantes.mensajeToast({
+                                    mensaje: "El cliente no tiene número de cuenta.",
+                                    clase: "danger"
+                                });
+                            }, 1000);
+                        } else {
+                            $timeout(function () {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                Flotantes.mensajeToast({
+                                    mensaje: "No se logro enviar " + nombreDocumento + ", intentelo más tarde!.",
+                                    clase: "danger"
+                                });
+                            }, 1000);
+
+                            return false;
+                        }
+                        callBack(result.codE);
+                    }, function (errResponse) {
+
+                        $rootScope.altaSolicitudG = false;
+                        $scope.Cargando = Flotantes.cargandoCerrar();
+                        sesionError.sesionError(errResponse);
+                    });
+                }
+
+                function actualizarDomicilio(documentos, callBack) {
+                    var data = JSON.stringify(documentos.dom);
+                    data = _encryptAES.convertidor(data);
+                    var nombreDocumento = "el comprobante de domicilio";
+                    $scope.jsonDomicilioSend = data;
+                    ServiciosHTTP.post(data, '/guardarDatosExpedientes').$promise.then(function (result) {
+                        result = _decryptAES.convertidor(result.resultado);
+                        result = JSON.parse(result);
+                        $scope.respuestasConsultas = result;
+                        if (result.codE == 0) {
+                            // $rootScope.altaSolicitudG = true;
+                            // $scope.Cargando = Flotantes.cargandoCerrar();
+                            // Flotantes.mensajeToast({mensaje: "Guardado correctamente.", clase: "danger"});
+                        } else if (result.codE == 301) {
+                            $timeout(function () {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                Flotantes.mensajeToast({
+                                    mensaje: "El cliente no tiene número de cuenta.",
+                                    clase: "danger"
+                                });
+                            }, 1000);
+                        } else {
+                            $timeout(function () {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                Flotantes.mensajeToast({
+                                    mensaje: "No se logro enviar " + nombreDocumento + ", intentelo más tarde!.",
+                                    clase: "danger"
+                                });
+                            }, 1000);
+                            return false;
+                        }
+                        callBack(result.codE);
+                    }, function (errResponse) {
+                        $scope.Cargando = Flotantes.cargandoCerrar();
+                        sesionError.sesionError(errResponse);
+                    });
+                }
+
+                function fntActualizarDatosHogar(callBack) {
+                    // $scope.Cargando = Flotantes.cargando();
+                    var jsonSend = $rootScope.cadDatosHogar;
+
+                    jsonSend = JSON.stringify(jsonSend);
+                    jsonSend = _encryptAES.convertidor(jsonSend);
+
+
+                    ServiciosHTTP.post(jsonSend, '/guardaDatosHogar').$promise.then(function (data) {
+                        data = _decryptAES.convertidor(data.resultado);
+                        data = JSON.parse(data);
+
+                        var codE = (data.codE != null && (typeof (data.codE) != 'undefined' && !isNaN(parseInt(data.codE))) ? data.codE : 1);
+                        var msgE = ((typeof (data.msgE) != 'undefined' && data.msgE != null) ? data.msgE : "");
+
+                        if (codE == 0) {
+                            $rootScope.dataModulos.datosHogar = $scope.hogar;
+                        } else {
+                            Flotantes.cerrarToast();
+                            $timeout(function () {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                Flotantes.mensajeToast({
+                                    mensaje: 'No se guardaron sus Datos del Hogar. Intentelo más tarde.',
+                                    clase: 'danger'
+                                });
+                            }, 1000);
+                        }
+                        callBack(codE);
+
+                    }, function (errResponse) {
+                        $scope.Cargando = Flotantes.cargandoCerrar();
+                        sesionError.sesionError(errResponse);
+                    });
+                }
+
+
+                function envioMesaControl() {
+                    var idEmpleado = $rootScope.idEmpleado;
+                    if (idEmpleado != null || idEmpleado != undefined || idEmpleado != 0) {
+                        var params = {
+                            idEmpleado: idEmpleado.toString()
+                        };
+                        params = JSON.stringify(params);
+                        params = _encryptAES.convertidor(params);
+
+                        ServiciosHTTP.post(params, '/api/externo/solicitud/altaSolicitudG').$promise.then(function (result) {
+                            result = _decryptAES.convertidor(result.resultado);
+                            result = JSON.parse(result);
+                            if (result.codE == 0) {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                ngDialog.open({
+                                    template: 'app/html/captacion/aviso-mesa.html',
+                                    className: 'ngdialog-theme-plain',
+                                    plain: false,
+                                    closeByDocument: false,
+                                    preCloseCallback: function () {
+                                        document.body.style.position = "initial";
+                                    },
+                                    scope: $scope
+                                });
+                            } else if (result.codE == 1) {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                Flotantes.mensajeToast({
+                                    mensaje: result.msgE,
+                                    clase: "danger"
+                                });
+                            } else if (result.codE == 2) {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                Flotantes.mensajeToast({
+                                    mensaje: result.msgE,
+                                    clase: "danger"
+                                });
+                            } else if (result.codE == 3) {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                Flotantes.mensajeToast({
+                                    mensaje: result.msgE,
+                                    clase: "danger"
+                                });
+                            } else if (result.codE == 4) {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                Flotantes.mensajeToast({
+                                    mensaje: result.msgE,
+                                    clase: "danger"
+                                });
+                            } else if (result.codE == 5) {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                Flotantes.mensajeToast({
+                                    mensaje: result.msgE,
+                                    clase: "danger"
+                                });
+                            } else if (result.codE == 6) {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                Flotantes.mensajeToast({
+                                    mensaje: result.msgE,
+                                    clase: "danger"
+                                });
+                            } else if (result.codE == 7) {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                Flotantes.mensajeToast({
+                                    mensaje: result.msgE,
+                                    clase: "danger"
+                                });
+                            } else if (result.codE == 8) {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                Flotantes.mensajeToast({
+                                    mensaje: result.msgE,
+                                    clase: "danger"
+                                });
+                            } else if (result.codE == 9) {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                Flotantes.mensajeToast({
+                                    mensaje: result.msgE,
+                                    clase: "danger"
+                                });
+                            }
+                        });
+                    }
+                }
+
+
+
+                $scope.ShowYearMonth = function (year) {
+                    var year = year;
+                    $scope.stepYearMonth = [];
+                    if (year == '') {
+                        return $scope.stepYearMonth;
+                    }
+
+                    var anioActual = new Date().getFullYear();
+                    if (year == anioActual) { //Si corresponde el mismo año, obtener los meses pasados
+                        var anioActual = new Date();
+                        var vMonth = anioActual.getMonth() + 1; //Inicia en 0"Cero"
+                    } else {
+                        vMonth = 1;
+                    }
+
+
+                    var dato = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+                    var cont = 0;
+                    $scope.stepDay = []; //inicializao el step de dias para dejarlos en cero
+                    for (var i = 0; i < 12; i++) {
+                        cont = cont + 1;
+                        if (parseInt(cont) < 10) {
+                            MesConCero = "0" + cont;
+                            Mes = MesConCero;
+                        } else {
+                            Mes = cont;
+                        }
+                        if (cont <= vMonth) {
+                            if (cont + 0 == vMonth || cont + 1 == vMonth || cont + 2 == vMonth) {
+                                $scope.stepYearMonth.push({
+                                    stepName: year + "-" + Mes,
+                                    isComplete: dato[i]
+                                });
+                            }
+                        }
+
+                    }
+                    //$scope.stepDay.push({stepName: 0, isComplete: "Día"});//le asigmos un valor por fault
+                }
+
+
+                $scope.ValidDay = function (parameter) {
+                    if (parameter != undefined || parameter != null) {
+                        var vYearMes = parameter;
+                        var element = vYearMes.split('-');
+                        var year = element[0];
+                        var mes = element[1];
+
+                        var CantidadDia = 0;
+
+
+                        function EsBisiesto(year) {
+                            if (year % 4 == 0) {
+                                if (year % 100 == 0 && year % 400 != 0) {
+                                    return (0);
+                                } else {
+                                    return (1);
+                                }
+                            } else {
+                                return (0);
+                            }
+                        }
+
+                        if (mes >= 3 && mes <= 12 || mes == 1) {
+                            if (mes <= 7) {
+                                if (mes % 2 == 0) {
+                                    CantidadDia = 30;
+                                } else {
+                                    CantidadDia = 31;
+                                }
+                            } else {
+                                if (mes % 2 == 0) {
+                                    CantidadDia = 31;
+                                } else {
+                                    CantidadDia = 30;
+                                }
+                            }
+                        } else {
+                            es = EsBisiesto(year) //Preguntamos si elaño pasado es bisiesto
+                            if (es == 1) {
+                                CantidadDia = 29;
+                            } else {
+                                CantidadDia = 28;
+                            }
+                        }
+
+                        // for para agregar los dias
+                        $scope.stepDay = [];
+                        for (var i = 0; i < CantidadDia; i++) {
+                            var x = i + 1;
+                            if (parseInt(x) < 10) {
+                                var DiaConCero = "0" + x;
+                                var dia = DiaConCero;
+                            } else {
+                                var dia = x;
+                            }
+                            $scope.stepDay.push({
+                                stepName: dia.toString(),
+                                isComplete: dia.toString()
+                            });
+                        }
+                    }
+                }
+
+
+                $scope.showFrente = {
+                    display: "inline"
+                };
+                $scope.showReverso = {
+                    display: "none"
+                };
+
+                $scope.cambiarVistaIFE = function (numVista) {
+                    var divFrenteIFE = document.getElementById('divFrenteIFE');
+                    var divDetrasIFE = document.getElementById('divDetrasIFE');
+                    if (numVista == 1) {
+                        divFrenteIFE.style.display = 'inline';
+                        divDetrasIFE.style.display = 'none';
+                    } else {
+                        divFrenteIFE.style.display = 'none';
+                        divDetrasIFE.style.display = 'inline';
+                    }
+                };
+
+                // Contenedores temporales de la Base64
+                var banderaImgFrenteIFE = null;
+                var banderaImgDestrasIFE = null;
+                var banderaImgCompDomicilio = null;
+                var banderaImgPasaporte = null;
+
+
+
+                /* Frente IFE */
+                // Elementos IFE Frente
+                var contadorRotacionFrenteIFE = 0;
+
+
+                // Funcion para rotar a la izquierda la imagen en Canvas
+                $scope.rotarIzquierdaFrenteIFE = function () {
+                    var imgFrenteIFE = document.getElementById('imgFrenteIFE');
+                    var canvasFrenteIFE = document.getElementById('canvasFrenteIFE');
+                    console.log("paso");
+                    // Ejecutamos la funcion generica
+                    var resultRotacion = $scope.rotarIzquierdaImagen(canvasFrenteIFE, imgFrenteIFE, contadorRotacionFrenteIFE);
+                    // Asignamos el nuevo valor del contador
+                    contadorRotacionFrenteIFE = resultRotacion.grados;
+
+                    // Regresamos el Base64 de la imagen rotada
+                    banderaImgFrenteIFE = resultRotacion.B64;
+                    $scope.jsonDigitalizacion.ifeFrenteImg = banderaImgFrenteIFE;
+                    $scope.ifeFrenteImg = banderaImgFrenteIFE;
+                };
+
+                // Funcion para rotar a la izquierda la imagen en Canvas
+                $scope.rotarIzquierdaImagen = function (canvas, img, contadorRotacion) {
+                    // Validamos los grados a rotar
+                    if (contadorRotacion == 90) {
+                        contadorRotacion = 360;
+                    } else if (contadorRotacion > 90) {
+                        contadorRotacion -= 90;
+                    } else if (contadorRotacion == 0) {
+                        contadorRotacion = 270;
+                    }
+
+
+                    // Regresamos el Base64 de la imagen rotada
+                    return {
+                        B64: rotarImagenPor90(canvas, img, contadorRotacion),
+                        grados: contadorRotacion
+                    };
+                };
+
+
+
+                $scope.rotarDerechaFrenteIFE = function () {
+                    console.log("derecha");
+                    var imgFrenteIFE = document.getElementById('imgFrenteIFE');
+                    var canvasFrenteIFE = document.getElementById('canvasFrenteIFE');
+
+
+
+                    // Ejecutamos la funcion generica
+                    var resultRotacion = $scope.rotarDerechaImagen(canvasFrenteIFE, imgFrenteIFE, contadorRotacionFrenteIFE);
+                    // Asignamos el nuevo valor del contador
+                    contadorRotacionFrenteIFE = resultRotacion.grados;
+
+                    // Regresamos el Base64 de la imagen rotada
+                    banderaImgFrenteIFE = resultRotacion.B64;
+                    $scope.jsonDigitalizacion.ifeFrenteImg = banderaImgFrenteIFE;
+                    $scope.ifeFrenteImg = banderaImgFrenteIFE;
+                };
+
+                // Funcion para rotar a la Derecha
+                // Funcion para rotar a la derecha la imagen en Canvas
+                $scope.rotarDerechaImagen = function (canvas, img, contadorRotacion) {
+                    // Validamos los grados a rotar
+                    if (contadorRotacion < 360) {
+                        contadorRotacion += 90;
+                    } else if (contadorRotacion == 360) {
+                        contadorRotacion = 90;
+                    }
+
+                    // Regresamos el Base64 de la imagen rotada
+                    return {
+                        B64: rotarImagenPor90(canvas, img, contadorRotacion),
+                        grados: contadorRotacion
+                    };
+                };
+
+
+
+                /* Detras IFE */
+                // Elementos IFE Detras
+                var contadorRotacionDetrasIFE = 0;
+
+
+                // Funcion para rotar a la izquierda la imagen en Canvas
+                $scope.rotarIzquierdaDestrasIFE = function () {
+                    var imgDestrasIFE = document.getElementById('imgDestrasIFE');
+                    var canvasDestrasIFE = document.getElementById('canvasDestrasIFE');
+                    // Ejecutamos la funcion generica
+                    var resultRotacion = $scope.rotarIzquierdaImagen(canvasDestrasIFE, imgDestrasIFE, contadorRotacionDetrasIFE);
+                    // Asignamos el nuevo valor del contador
+                    contadorRotacionDetrasIFE = resultRotacion.grados;
+
+                    // Regresamos el Base64 de la imagen rotada
+                    banderaImgDestrasIFE = resultRotacion.B64;
+                    $scope.jsonDigitalizacion.ifeReversoImg = banderaImgDestrasIFE;
+                    $scope.ifeReversoImg = banderaImgDestrasIFE;
+                };
+
+                // Funcion para rotar a la izquierda la imagen en Canvas
+                $scope.rotarIzquierdaImagen = function (canvas, img, contadorRotacion) {
+                    // Validamos los grados a rotar
+                    if (contadorRotacion == 90) {
+                        contadorRotacion = 360;
+                    } else if (contadorRotacion > 90) {
+                        contadorRotacion -= 90;
+                    } else if (contadorRotacion == 0) {
+                        contadorRotacion = 270;
+                    }
+
+                    // Regresamos el Base64 de la imagen rotada
+                    return {
+                        B64: rotarImagenPor90(canvas, img, contadorRotacion),
+                        grados: contadorRotacion
+                    };
+                };
+
+                $scope.rotarDerechaDestrasIFE = function () {
+                    var imgDestrasIFE = document.getElementById('imgDestrasIFE');
+                    var canvasDestrasIFE = document.getElementById('canvasDestrasIFE');
+                    // Ejecutamos la funcion generica
+                    var resultRotacion = $scope.rotarDerechaImagen(canvasDestrasIFE, imgDestrasIFE, contadorRotacionDetrasIFE);
+
+                    // Asignamos el nuevo valor del contador
+                    contadorRotacionDetrasIFE = resultRotacion.grados;
+
+                    // Regresamos el Base64 de la imagen rotada
+                    banderaImgDestrasIFE = resultRotacion.B64;
+                    $scope.jsonDigitalizacion.ifeReversoImg = banderaImgDestrasIFE;
+                    $scope.ifeReversoImg = banderaImgDestrasIFE;
+                };
+                // Funcion para rotar a la Derecha
+                // Funcion para rotar a la derecha la imagen en Canvas
+                $scope.rotarDerechaImagen = function (canvas, img, contadorRotacion) {
+                    // Validamos los grados a rotar
+                    if (contadorRotacion < 360) {
+                        contadorRotacion += 90;
+                    } else if (contadorRotacion == 360) {
+                        contadorRotacion = 90;
+                    }
+
+                    // Regresamos el Base64 de la imagen rotada
+                    return {
+                        B64: rotarImagenPor90(canvas, img, contadorRotacion),
+                        grados: contadorRotacion
+                    };
+                };
+
+                // ****************************************************************** Datos del hogar ******************************************************
+
+
+                if ($rootScope.dataModulos == undefined || $rootScope.dataModulos == null) {
+                    $rootScope.dataModulos = {
+                        datosHogar: null
+                    };
+                }
+
+
+                $scope.getData = function () {
+                    if ($rootScope.cadDatosHogar != undefined) {
+                        var dataHogar = {};
+                        var objDataJSON = $rootScope.cadDatosHogar;
+
+
+                        if (objDataJSON.tipoVivienda == null || objDataJSON.tipoVivienda == 0)
+                            objDataJSON.tipoVivienda = "0";
+                        dataHogar = {
+                            calle: utils.utf8_decode(((objDataJSON.calleDom != null) ? objDataJSON.calleDom : "")),
+                            numeroExterior: utils.utf8_decode(((objDataJSON.numExterior != null) ? objDataJSON.numExterior : "")),
+                            numeroInterior: utils.utf8_decode(((objDataJSON.numInterior != null) ? objDataJSON.numInterior : "")),
+                            codigoPostal: $scope.obtenerDatosPorCP(objDataJSON.codPostal, true),
+                            fcColonia: ((objDataJSON.barrioColonia != null) ? objDataJSON.barrioColonia : "").toString(),
+                            delOMun: ((objDataJSON.delOMun != null) ? objDataJSON.delOMun : "").toString(),
+                            idMunicipio: $scope.validacionSelectNaN(objDataJSON.idMunicipio, "").toString(),
+                            idEstado: $scope.validacionSelectNaN(objDataJSON.idEstado, "").toString(),
+                            estado: ((objDataJSON.fcEstado != null) ? objDataJSON.fcEstado : ""),
+                            idPais: $scope.validacionSelectNaN(objDataJSON.idPaisHogar, "").toString(),
+                            idTipoVivienda: $scope.validacionSelectNaN(objDataJSON.tipoVivienda, "0").toString(),
+                            pais: ((objDataJSON.pais != null) ? objDataJSON.pais : "").toString()
+                        };
+                        $rootScope.dataModulos.datosHogar = dataHogar;
+                        $scope.obtenerLabelIdPais();
+                        $scope.hogar = angular.copy($rootScope.dataModulos.datosHogar);
+
+                    } else {
+
+                        var idEmpleado = ((typeof ($rootScope.idEmpleado) != 'undefined') ? $rootScope.idEmpleado : null);
+                        var idInstitucion = ((typeof ($rootScope.idInstitucion) != 'undefined') ? $rootScope.idInstitucion : null);
+                        var idPais = ((typeof ($rootScope.idPais) != 'undefined') ? $rootScope.idPais : null);
+
+
+                        var jsonSend = {
+                            "idInstitucion": idInstitucion,
+                            "idPais": idPais,
+                            "idEmpleado": idEmpleado
+                        };
+
+                        jsonSend = JSON.stringify(jsonSend);
+                        jsonSend = _encryptAES.convertidor(jsonSend);
+
+
+                        if ($rootScope.dataModulos.datosHogar == null || typeof ($rootScope.dataModulos.datosHogar) == 'undefined' || $rootScope.dataModulos.datosHogar == "") {
+                            ServiciosHTTP.post(jsonSend, '/consultaDatosHogar').$promise.then(function (data) {
+                                data = _decryptAES.convertidor(data.resultado);
+                                data = JSON.parse(data);
+
+                                var objDataJSON = ((data.jsonResultado != null && data.jsonResultado.length > 0 && typeof (data.jsonResultado) != 'undefined') ? data.jsonResultado[0] : null);
+                                var codE = (data.codE != null && (typeof (data.codE) != 'undefined' && !isNaN(parseInt(data.codE))) ? data.codE : 1);
+                                var msgE = ((typeof (data.msgE) != 'undefined' && data.msgE != null) ? data.msgE : "");
+
+                                var dataHogar = {};
+
+
+                                if (objDataJSON != null) {
+                                    if (objDataJSON.fiIdTipoVivienda == null || objDataJSON.fiIdTipoVivienda == 0)
+                                        objDataJSON.fiIdTipoVivienda = "0";
+
+                                    dataHogar = {
+                                        calle: utils.utf8_decode(((objDataJSON.fcCalleDomEmpleado != null) ? objDataJSON.fcCalleDomEmpleado : "")),
+                                        numeroExterior: utils.utf8_decode(((objDataJSON.fcNumExtDomEmpleado != null) ? objDataJSON.fcNumExtDomEmpleado : "")),
+                                        numeroInterior: utils.utf8_decode(((objDataJSON.fcNumIntDomEmpleado != null) ? objDataJSON.fcNumIntDomEmpleado : "")),
+                                        codigoPostal: $scope.obtenerDatosPorCP(objDataJSON.fcCodPostalDomEmpleado, true),
+                                        fcColonia: ((objDataJSON.fcColonia != null) ? objDataJSON.fcColonia : "").toString(),
+                                        delOMun: ((objDataJSON.fcDelMun != null) ? objDataJSON.fcDelMun : "").toString(),
+                                        idMunicipio: $scope.validacionSelectNaN(objDataJSON.fiIdDelegacionMunicipio, "").toString(),
+                                        idEstado: $scope.validacionSelectNaN(objDataJSON.fiIdEstado, "").toString(),
+                                        estado: ((objDataJSON.fcEstado != null) ? objDataJSON.fcEstado : ""),
+                                        idPais: $scope.validacionSelectNaN(objDataJSON.fiIdPais, "").toString(),
+                                        idTipoVivienda: $scope.validacionSelectNaN(objDataJSON.fiIdTipoVivienda, "0").toString(),
+                                        pais: ((objDataJSON.fcPais != null) ? objDataJSON.fcPais : "").toString()
+                                    };
+                                }
+
+                                if (codE == 0) {
+
+                                    $rootScope.dataModulos.datosHogar = dataHogar;
+                                    $scope.obtenerLabelIdPais();
+
+                                    $scope.hogar = angular.copy($rootScope.dataModulos.datosHogar);
+                                } else {
+                                    $scope.btnEnvio = false;
+
+                                    Flotantes.mensajeToast({
+                                        mensaje: 'No se logro obtener la información solicitada, Intentelo más tarde.',
+                                        clase: 'danger'
+                                    });
+
+                                    $timeout(function () {
+                                        $location.path("/menu");
+                                    }, 2500);
+
+                                    return;
+                                }
+
+
+                            }, function (errResponse) {
+                                $scope.Cargando = Flotantes.cargandoCerrar();
+                                sesionError.sesionError(errResponse);
+                            });
+                        } else {
+                            console.log("codigo");
+                            $scope.obtenerDatosPorCP(angular.copy($rootScope.dataModulos.datosHogar.codigoPostal), true);
+
+                            $scope.hogar = angular.copy($rootScope.dataModulos.datosHogar);
+
+
+                        }
+                    }
+                };
+
+
+                $scope.obtenerDatosPorCP = function (cpManual, busquedaApertura) {
+                    var codigoPostal = ((cpManual != null && cpManual != "") ? cpManual : "").toString().trim();
+
+                    $scope.limpiarSelectPorCP();
+                    if (codigoPostal.length == 5) {
+                        var jsonSend = {
+                            cp: codigoPostal
+                        };
+
+                        jsonSend = JSON.stringify(jsonSend);
+                        jsonSend = _encryptAES.convertidor(jsonSend);
+                        ServiciosHTTP.post(jsonSend, '/buscarCP').$promise.then(function (data) {
+                            data = _decryptAES.convertidor(data.resultado);
+                            data = JSON.parse(data);
+                            var jsonResultado = ((data.jsonResultado != null && data.jsonResultado.length > 0 && typeof (data.jsonResultado) != 'undefined') ? data.jsonResultado : null);
+                            var codE = (data.codE != null && (typeof (data.codE) != 'undefined' && !isNaN(parseInt(data.codE))) ? data.codE : 1);
+                            var msgE = ((typeof (data.msgE) != 'undefined' && data.msgE != null) ? data.msgE : "");
+
+                            if (codE == 0 && jsonResultado != null) {
+                                if (!angular.isArray(jsonResultado)) {
+                                    jsonResultado = JSON.parse("[" + (angular.toJson(jsonResultado)).trim() + "]");
+                                }
+                                $scope.cpInvalidoShow = false;
+                                $scope.arrayConsultaCp = jsonResultado;
+
+                                $scope.buscarEstados($scope.arrayConsultaCp, busquedaApertura);
+
+                                //For que compara si el nombre es correcto con la consuta de CP para limpiar el scope de fcColonia
+                                var comparaColonia = $scope.hogar.fcColonoa;
+                                var estatusColonia = false;
+                                for (var i = 0; i < jsonResultado.length; i++) {
+                                    if (jsonResultado[i].descColonia != comparaColonia) {
+                                        $scope.hogar.colonia = "";
+                                        if (estatusColonia) {
+                                            $scope.hogar.colonia = comparaColonia;
+                                        }
+                                    } else {
+                                        estatusColonia = true;
+                                        $scope.hogar.colonia = comparaColonia;
+                                    }
+                                }
+                            } else if (codE == 3) {
+                                $scope.cpInvalidoShow = true;
+                            } else {
+                                $scope.cpInvalidoShow = true;
+                                Flotantes.mensajeToast({
+                                    mensaje: 'No se logró obtener la información del Código Postal.',
+                                    clase: 'danger'
+                                });
+                            }
+                        }, function (errResponse) {
+                            $scope.Cargando = Flotantes.cargandoCerrar();
+                            sesionError.sesionError(errResponse);
+                        });
+                    }
+                    return codigoPostal;
+                };
+
+                $scope.validacionSelectNaN = function (valorEntrada, valorSalidaFalse, aceptaCero) {
+                    if (aceptaCero != true || typeof (aceptaCero) == 'undefined')
+                        return ((!isNaN(valorEntrada) && parseInt(valorEntrada) > 0) ? valorEntrada : valorSalidaFalse);
+                    else
+                        return ((!isNaN(valorEntrada)) ? valorEntrada : valorSalidaFalse);
+                };
+                $scope.limpiarMensaje = function () {
+                    $scope.coloniaShow = false;
+                    $scope.municipioShow = false;
+                    $scope.estadoShow = false;
+                };
+
+                $scope.limpiarSelectPorCP = function () {
+                    $scope.cpEstados = [];
+                    $scope.cpMunicipios = [];
+                    $scope.cpColonias = [];
+                    $scope.limpiarMensaje();
+                };
+
+                $scope.buscarColonias = function (jsonResultado, idMunicipio) {
+                    var consultaColonias = JSLINQ(jsonResultado)
+                            .Where(function (item) {
+                                return item.poblacionID == idMunicipio;
+                            })
+                            .OrderBy(function (item) {
+                                return item.descColonia;
+                            });
+                    $scope.cpColonias = consultaColonias.items;
+
+                    if ($scope.cpColonias.length == 1) {
+                        $scope.hogar.fcColonia = $scope.cpColonias[0].descColonia;
+                    }
+                    $scope.limpiarMensaje();
+                }
+
+                $scope.descMunicipio = function (jsonMunicipio, idMunicipio) {
+                    var consultaMunicipios = JSLINQ(jsonMunicipio).Where(function (item) {
+                        return item.poblacionID == idMunicipio;
+                    });
+                    try {
+                        $scope.hogar.delOMun = consultaMunicipios.items[0].descPoblacion;
+                    } catch (e) {
+                    }
+                }
+
+                $scope.buscarMunicipios = function (jsonResultado, idEstado, busquedaApertura) {
+                    var arrayUniqueMunicipios = sArreglos.uniqueArray(jsonResultado, 'descPoblacion');
+                    var consultaMunicipios = JSLINQ(arrayUniqueMunicipios)
+                            .Where(function (item) {
+                                return item.edoID == idEstado;
+                            })
+                            .OrderBy(function (item) {
+                                return item.descPoblacion;
+                            });
+                    $scope.cpMunicipios = consultaMunicipios.items;
+
+                    if ($scope.cpMunicipios.length == 1) {
+                        $scope.hogar.delOMun = $scope.cpMunicipios[0].descPoblacion;
+                        $scope.hogar.idMunicipio = $scope.cpMunicipios[0].poblacionID;
+                        $scope.buscarColonias(jsonResultado, $scope.hogar.idMunicipio);
+                    }
+
+                    if (busquedaApertura) {
+                        $scope.buscarColonias(jsonResultado, $scope.hogar.idMunicipio);
+                    }
+                    $scope.limpiarMensaje();
+                };
+
+                $scope.desEstado = function (jsonEstados, idEstado) {
+                    var consultaEstado = JSLINQ(jsonEstados).Where(function (item) {
+                        return item.edoID == idEstado;
+                    });
+                    try {
+                        $scope.hogar.estado = consultaEstado.items[0].descEdo;
+                    } catch (e) {
+                    }
+
+                }
+
+                $scope.buscarEstados = function (jsonResultado, busquedaApertura) {
+                    var jsonResultado = jsonResultado;
+                    $scope.cpEstados = sArreglos.uniqueArray(jsonResultado, 'descEdo');
+
+                    if ($scope.cpEstados.length == 1) {
+                        $scope.hogar.estado = $scope.cpEstados[0].descEdo;
+                        $scope.hogar.idEstado = $scope.cpEstados[0].edoID;
+                        $scope.buscarMunicipios(jsonResultado, $scope.hogar.idEstado, busquedaApertura);
+                    }
+                    $scope.limpiarMensaje();
+                };
+
+                $scope.obtenerLabelIdPais = function () {
+                    var idPais = $rootScope.dataModulos.datosHogar.idPais;
+
+
+                    if (idPais == "" || typeof (idPais) == 'undefined' || idPais == 0 || idPais == null) {
+                        $rootScope.dataModulos.datosHogar.idPais = "0";
+                    }
+                };
+
+
+                $scope.validacionSelectNaN = function (valorEntrada, valorSalidaFalse, aceptaCero) {
+                    if (aceptaCero != true || typeof (aceptaCero) == 'undefined')
+                        return ((!isNaN(valorEntrada) && parseInt(valorEntrada) > 0) ? valorEntrada : valorSalidaFalse);
+                    else
+                        return ((!isNaN(valorEntrada)) ? valorEntrada : valorSalidaFalse);
+                };
+
+
+                function esVacio(str) {
+                    return (!str || 0 === str.length || str == "0");
+                }
+
+                $scope.validacionForm = function () {
+                    var estadoSelect = document.getElementById('estadoSelect').value;
+                    var municipioSelect = document.getElementById('municipioSelect').value;
+                    var coloniaSelect = document.getElementById('coloniaSelect').value;
+
+                    if (esVacio($scope.hogar.idEstado) && !esVacio(estadoSelect)) {
+                        $scope.hogar.idEstado = estadoSelect.replace('string:', '');
+
+                        $scope.obtenerLabelEstado();
+                    }
+
+                    if (esVacio($scope.hogar.idMunicipio) && !esVacio(municipioSelect)) {
+                        $scope.hogar.idMunicipio = municipioSelect.replace('string:', '');
+
+                        $scope.obtenerLabelMunicipio();
+                    }
+
+                    if (esVacio($scope.hogar.fcColonia) && !esVacio(coloniaSelect)) {
+                        $scope.hogar.fcColonia = coloniaSelect.replace('string:', '');
+                    }
+
+                    if (esVacio($scope.hogar.codigoPostal)) {
+                        $scope.codigoPostalShow = true;
+                        Flotantes.mensajeToast({
+                            mensaje: 'Ingrese el Código Postal.',
+                            clase: 'danger'
+                        });
+                        return false;
+                    } else if ($scope.cpInvalidoShow) {
+                        $scope.codigoPostalShow = true;
+                        Flotantes.mensajeToast({
+                            mensaje: 'Ingrese un Código Postal valido.',
+                            clase: 'danger'
+                        });
+                        return false;
+                    } else if (esVacio($scope.hogar.idPais)) {
+                        $scope.paisShow = true;
+                        Flotantes.mensajeToast({
+                            mensaje: 'Seleccione el País.',
+                            clase: 'danger'
+                        });
+                        return false;
+                    } else if (esVacio($scope.hogar.idEstado)) {
+                        $scope.estadoShow = true;
+                        Flotantes.mensajeToast({
+                            mensaje: 'Seleccione el Estado.',
+                            clase: 'danger'
+                        });
+                        return false;
+                    } else if (esVacio($scope.hogar.idMunicipio)) {
+                        $scope.municipioShow = true;
+                        Flotantes.mensajeToast({
+                            mensaje: 'Seleccione Delegación/Municipio.',
+                            clase: 'danger'
+                        });
+                        return false;
+                    } else if (esVacio($scope.hogar.fcColonia)) {
+                        $scope.coloniaShow = true;
+                        Flotantes.mensajeToast({
+                            mensaje: 'Seleccione la Colonia.',
+                            clase: 'danger'
+                        });
+                        return false;
+                    } else if (esVacio($scope.hogar.calle)) {
+                        $scope.calleShow = true;
+                        Flotantes.mensajeToast({
+                            mensaje: 'Ingrese la Calle.',
+                            clase: 'danger'
+                        });
+                        return false;
+                    } else if (esVacio($scope.hogar.numeroExterior)) {
+                        if ($scope.hogar.numeroExterior == undefined) {
+                            $scope.numExteriorShow = true;
+                            Flotantes.mensajeToast({
+                                mensaje: 'Ingrese un Número Exterior válido.',
+                                clase: 'danger'
+                            });
+                            return false;
+                        }
+                    } else if (esVacio($scope.hogar.idTipoVivienda)) {
+                        $scope.tipoViviendaShow = true;
+                        Flotantes.mensajeToast({
+                            mensaje: 'Seleccione el Tipo de Vivienda.',
+                            clase: 'danger'
+                        });
+                        return false;
+                    }
+
+                    return true;
+                };
+
+                $scope.closeAviso = function (opcion) {
+                    if (opcion === 1) {
+                        if ($scope.hogar.idPais === "0") {
+                            $scope.paisShow = true;
+                        } else {
+                            $scope.paisShow = false;
+                        }
+                    } else {
+                        if (opcion === 2) {
+                            $scope.estadoShow = false;
+                        } else
+                        if (opcion === 3) {
+                            $scope.municipioShow = false;
+                        } else if (opcion === 4) {
+                            $scope.coloniaShow = false;
+                        } else if (opcion === 5) {
+                            if ($scope.hogar.numeroExterior === undefined) {
+                                $scope.numExteriorShow = true;
+                            } else {
+                                $scope.numExteriorShow = false;
+                            }
+                        } else if (opcion === 6) {
+                            if ($scope.hogar.idTipoVivienda === "0") {
+                                $scope.tipoViviendaShow = true;
+                            } else {
+                                $scope.tipoViviendaShow = false;
+                            }
+                        } else if (opcion === 7) {
+                            $scope.cpInvalidoShow = false;
+                            $scope.codigoPostalShow = false;
+                        }
+                    }
+                }
+
+
+                $scope.arrayPaises = cDatosBasicos.paises(); //catalogo de paises
+                $scope.setData = function () {
+                    if ($scope.validacionForm()) {
+                        $scope.vdhogar = true;
+
+                        $scope.hogar.fcPais = $scope.arrayPaises[$scope.hogar.idPais - 1].desc;
+
+                        var dataHogar = {
+                            "idInstitucion": $rootScope.idInstitucion,
+                            "idPais": $rootScope.idPais,
+                            "idEmpleado": $rootScope.idEmpleado,
+                            "calleDom": $scope.hogar.calle,
+                            "numExterior": $scope.hogar.numeroExterior,
+                            "numInterior": $scope.hogar.numeroInterior,
+                            "codPostal": $scope.hogar.codigoPostal,
+                            "barrioColonia": $scope.hogar.fcColonia,
+                            "delOMun": $scope.hogar.delOMun,
+                            "idMunicipio": $scope.hogar.idMunicipio, // no tengo este dato
+                            "idEstado": $scope.hogar.idEstado,
+                            "idPaisHogar": $scope.hogar.idPais,
+                            "tipoVivienda": $scope.hogar.idTipoVivienda,
+                            "pais": $scope.hogar.fcPais
+                        };
+
+                        $rootScope.cadDatosHogar = dataHogar;
+                        $scope.PrincipalDomicilio = true;
+                        $scope.actualizarDatosHogar = false;
+
+                        $rootScope.altaSolicitudG = true;
+
+                        $scope.estatusDomicilio.fDatosHogar = true;
+                        $scope.nDoc[$scope.posiciond].status = true;
+                        $scope.nDoc[$scope.posiciond].dhogar = true;
+                        $scope.nDoc[$scope.posiciond].completado = true;
+                        activarBoton();
+                    } else {
+                        return false;
+                    }
+                };
+
+                /* Comprobante de Docmicilio */
+                // Elementos Comprobante de Docmicilio
+
+
+                // Funcion para rotar a la derecha la imagen en Canvas
+                $scope.rotarDerechaCompDomicilio = function () {
+                    var contadorRotacionCompDomicilio = 0;
+                    var imgCompDomicilio = document.getElementById('imgCompDomicilio');
+                    var canvasCompDomicilio = document.getElementById('canvasCompDomicilio');
+                    // Ejecutamos la funcion generica
+                    var resultRotacion = $scope.rotarDerechaImagen(canvasCompDomicilio, imgCompDomicilio, contadorRotacionCompDomicilio);
+
+                    // Asignamos el nuevo valor del contador
+                    contadorRotacionCompDomicilio = resultRotacion.grados;
+
+                    // Regresamos el Base64 de la imagen rotada
+                    banderaImgCompDomicilio = resultRotacion.B64;
+                    $scope.nuevaComprobante = banderaImgCompDomicilio;
+                    $scope.jsonDigitalizacion.domicilioImg = banderaImgCompDomicilio;
+                };
+
+                // Funcion para rotar a la izquierda la imagen en Canvas
+                $scope.rotarIzquierdaCompDomicilio = function () {
+                    var contadorRotacionCompDomicilio = 0;
+                    var imgCompDomicilio = document.getElementById('imgCompDomicilio');
+                    var canvasCompDomicilio = document.getElementById('canvasCompDomicilio');
+                    // Ejecutamos la funcion generica
+                    var resultRotacion = $scope.rotarIzquierdaImagen(canvasCompDomicilio, imgCompDomicilio, contadorRotacionCompDomicilio);
+
+                    // Asignamos el nuevo valor del contador
+                    contadorRotacionCompDomicilio = resultRotacion.grados;
+
+                    // Regresamos el Base64 de la imagen rotada
+                    banderaImgCompDomicilio = resultRotacion.B64;
+                    $scope.nuevaComprobante = banderaImgCompDomicilio;
+                    $scope.jsonDigitalizacion.domicilioImg = banderaImgCompDomicilio;
+                };
+
+                $scope.rotarDerechaImagen = function (canvas, img, contadorRotacion) {
+                    // Validamos los grados a rotar
+                    if (contadorRotacion < 360) {
+                        contadorRotacion += 90;
+                    } else if (contadorRotacion == 360) {
+                        contadorRotacion = 90;
+                    }
+
+                    // Regresamos el Base64 de la imagen rotada
+                    return {
+                        B64: rotarImagenPor90(canvas, img, contadorRotacion),
+                        grados: contadorRotacion
+                    };
+                };
+
+                // Funcion para rotar a la izquierda la imagen en Canvas
+                $scope.rotarIzquierdaImagen = function (canvas, img, contadorRotacion) {
+                    // Validamos los grados a rotar
+                    if (contadorRotacion == 90) {
+                        contadorRotacion = 360;
+                    } else if (contadorRotacion > 90) {
+                        contadorRotacion -= 90;
+                    } else if (contadorRotacion == 0) {
+                        contadorRotacion = 270;
+                    }
+
+                    // Regresamos el Base64 de la imagen rotada
+                    return {
+                        B64: rotarImagenPor90(canvas, img, contadorRotacion),
+                        grados: contadorRotacion
+                    };
+                };
+
+                //Se oculta las ventanas de acuerdo a las condiciones de cada una
+                $scope.mostrarOcultarVentanas = function () {
+
+                    if ($scope.actualizarDatosHogar) {
+                        $scope.PrincipalDomicilio = true;
+                        $scope.actualizarDatosHogar = false;
+                        console.log("actualizarDatosHogar");
+                    }
+
+                    else if ($scope.OtroComprobanteDomicilio) {
+                        $scope.PrincipalDomicilio = true;
+                        $scope.FormularioDomicilio = false;
+                        $scope.OtroComprobanteDomicilio = false;
+                        console.log("OtroComprobanteDomicilio");
+                    }
+
+                    else if ($scope.cuadroIdentificacion) {
+                        $scope.principalIdentificacion = true;
+                        $scope.cuadroIdentificacion = false;
+                        console.log("cuadroIdentificacion");
+                    }
+
+                    else if ($scope.menuprincipal == true) {
+                        $location.path("/");
+                    }
+
+                };
+
+
+                //                Contratos
+                $scope.inicializarContratos = function () {
+                    $scope.vcontratosvalidar = true;
+
+                    function IniciaFirma() {
+
+                        var wrapper = document.getElementById("signature-pad"),
+                                canvas = wrapper.querySelector("canvas");
+
+                        signaturePad = new SignaturePad(canvas);
+
+                        var imgAuxiliar = null;
+                        switch ($scope.idDocumentod) {
+
+                            case 3:
+                                imgAuxiliar = $scope.contratoFirmaCliente;
+                                break;
+
+                            case 5:
+                                imgAuxiliar = $scope.contratoFirmaAvisoPrivacidad;
+                                break;
+
+                            case 6:
+                                imgAuxiliar = $scope.contratoFirmaBuro;
+                                break;
+
+                            case 7:
+                                imgAuxiliar = $scope.contratoFirmaContrato;
+                                break;
+
+                            case 30:
+                                imgAuxiliar = $scope.contratoFirmaCredito;
+                                break;
+
+                            default:
+                                imgAuxiliar = null;
+
+                        }
+                        if (!esVacio(imgAuxiliar)) {
+                            var image = new Image();
+                            image.onload = function () {
+                                ctx.drawImage(image, 0, 0);
+                            };
+                            $scope.limpiarFirma();
+                            image.src = "data:image/jpg;base64," + imgAuxiliar;
+
+                        }
+
+
+                    }
+
+                    IniciaFirma();
+                };
+
+                $scope.limpiarFirma = function () {
+                    if (document.getElementById('canvas') != null) {
+                        console.log("limpio firma");
+                        ctx = document.getElementById('canvas').getContext('2d');
+                        ctx.fillStyle = FirmaFondoColor;
+                        ctx.fillRect(0, 0, FirmaAncho, FirmaAlto);
+                    }
+
+                };
+
+                $scope.siguienteContrato = function (idContrato, posicion) {
+                    var nombreContrato;
+
+                    switch (idContrato) {
+                        case 3:
+                            if (validarFirma2()) {
+                                nombreContrato = "Solicitud de Apertura de Cuenta";
+
+                                var parametros = {
+                                    idEmpleado: $rootScope.idEmpleado,
+                                    firmaCliente: imagenBase64Firma,
+                                    checkApertura: true
+
+                                };
+                                $scope.contratoFirmaCliente = parametros.firmaCliente;
+
+                                $scope.aperturadcuenta = parametros;
+                                $scope.nDoc[posicion].completado = true;
+                                $scope.nDoc[posicion].status = true;
+                                // $scope.menuSiguiente(posicion);
+                                activarBoton();
+
+                            } else {
+                                Flotantes.mensajeToast({mensaje: "Para continuar debe firmar el Contrato de Apertura de Cuenta.", clase: "danger"});
+                            }
+                            break;
+                        case 5:
+                            if (validarFirma2()) {
+                                var checkFinalidadSecund = $scope.avisoCheck.finalidadSecundaria ? "1" : "0";
+                                var checkAvisoPrivacidad = $scope.avisoCheck.avisoPrivacidad ? "1" : "0";
+
+                                nombreContrato = "Aviso Privacidad";
+                                var parametros = {
+                                    idEmpleado: $rootScope.idEmpleado,
+                                    firmaAvisoPrivacidad: imagenBase64Firma,
+                                    checkIntegral: true,
+                                    datosPersonales: checkFinalidadSecund,
+                                    promociones: checkAvisoPrivacidad
+                                };
+
+                                $scope.contratoFirmaAvisoPrivacidad = parametros.firmaAvisoPrivacidad;
+
+                                $scope.avisoprivacidad = parametros;
+                                $scope.nDoc[posicion].completado = true;
+                                $scope.nDoc[posicion].status = true;
+                                // $scope.menuSiguiente(posicion);
+                                activarBoton();
+                                actualizaAviso();
+                            }
+                            else {
+                                Flotantes.mensajeToast({mensaje: "Para continuar debe firmar el Contrato de Aviso Privacidad.", clase: "danger"});
+                            }
+                            break;
+                        case 6:
+                            if (validarFirma2()) {
+                                nombreContrato = "Consulta a Buró";
+                                var parametros = {
+                                    idEmpleado: $rootScope.idEmpleado,
+                                    firmaCliente: imagenBase64Firma,
+                                    checkBuro: true
+                                };
+
+                                $scope.contratoFirmaBuro = parametros.firmaCliente;
+
+                                $scope.consultaburo = parametros;
+                                $scope.nDoc[posicion].completado = true;
+                                $scope.nDoc[posicion].status = true;
+                                // $scope.menuSiguiente(posicion);
+                                activarBoton();
+                            }
+                            else {
+                                Flotantes.mensajeToast({mensaje: "Para continuar debe firmar el Contrato de Consulta a Buró.", clase: "danger"});
+                            }
+                            break;
+                        case 7:
+                            if (validarFirma2()) {
+                                nombreContrato = "Contrato firmado";
+                                var parametros = {
+                                    idEmpleado: $rootScope.idEmpleado,
+                                    firmaCliente: imagenBase64Firma,
+                                    checkContrato: true
+                                };
+
+                                $scope.contratoFirmaContrato = parametros.firmaCliente;
+
+                                $scope.contratofirmado = parametros;
+                                $scope.nDoc[posicion].completado = true;
+                                $scope.nDoc[posicion].status = true;
+                                // $scope.menuSiguiente(posicion);
+                                activarBoton();
+                            }
+                            else {
+                                Flotantes.mensajeToast({mensaje: "Para continuar debe aceptar el Contrato..", clase: "danger"});
+                            }
+                            break;
+                        case 30:
+                            if (validarFirma2()) {
+                                nombreContrato = "Contrato de credito";
+                                var parametros = {
+                                    idEmpleado: $rootScope.idEmpleado,
+                                    firmaCliente: imagenBase64Firma,
+                                    checkCredito: true
+                                };
+
+                                $scope.contratoFirmaCredito = parametros.firmaCliente;
+
+                                $scope.contratodcredito = parametros;
+                                $scope.nDoc[posicion].completado = true;
+                                $scope.nDoc[posicion].status = true;
+                                //$scope.enviaContrato(parametros);
+                                activarBoton();
+                            }
+                            else {
+                                Flotantes.mensajeToast({mensaje: "Para continuar debe firmar el Contrato de Crédito.", clase: "danger"});
+                            }
+                            break;
+                    }
+                };
+
+
+
+
+
+                function validarFirma2() {
+                    var canvas = document.getElementById('canvas');
+                    var imageBase64 = canvas.toDataURL("image/jpeg");
+                    imagenBase64Firma = imageBase64.replace(/^data:image\/(png|jpeg);base64,/, "");
+                    return (imagenBase64Firma.length > 2875);
+                }
+
+                $scope.menuSiguiente = function (posicion) {
+                    if ($scope.btnlimpiar == false) {
+                        $scope.limpiarFirma();
+                    }
+
+                    if ($scope.nDoc[posicion + 1] != undefined) {
+                        $scope.nContratod = $scope.nDoc[posicion + 1].descripcion;
+                        $scope.idContratod = $scope.nDoc[posicion + 1].idRechazo;
+                        $scope.comentariod = $scope.nDoc[posicion + 1].comentario;
+                        $scope.idDocumentod = $scope.nDoc[posicion + 1].idDocumento;
+                        $scope.posiciond = posicion + 1;
+                    }
+
+                };
+
+                function actualizaAviso() {
+                    var idInstitucion = $rootScope.idInstitucion;
+                    var idEmpleado = $rootScope.idEmpleado;
+                    var idPais = $rootScope.idPais;
+
+                    var checkFinalidadSecund = $scope.avisoCheck.finalidadSecundaria ? "1" : "0";
+                    var checkAvisoPrivacidad = $scope.avisoCheck.avisoPrivacidad ? "1" : "0";
+
+                    if (idInstitucion == 0 || idInstitucion == null || idInstitucion == "" || idEmpleado == 0 || idEmpleado == null || idEmpleado == "" || idPais == 0 || idPais == "" && idPais == null) {
+
+                    } else {
+                        var params = {
+                            idInstitucion: idInstitucion,
+                            idEmpleado: idEmpleado,
+                            idPais: idPais,
+                            datosPersonales: checkFinalidadSecund,
+                            promociones: checkAvisoPrivacidad
+                        };
+
+                        var jsonsend = JSON.stringify(params);//se parsea a string
+                        jsonsend = _encryptAES.convertidor(jsonsend);// se encripta la cadena
+                        ServiciosHTTP.post(jsonsend, '/guardaDatosAvisoPrivacidad').$promise.then(function (result) {
+                            result = _decryptAES.convertidor(result.resultado);
+                            result = JSON.parse(result);
+                            if (result.codE == 0) {
+                                console.log(result);
+                            }
+                        }, function (errResponse) {
+                            $scope.Cargando = Flotantes.cargandoCerrar();
+                            sesionError.errorSesion(errResponse);
+                        });
+                    }
+                };
+                
+                $scope.acciones = function (accion) {
+                    if(accion == 'anterior'){
+                        $scope.numvisor = 1;
+                        $scope.ifeimgActual = $scope.ifeDocAnberso;
+                    }
+                    if(accion == 'siguiente'){
+                        $scope.ifeimgActual = $scope.ifeDocReverso;
+                        $scope.numvisor = 2;
+                    }
+                };
+                
+                $scope.accionescomp = function (accion) {
+                    if(accion == 'anterior'){
+                        $scope.numvisor = 1;
+                        $scope.compimgActual = $scope.comDocReverso;
+                    }
+                    if(accion == 'siguiente'){
+                        $scope.compimgActual = $scope.comDocAmberso;
+                        $scope.numvisor = 2;
+                        
+                    }
+                };
+
+
+            }
+        ]);

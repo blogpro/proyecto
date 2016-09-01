@@ -1,0 +1,56 @@
+{% extends "plantilla-general-post.html" %}
+
+{% block title %}
+  Sistemas Tabasco
+{% endblock %}
+
+
+{% block contenido %}
+	{% for p in PostMatriz %}
+		<article>
+            <header>
+                <div id="fecha">
+                    <div class="mes">MAY</div>
+                     <div class="dia">26</div>
+                    
+                </div>
+                <div id="cuerpotitulo">
+                    <div id="titulo">
+                        <h2 itemprop="headline" class="post-title">{{p.title}}</h2>
+                    </div>    
+                    <div id="descripcion-post">
+                        posted by {{p.first_name}} {{p.last_name}} .Commen <a href=""><i></i>22</a>
+                    </div>
+                </div>
+            </header>
+            <div class="content">
+               {{p.descripcion|safe|slice:":400"}}...
+                <p class="readMore"> <a href="/blog/{{p.slug}}/">Leer más</a></p>
+            </div>
+        </article>  <!-- / article -->
+	{% endfor %}
+
+
+	 <article>
+        <div class="contentpaginador">
+        {% for p in PostMatriz|slice:":1" %}
+            {% if p.previous_page_number > 0 %}
+                <a href="?page={{p.previous_page_number}}" class="older"><i> </i>Anterior</a>
+            {% endif %}
+
+            <span class="currents">
+              Pagina {{p.number}} de {{p.num_pages}}.
+            </span>
+
+            {% if p.next_page_number <= p.num_pages %}
+                <a href="?page={{p.next_page_number}}" class="older top-old"><i > </i>Siguiente</a>
+            {% endif %}
+
+
+        {% endfor %}
+        </div>
+    </article>  <!-- / article -->
+
+
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "plantilla-general-post.html" %}
+
+{% block title %}
+  Sistemas Tabasco
+{% endblock %}
+
+
+
+{% block configFacebook %}
+    <meta property="og:site_name" content="Systab Blog | Development, Marketing &amp; Web Design" />
+    <meta property="og:url"           content="http://systab.herokuapp.com/blog/{{id_post}}/" />
+    <meta property="og:type"          content="article" />
+    {% for p in PostMatriz %}
+    <meta property="og:title"         content="{{p.title}}" />
+    {% endfor %}
+    <meta property="og:description"   content="Pagina dedicado al mundo de la informatica" />
+    <meta property="og:image"         content="http://systab.herokuapp.com/static/images/logo.png" />
+
+{% endblock %}
+
+
+{% block contenido %}
+  {% for p in PostMatriz %}
+    <article>
+            <header>
+                <div id="fecha">
+                    <div class="mes">MAY</div>
+                     <div class="dia">26</div>
+                    
+                </div>
+                <div id="cuerpotitulo">
+                    <div id="titulo">
+                        <h2 itemprop="headline" class="post-title">{{p.title}}</h2>
+                    </div>    
+                    <div id="descripcion-post">
+                        posted by {{p.first_name}} {{p.last_name}} .Commen <a href=""><i></i>22</a>
+                    </div>
+                </div>
+            </header>
+            <div class="content">
+               {{p.descripcion|safe}}
+            </div>
+        </article>  <!-- / article -->
+  {% endfor %}
+
+  <article>
+            <header>
+                <div id="cuerpotituloComent">
+                    10 Comentarios.  
+                </div>
+            </header>
+            <div class="contentComentario">
+               <form class="contact_form" action="#" id="contact_form" runat="server"> 
+                <div> 
+                    <ul> 
+                        <li> 
+                            <h2>Contactos</h2> <span class="required_notification">* Datos requeridos</span> 
+                        </li> 
+                        <li> 
+                            <label for="name">Nombre:</label> <input type="text" placeholder="Elder López" required /> 
+                        </li> 
+                        <li> 
+                            <label for="email">Email:</label> 
+                            <input type="email" name="email" placeholder="info@dominio.com" required /> 
+                            <span class="form_hint">Formato correcto: "name@dominio.com"</span> 
+                        </li> 
+                        <li> 
+                            <label for="website">Sitio web:</label> 
+                            <input type="url" name="website" placeholder="http://dominio.com" required pattern="(http|https)://.+" /> 
+                            <span class="form_hint">Formato correcto: "http://developerji.com"</span> 
+                        </li> 
+
+                        <li> 
+                            <label for="message">Mensaje:</label> 
+                            <textarea name="message" cols="40" rows="6" required></textarea> 
+                        </li> <li> <button class="submit" type="submit">Enviar mensaje</button> </li> 
+                    </ul> 
+                </div> 
+                </form>
+            </div>
+        </article>  <!-- / article -->
+
+
+{% endblock %}

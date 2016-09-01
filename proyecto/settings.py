@@ -18,13 +18,17 @@ import socket
 a = socket.gethostbyname(socket.gethostname())
 
 
-if str(a) == '127.0.1.1':
+if str(a) == '127.0.0.1' or str(a) == '10.51.215.193':
     debug = True
     HOSTS = ['*']
-    NAME = ''
-    USER = ''
+    NAME = 'proyecto'
+    USER = 'postgres'
     PASSWORD = ''
-    HOST = ''
+    HOST = 'localhost'
+
+    facebook_key = "1539556102987271"#Local
+    facebook_secret = "330159cf0d1b6a8a98c0e35c564365a8"#Local
+
 else:
     debug = False  
     HOSTS = ['http://systab.herokuapp.com/','systab.herokuapp.com']
@@ -34,7 +38,9 @@ else:
     NAME = 'd8aecn4b0n19m3'
     USER = 'nnwgvgoklyndcu'
     PASSWORD = '3eyYWb0OMg9o5VNlkEa4QQPkpu'
-    
+
+    facebook_key = "1476656729277209"#Produccion
+    facebook_secret = "5c1f80475bcef95cef58f523ab14df27"#Produccion
 
 
 # Quick-start development settings - unsuitable for production
@@ -132,15 +138,14 @@ WSGI_APPLICATION = 'proyecto.wsgi.application'
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'd8aecn4b0n19m3',  # Or path to database file if using sqlite3.
-        'USER': 'nnwgvgoklyndcu',  # Not used with sqlite3.
-        'PASSWORD': '3eyYWb0OMg9o5VNlkEa4QQPkpu',  # Not used with sqlite3.
-        'HOST': 'ec2-54-225-201-25.compute-1.amazonaws.com',  # Set to empty string for localhost. Not used with sqlite3.
+        'NAME': NAME,  # Or path to database file if using sqlite3.
+        'USER': USER,  # Not used with sqlite3.
+        'PASSWORD': PASSWORD,  # Not used with sqlite3.
+        'HOST': HOST,  # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '5432',  # Set to empty string for default. Not used with sqlite3.
     }
 }
@@ -192,15 +197,6 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     'templates',
 )
-
-import socket
-a = socket.gethostbyname(socket.gethostname())
-if str(a) == '127.0.1.1':
-    facebook_key = "1539556102987271"#Local
-    facebook_secret = "330159cf0d1b6a8a98c0e35c564365a8"#Local
-else:
-    facebook_key = "1476656729277209"#Produccion
-    facebook_secret = "5c1f80475bcef95cef58f523ab14df27"#Produccion
 
 #-----------------Autentificacion con red socil--------------
 # SOCIAL_AUTH_FACEBOOK_KEY = "1476656729277209"#Produccion
