@@ -36,8 +36,8 @@ angular.module('factoryModule', [])
     })
 
     .factory('ServiceHTTP',function ($resource,$timeout) {
-        //var urlApi = "http://systab.herokuapp.com/",
-        var urlApi = "http://127.0.0.1:8000/",
+        var urlApi = "http://systab.herokuapp.com/",
+        //var urlApi = "http://127.0.0.1:8000/",
             resource = "",
             resultado = "";
         return {
