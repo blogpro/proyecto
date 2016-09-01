@@ -101,7 +101,9 @@ class QueryPostMixin(object):
 
 		number_actual = int(contacts.number)
 		number_previous = int(number_actual-1)
-		number_next = int(number_actual+1)	
+		number_next = int(number_actual+1)
+
+		formatoMonth = "%b"
 
 		ObjPost = contacts
 		PostMatriz = []
@@ -135,6 +137,7 @@ class QueryPostMixin(object):
 			file_info['first_name']=p.user.first_name
 			file_info['last_name']=p.user.last_name
 			file_info['fecha']=p.fecha_registro
+			file_info['fecha_month']=p.fecha_registro.strftime(formatoMonth)
 			file_info['categoria']=p.categoria
 			ObjComentarioCount = Comentario.objects.filter(post__id=p.id).count()
 			file_info['comentarios']=ObjComentarioCount

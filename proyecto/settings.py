@@ -171,7 +171,7 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(RUTA_PROYECTO, 'images')
+MEDIA_ROOT = os.path.join(RUTA_PROYECTO, 'static/images')
 MEDIA_ROOT_MOVIL = os.path.join(RUTA_PROYECTO, 'static')
 
 #STATIC_ROOT = ''

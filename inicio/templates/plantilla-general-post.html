@@ -11,6 +11,11 @@
     <title>Tystab</title>
 
     <link rel="stylesheet" href="/static/css/general-post/style.css">
+    <!-- Boostrap-social -->
+    
+    <link href="/static/css/bootstrap-social-login/assets/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/bootstrap-social-login/bootstrap-social.css">
+
     <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/main.js"></script> <!-- Resource jQuery -->
 
@@ -75,25 +80,49 @@
         
         <!-- Header de el body -->
         <header id="main-header">
-    
-            <a id="logo-header" href="#">
+            <div id="caja-header">
+                <a id="logo-header" href="#">
                 <span class="site-name">Tystab</span>
                 <span class="site-desc">Diseño web / WordPress / Tutoriales</span>
-            </a> <!-- / #logo-header -->
+                </a> <!-- / #logo-header -->
 
-            <nav>
-                <ul>
-                    {% for m in Menu %}
-                        <li><a class="{{m.css_menu}}" href="/{{m.slug}}/">{{m.title_menu}}</a></li>
-                    {% endfor %}
+                <nav>
+                    <ul>
+                        {% for m in Menu %}
+                            <li><a class="{{m.css_menu}}" href="/{{m.slug}}/">{{m.title_menu}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </nav><!-- / nav -->
+
+                <div class="search">
+                    <form role="search" method="get" class="search-form" action="http://systab.herokuapp.com/">
+                      <input type="search" value="" name="s" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
+                      <input type="submit" value="SEARCH">
+                    </form>
+                </div>
+            </div>
+            <div class="container">
+                <div class="login">
+                    {% if not user.is_authenticated %}
+                        <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-block btn-social btn-xs btn-facebook">
+                            <i class="fa fa-facebook"></i>Sign In
+                        </a>
+                    {% endif %}
+                    
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'log-out' %}" class="btn btn-block btn-social btn-xs btn-pinterest">
+                            <i class="fa fa-facebook"></i>Log in
+                        </a>
+                    {% endif %}
+
+                    
+                    
+                </div>
+                
+                <ul class="social-icons">
+                    <li class="facebook"><a href="#" target="_blank" title="Facebook">Facebook</a></li>
+                    <li class="twitter"><a href="#" target="_blank" title="Twitter">Twitter</a></li>
                 </ul>
-            </nav><!-- / nav -->
-
-            <div class="search">
-                <form role="search" method="get" class="search-form" action="http://systab.herokuapp.com/">
-                  <input type="search" value="" name="s" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
-                  <input type="submit" value="SEARCH">
-                </form>
             </div>
 
         </header><!-- / #main-header -->
@@ -118,7 +147,7 @@
                         <li><a href="/blog/categorias/{{ca.id}}/">{{ca.title}}. </a></li>
                     {% endfor %}
                 </ul>
-
+                <hr>
                 <h2>Etiquetas</h2>
                 <ul>
                     {% for e in Etiqueta %}
