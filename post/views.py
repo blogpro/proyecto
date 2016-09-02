@@ -20,6 +20,7 @@ from comentarios.models import Comentario
 
 
 from .form import PostForm
+from comentarios.form import ComentarioForm
 
 from .ModelPost import MenuMixin, AsideMixin, GetPostMixin, GetPostSlugMixin, QueryPostMixin
 from django.core.urlresolvers import reverse
@@ -106,8 +107,7 @@ class DetailPostViewPost(LoginRequiredMixin,MenuMixin,AsideMixin,GetPostSlugMixi
 			'Etiqueta':ObjEtiqueta,
 			'Menu':ObjMenu,
 			'PostMatriz':ObjGetPost,
-			#'ObjPostAdd':ObjPostAdd,
-			'id_post':id_post,
+			'id_post':id_post
 		}
 
 		context.update(data)

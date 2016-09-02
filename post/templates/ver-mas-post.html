@@ -46,34 +46,18 @@
   <article>
             <header>
                 <div id="cuerpotituloComent">
-                    10 Comentarios.  
+                    0 Comentarios.  
                 </div>
             </header>
             <div class="contentComentario">
-               <form class="contact_form" action="#" id="contact_form" runat="server"> 
+               <form class="contact_form" method="POST" action="">
                 <div> 
                     <ul> 
                         <li> 
                             <h2>Comentario</h2> <span class="required_notification">* Datos requeridos</span> 
                         </li> 
-                        <li> 
-                            <label for="name">Nombre:</label> <input type="text" placeholder="Elder López" required /> 
-                        </li> 
-                        <li> 
-                            <label for="email">Email:</label> 
-                            <input type="email" name="email" placeholder="info@dominio.com" required /> 
-                            <span class="form_hint">Formato correcto: "name@dominio.com"</span> 
-                        </li> 
-                        <li> 
-                            <label for="website">Sitio web:</label> 
-                            <!-- <input type="url" name="website" placeholder="http://dominio.com" required pattern="(http|https)://.+" /> -->
-                            <input type="url" name="website" placeholder="http://dominio.com"/> 
-                            <span class="form_hint">Formato correcto: "http://developerji.com"</span> 
-                        </li> 
-
-                        <li> 
-                            <label for="message">Mensaje:</label> 
-                            <textarea name="message" cols="40" rows="6" required></textarea> 
+                        <li>
+                        <textarea name="message" cols="40" rows="6" required></textarea>
                         </li> <li> <button class="submit" type="submit">Enviar mensaje</button> </li> 
                     </ul> 
                 </div> 
