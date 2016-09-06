@@ -46,11 +46,12 @@
   <article>
             <header>
                 <div id="cuerpotituloComent">
-                    0 Comentarios.  
+                    0 Comentarios.
                 </div>
             </header>
             <div class="contentComentario">
-               <form class="contact_form" method="POST" action="">
+               <form class="contact_form" method="POST">
+                {% csrf_token %}
                 <div> 
                     <ul> 
                         <li> 
@@ -58,7 +59,10 @@
                         </li> 
                         <li>
                         <textarea name="message" cols="40" rows="6" required></textarea>
-                        </li> <li> <button class="submit" type="submit">Enviar mensaje</button> </li> 
+                        </li> 
+                        <li>
+                            <button class="submit" onClick="enviarComentario()">Enviar mensaje</button> 
+                        </li> 
                     </ul> 
                 </div> 
                 </form>

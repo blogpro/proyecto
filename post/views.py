@@ -84,7 +84,7 @@ class UpdatePostViewPost(LoginRequiredMixin,UpdateView):
 
 		return context
 
-class DetailPostViewPost(LoginRequiredMixin,MenuMixin,AsideMixin,GetPostSlugMixin, DetailView):
+class DetailPostViewPost(MenuMixin,AsideMixin,GetPostSlugMixin, DetailView):
 	model = Post
 	#template_name = 'detailpost.html'
 	template_name = 'ver-mas-post.html'
