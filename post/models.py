@@ -28,7 +28,7 @@ class Post(models.Model):
 	user = models.ForeignKey(User, related_name='perfil')
 	title = models.CharField(max_length=255)
 	descripcion=RichTextField()  # Usamos  RichTextField()
-	etiquetas = models.ManyToManyField(Etiqueta, blank=True, null=True)
+	etiquetas = models.ManyToManyField(Etiqueta)
 	categoria = models.ForeignKey(Categoria)
 	voto = models.ForeignKey(Voto,blank=True, null=True)
 	date_ini = models.DateField(blank=True, null=True)

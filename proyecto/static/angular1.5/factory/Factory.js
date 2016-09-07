@@ -35,9 +35,11 @@ angular.module('factoryModule', [])
         }
     })
 
-    .factory('ServiceHTTP',function ($resource,$timeout) {
-        var urlApi = "http://systab.herokuapp.com/",
-        //var urlApi = "http://127.0.0.1:8000/",
+    .factory('ServiceHTTP',function ($resource,$location) {
+        var protocol = $location.protocol();
+        var host = location.host;
+        var urlApi = protocol+'://'+host+'/';
+        //var urlApi = "http://systab.herokuapp.com/",
             resource = "",
             resultado = "";
         return {

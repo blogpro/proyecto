@@ -72,9 +72,12 @@ class UpdatePostViewPost(LoginRequiredMixin,UpdateView):
 
 
 	def form_valid(self, form):
+		print self.request.POST
+		print self.request.POST['etiquetas']
 		new_post=form.save(commit=False)
 		new_post.user = self.request.user
 		new_post.save()
+		new_post.etiquetas.add(self.request.POST['etiquetas'])
 		return HttpResponseRedirect('/dash-admin/#/list-post/')
 
 	def get_context_data(self, **kwargs):
