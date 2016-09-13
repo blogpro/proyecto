@@ -24,6 +24,7 @@ from django.core.urlresolvers import reverse
 from categorias.models import Categoria
 from etiquetas.models import Etiqueta
 from post.models import Post
+from comentarios.models import Comentario
 
 from .serializers import PostQuerySerializer, CategoriasSerializer, EtiquetasSerializer
 
@@ -113,4 +114,18 @@ class ServiceEtiquetasQuery(APIView):
 		data = {
 			'setCod': 0,
 		}
-		return Response(data)			
+		return Response(data)
+
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Comentarios <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+class ServiceComentariosQuery(APIView):
+	def post(self, request, *args, **kwargs):
+		ObjPost = Post.objects.get(pk=request.data['post'])
+		ObjModel = Comentario()
+		ObjModel.descripcion = request.data['message']
+		ObjModel.post = ObjPost
+		ObjModel.save()
+
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)

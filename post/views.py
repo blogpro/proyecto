@@ -72,8 +72,6 @@ class UpdatePostViewPost(LoginRequiredMixin,UpdateView):
 
 
 	def form_valid(self, form):
-		print self.request.POST
-		print self.request.POST['etiquetas']
 		new_post=form.save(commit=False)
 		new_post.user = self.request.user
 		new_post.save()

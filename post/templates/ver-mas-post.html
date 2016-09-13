@@ -24,8 +24,8 @@
     <article>
             <header>
                 <div id="fecha">
-                    <div class="mes">MAY</div>
-                     <div class="dia">26</div>
+                    <div class="mes">{{p.fecha_month}}</div>
+                     <div class="dia">{{p.fecha|date:"d"}}</div>
                     
                 </div>
                 <div id="cuerpotitulo">
@@ -33,7 +33,7 @@
                         <h2 itemprop="headline" class="post-title">{{p.title}}</h2>
                     </div>    
                     <div id="descripcion-post">
-                        posted by {{p.first_name}} {{p.last_name}} .Commen <a href=""><i></i>22</a>
+                        posted by <span class="icon-user-check span1"></span> {{p.first_name}} {{p.last_name}} .Commen <a href=""><i></i>{{p.comentariosCount}}</a>
                     </div>
                 </div>
             </header>
@@ -43,14 +43,40 @@
         </article>  <!-- / article -->
   {% endfor %}
 
+
   <article>
             <header>
                 <div id="cuerpotituloComent">
-                    0 Comentarios.
+                    {% for p in PostMatriz %}
+                        {{p.comentariosCount}} Comentarios.
+                    {% endfor %}
                 </div>
             </header>
-            <div class="contentComentario">
-               <form class="contact_form" method="POST">
+            {% for p in PostMatriz %}
+                {% for c in p.comentarios %}
+                    <div class="contentComentario">
+                        <div class="avatarComent">
+                            <img src="/static/images/avatar-comentario.png" class="img-circle">
+                        </div>
+
+                        <div class="infoComent">
+                            <div class="filaprincipalComent">
+                                <div class="userComent">
+                                    Jhon doe
+                                </div>
+                                <div class="dataComent">
+                                    25 junio 2013, 03:45 pm.
+                                </div>
+                            </div>
+                            <div class="descripcionComent">
+                                {{c.descripcion}}
+                            </div>
+                        </div>
+                    </div> 
+                {% endfor %}
+            {% endfor %}
+            <div class="FormComentario">
+               <form class="contact_form" onsubmit="return false;">
                 {% csrf_token %}
                 <div> 
                     <ul> 
@@ -58,7 +84,10 @@
                             <h2>Comentario</h2> <span class="required_notification">* Datos requeridos</span> 
                         </li> 
                         <li>
-                        <textarea name="message" cols="40" rows="6" required></textarea>
+                            {% for p in PostMatriz %}
+                                <input name="post" id="post" type="hidden" value="{{p.id}}">
+                            {% endfor %}    
+                        <textarea name="message" id="message" cols="40" rows="6"  required></textarea>
                         </li> 
                         <li>
                             <button class="submit" onClick="enviarComentario()">Enviar mensaje</button> 

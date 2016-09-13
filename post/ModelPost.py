@@ -7,6 +7,7 @@ from django.db.models import Q
 
 from categorias.models import Categoria
 from etiquetas.models import Etiqueta
+from comentarios.models import Comentario
 
 from menu.models import Menu
 
@@ -40,6 +41,20 @@ class GetPostSlugMixin(object):
 		file_info['postList']=ListaPost
 		#----------------------------------------Lista Post---------------------------------------
 
+		#----------------------------------------Lista Comment------------------------------------
+		ListaCommen = []
+		ObjModelComen = Comentario.objects.filter(post__id=p.id)
+		for c in ObjModelComen:
+			file_info_html = {}
+			if c.activo != True:
+				file_info_html['id'] =c.id
+				file_info_html['descripcion'] =c.descripcion
+				ListaCommen.append(file_info_html)
+		file_info['comentarios']=ListaCommen	
+
+		#----------------------------------------Lista Comment------------------------------------
+
+		file_info['id']=p.id
 		file_info['title']=p.title
 		file_info['slug']=p.slug
 		file_info['descripcion']=p.descripcion
@@ -47,8 +62,8 @@ class GetPostSlugMixin(object):
 		file_info['last_name']=p.user.last_name
 		file_info['fecha']=p.fecha_registro
 		file_info['categoria']=p.categoria
-		ObjComentarioCount = Comentario.objects.filter(post__id=p.id).count()
-		file_info['comentarios']=ObjComentarioCount
+		ObjComentarioCount = Comentario.objects.filter(post__id=p.id,activo=True).count()
+		file_info['comentariosCount']=ObjComentarioCount
 
 		PostMatriz.append(file_info)
 		return PostMatriz
@@ -82,7 +97,7 @@ class GetPostMixin(object):
 		file_info['fecha']=p.fecha_registro
 		file_info['categoria']=p.categoria
 		ObjComentarioCount = Comentario.objects.filter(post__id=p.id).count()
-		file_info['comentarios']=ObjComentarioCount
+		file_info['comentariosCount']=ObjComentarioCount
 
 		PostMatriz.append(file_info)
 		return PostMatriz	
@@ -140,7 +155,7 @@ class QueryPostMixin(object):
 			file_info['fecha_month']=p.fecha_registro.strftime(formatoMonth)
 			file_info['categoria']=p.categoria
 			ObjComentarioCount = Comentario.objects.filter(post__id=p.id).count()
-			file_info['comentarios']=ObjComentarioCount
+			file_info['comentariosCount']=ObjComentarioCount
 
 			PostMatriz.append(file_info)
 		return PostMatriz
@@ -192,7 +207,7 @@ class QueryPostMixin(object):
 			file_info['fecha']=p.fecha_registro
 			file_info['categoria']=p.categoria
 			ObjComentarioCount = Comentario.objects.filter(post__id=p.id).count()
-			file_info['comentarios']=ObjComentarioCount
+			file_info['comentariosCount']=ObjComentarioCount
 
 			PostMatriz.append(file_info)
 		return PostMatriz	
@@ -246,7 +261,7 @@ class AsidePostMixin(object):
 			file_info['fecha']=p.fecha_registro
 			file_info['categoria']=p.categoria
 			ObjComentarioCount = Comentario.objects.filter(post__id=p.id).count()
-			file_info['comentarios']=ObjComentarioCount
+			file_info['comentariosCount']=ObjComentarioCount
 
 			PostMatriz.append(file_info)
 		return PostMatriz
@@ -299,7 +314,7 @@ class AsidePostMixin(object):
 			file_info['fecha']=p.fecha_registro
 			file_info['categoria']=p.categoria
 			ObjComentarioCount = Comentario.objects.filter(post__id=p.id).count()
-			file_info['comentarios']=ObjComentarioCount
+			file_info['comentariosCount']=ObjComentarioCount
 
 			PostMatriz.append(file_info)
 		return PostMatriz	
