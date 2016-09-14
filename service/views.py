@@ -27,6 +27,7 @@ from post.models import Post
 from comentarios.models import Comentario
 
 from .serializers import PostQuerySerializer, CategoriasSerializer, EtiquetasSerializer
+from post.ModelPost import ComentariosMixin
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> POST <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class ServicePostQuery(APIView):
@@ -117,13 +118,18 @@ class ServiceEtiquetasQuery(APIView):
 		return Response(data)
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Comentarios <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-class ServiceComentariosQuery(APIView):
+class ServiceComentariosQuery(ComentariosMixin,APIView):
+	def get(self, request, *args, **kwargs):
+		if 'pk' in self.kwargs:
+			return Response(self.comenGet(self.kwargs['pk']))
+
 	def post(self, request, *args, **kwargs):
 		ObjPost = Post.objects.get(pk=request.data['post'])
 		ObjModel = Comentario()
+		ObjModel.user = self.request.user
 		ObjModel.descripcion = request.data['message']
 		ObjModel.post = ObjPost
-		ObjModel.save()
+		#ObjModel.save()
 
 		data = {
 			'setCod': 0,

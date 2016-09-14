@@ -21,4 +21,5 @@ urlpatterns = patterns('',
    	url(r'^service-etiquetas-query/(?P<pk>[0-9]+)/$', ServiceEtiquetasQuery.as_view(), name='ServiceEtiquetasQuery'),
    	#Comentarios
    	url(r'^service-comentarios-query/$', ServiceComentariosQuery.as_view()),
+      url(r'^service-comentarios-query/(?P<pk>[0-9]+)/$', ServiceComentariosQuery.as_view(), name='ServiceComentariosQuery'),
 )

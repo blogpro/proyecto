@@ -11,6 +11,29 @@ from comentarios.models import Comentario
 
 from menu.models import Menu
 
+class ComentariosMixin(object):
+	def comenGet(self,idpost):
+		idUser = self.request.user.id
+		ListaCommen = []
+		ObjModelComen = Comentario.objects.filter(post__id=idpost).order_by('-id')
+		formatoF= "%d %B %Y"  # Asigna un formato de ejemplo1
+		formatoH = "%I:%M:%S %p"  # Asigna un formato de ejemplo1
+		for c in ObjModelComen:
+			file_info_html = {}
+			if c.activo == True or c.user.id == idUser:
+				file_info_html['id'] =c.id
+				file_info_html['descripcion'] =c.descripcion
+				file_info_html['first_name'] =c.user.first_name
+				file_info_html['last_name'] =c.user.last_name
+				file_info_html['fecha_hora'] = c.fechahora
+				file_info_html['fechaJs'] = c.fechahora.strftime(formatoF)
+				file_info_html['horaJs'] = c.fechahora.strftime(formatoH)
+				file_info_html['activo'] = c.activo
+				if c.activo == False:
+					file_info_html['nota'] = u'Comentario en proceso de validación. Solo es visible para ti.'
+				ListaCommen.append(file_info_html)
+		return ListaCommen	
+
 class AsideMixin(object):
 	def Etiquetas(self):
 		EtiquetaMatriz = Etiqueta.objects.all()
@@ -20,39 +43,15 @@ class AsideMixin(object):
 		ObjCategoria = Categoria.objects.all()
 		return ObjCategoria
 
-class GetPostSlugMixin(object):
+class GetPostSlugMixin(ComentariosMixin):
 	def GetPost(self,slug):
 		ObjPost = Post.objects.get(slug=slug)
+		idUser = self.request.user.id
 		PostMatriz = []
 		p = ObjPost
 		file_info = {}
 
-		#----------------------------------------Lista Post---------------------------------------
-		ListaPost = []
-		ObjPostAdd = PostAdd.objects.filter(post__id= p.id).order_by('order')
-		for s in ObjPostAdd:
-			file_info_html = {}
-			if s.imagenpost != None:
-				file_info_html['inicio_html']="<img class='img-responsive' src='"	
-				file_info_html['codigo_pos'] =s.imagenpost
-				file_info_html['fin_html']=" ' alt=''> "
-				file_info_html['id_post_add']=s.id
-			ListaPost.append(file_info_html)
-		file_info['postList']=ListaPost
-		#----------------------------------------Lista Post---------------------------------------
-
-		#----------------------------------------Lista Comment------------------------------------
-		ListaCommen = []
-		ObjModelComen = Comentario.objects.filter(post__id=p.id)
-		for c in ObjModelComen:
-			file_info_html = {}
-			if c.activo != True:
-				file_info_html['id'] =c.id
-				file_info_html['descripcion'] =c.descripcion
-				ListaCommen.append(file_info_html)
-		file_info['comentarios']=ListaCommen	
-
-		#----------------------------------------Lista Comment------------------------------------
+		file_info['comentarios']= self.comenGet(p.id)
 
 		file_info['id']=p.id
 		file_info['title']=p.title
@@ -124,21 +123,6 @@ class QueryPostMixin(object):
 		PostMatriz = []
 		for p in ObjPost:
 			file_info = {}
-
-			#----------------------------------------Lista Post---------------------------------------
-			ListaPost = []
-			ObjPostAdd = PostAdd.objects.filter(post__id= p.id).order_by('order')
-			for s in ObjPostAdd:
-				file_info_html = {}
-				if s.imagenpost != None:
-					file_info_html['inicio_html']="<img class='img-responsive' src='"	
-					file_info_html['codigo_pos'] =s.imagenpost
-					file_info_html['fin_html']=" ' alt=''> "
-					file_info_html['id_post_add']=s.id
-				ListaPost.append(file_info_html)
-			file_info['postList']=ListaPost
-			#----------------------------------------Lista Post---------------------------------------
-
 			
 			file_info['previous_page_number'] = number_previous
 			file_info['number'] = contacts.number
@@ -177,21 +161,6 @@ class QueryPostMixin(object):
 		PostMatriz = []
 		for p in ObjPost:
 			file_info = {}
-
-			#----------------------------------------Lista Post---------------------------------------
-			ListaPost = []
-			ObjPostAdd = PostAdd.objects.filter(post__id= p.id).order_by('order')
-			for s in ObjPostAdd:
-				file_info_html = {}
-				if s.imagenpost != None:
-					file_info_html['inicio_html']="<img class='img-responsive' src='"	
-					file_info_html['codigo_pos'] =s.imagenpost
-					file_info_html['fin_html']=" ' alt=''> "
-					file_info_html['id_post_add']=s.id
-				ListaPost.append(file_info_html)
-			file_info['postList']=ListaPost
-			#----------------------------------------Lista Post---------------------------------------
-
 			
 			file_info['previous_page_number'] = number_previous
 			file_info['number'] = contacts.number
@@ -231,21 +200,6 @@ class AsidePostMixin(object):
 		PostMatriz = []
 		for p in ObjPost:
 			file_info = {}
-
-			#----------------------------------------Lista Post---------------------------------------
-			ListaPost = []
-			ObjPostAdd = PostAdd.objects.filter(post__id= p.id).order_by('order')
-			for s in ObjPostAdd:
-				file_info_html = {}
-				if s.imagenpost != None:
-					file_info_html['inicio_html']="<img class='img-responsive' src='"	
-					file_info_html['codigo_pos'] =s.imagenpost
-					file_info_html['fin_html']=" ' alt=''> "
-					file_info_html['id_post_add']=s.id
-				ListaPost.append(file_info_html)
-			file_info['postList']=ListaPost
-			#----------------------------------------Lista Post---------------------------------------
-
 			
 			file_info['previous_page_number'] = number_previous
 			file_info['number'] = contacts.number
@@ -285,21 +239,6 @@ class AsidePostMixin(object):
 		for p in ObjPost:
 			file_info = {}
 
-			#----------------------------------------Lista Post---------------------------------------
-			ListaPost = []
-			ObjPostAdd = PostAdd.objects.filter(post__id= p.id).order_by('order')
-			for s in ObjPostAdd:
-				file_info_html = {}
-				if s.imagenpost != None:
-					file_info_html['inicio_html']="<img class='img-responsive' src='"	
-					file_info_html['codigo_pos'] =s.imagenpost
-					file_info_html['fin_html']=" ' alt=''> "
-					file_info_html['id_post_add']=s.id
-				ListaPost.append(file_info_html)
-			file_info['postList']=ListaPost
-			#----------------------------------------Lista Post---------------------------------------
-
-			
 			file_info['previous_page_number'] = number_previous
 			file_info['number'] = contacts.number
 			file_info['num_pages'] = contacts.paginator.num_pages
