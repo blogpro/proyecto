@@ -129,7 +129,7 @@ class ServiceComentariosQuery(ComentariosMixin,APIView):
 		ObjModel.user = self.request.user
 		ObjModel.descripcion = request.data['message']
 		ObjModel.post = ObjPost
-		#ObjModel.save()
+		ObjModel.save()
 
 		data = {
 			'setCod': 0,
