@@ -95,7 +95,7 @@ class GetPostMixin(object):
 		file_info['last_name']=p.user.last_name
 		file_info['fecha']=p.fecha_registro
 		file_info['categoria']=p.categoria
-		ObjComentarioCount = Comentario.objects.filter(post__id=p.id).count()
+		ObjComentarioCount = Comentario.objects.filter(post__id=p.id,activo=True).count()
 		file_info['comentariosCount']=ObjComentarioCount
 
 		PostMatriz.append(file_info)
@@ -138,7 +138,7 @@ class QueryPostMixin(object):
 			file_info['fecha']=p.fecha_registro
 			file_info['fecha_month']=p.fecha_registro.strftime(formatoMonth)
 			file_info['categoria']=p.categoria
-			ObjComentarioCount = Comentario.objects.filter(post__id=p.id).count()
+			ObjComentarioCount = Comentario.objects.filter(post__id=p.id,activo=True).count()
 			file_info['comentariosCount']=ObjComentarioCount
 
 			PostMatriz.append(file_info)
