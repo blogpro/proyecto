@@ -48,7 +48,6 @@ class ValidaINicioView(RedirectView):
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
-    template_name = 'index.html'
     template_name = 'index-post.html'
 
     #Retorna los valores al template como nuevas variables
@@ -119,6 +118,7 @@ class indexViewDashAngular(LoginRequiredInicio,TemplateView):
 class CategoriaQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
     template_name = 'index.html'
     template_name = 'ver-mas-post.html'
+    template_name = 'index-post.html'
 
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
@@ -150,6 +150,7 @@ class CategoriaQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
 class EtiquetasQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
     template_name = 'index.html'
     template_name = 'ver-mas-post.html'
+    template_name = 'index-post.html'
 
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):

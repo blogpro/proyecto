@@ -11,6 +11,39 @@ from comentarios.models import Comentario
 
 from menu.models import Menu
 
+class QueryPostValid(object):
+	def all(self):
+		user = self.request.user
+		if user.groups.filter(name='Administrador').exists():
+			ObjPost = Post.objects.all().order_by('-id')
+		else:
+			ObjPost = Post.objects.filter(status__id=1).order_by('-id')
+		return ObjPost	
+	def busqueda(self,query):
+		user = self.request.user
+		if user.groups.filter(name='Administrador').exists():
+			ObjPost = Post.objects.filter(Q(title__icontains=query) | Q(descripcion__icontains=query)).order_by('-id')
+		else:
+			ObjPost = Post.objects.filter(status__id=1).filter(Q(title__icontains=query) | Q(descripcion__icontains=query)).order_by('-id')
+		return ObjPost	
+	def categoria(self,cat):
+		user = self.request.user
+		if user.groups.filter(name='Administrador').exists():
+			ObjPost = Post.objects.filter(categoria__id=cat,status__id=1).order_by('-id')
+		else:
+			ObjPost = Post.objects.filter(categoria__id=cat,status__id=1).order_by('-id')
+		return ObjPost	
+	def etiqueta(self,tag):
+		user = self.request.user
+		if user.groups.filter(name='Administrador').exists():
+			ObjPost = Post.objects.filter(etiquetas__in=tag,status__id=1).order_by('-id')
+		else:
+			ObjPost = Post.objects.filter(etiquetas__in=tag,status__id=1).order_by('-id')
+		return ObjPost	
+
+		
+	
+
 class ComentariosMixin(object):
 	def comenGet(self,idpost):
 		idUser = self.request.user.id
@@ -102,9 +135,10 @@ class GetPostMixin(object):
 		return PostMatriz	
 
 
-class QueryPostMixin(object):
+class QueryPostMixin(QueryPostValid):
 	def QueryPost(self,page):
-		ObjPost = Post.objects.filter(status__id=1).order_by('-id')
+
+		ObjPost = self.all()# Mxin QueryPostValid
 
 		paginator = Paginator(ObjPost,7) # Mustra 7 post en el index
 		try:
@@ -144,7 +178,7 @@ class QueryPostMixin(object):
 			PostMatriz.append(file_info)
 		return PostMatriz
 	def QueryPostBusqueda(self,page,query):
-		ObjPost = Post.objects.filter(status__id=1).filter(Q(title__icontains=query) | Q(descripcion__icontains=query)).order_by('-id')
+		ObjPost = self.busqueda(query)# Mxin QueryPostValid
 
 		paginator = Paginator(ObjPost,7) # Mustra 7 post en el index
 		try:
@@ -181,10 +215,10 @@ class QueryPostMixin(object):
 			PostMatriz.append(file_info)
 		return PostMatriz	
 
-class AsidePostMixin(object):
+class AsidePostMixin(QueryPostValid):
 	def QueryPostCategoria(self,page,cat):
-		ObjPost = Post.objects.filter(categoria__id=cat,status__id=1).order_by('-id')
-
+		ObjPost = self.categoria(cat)# Mxin QueryPostValid
+		
 		paginator = Paginator(ObjPost,7) # Mustra 7 post en el index
 		try:
 			contacts = paginator.page(page)
@@ -221,7 +255,7 @@ class AsidePostMixin(object):
 		return PostMatriz
 
 	def QueryPostEtiquetas(self,page,tag):
-		ObjPost = Post.objects.filter(etiquetas__in=tag,status__id=1).order_by('-id')
+		ObjPost = self.etiqueta(tag)# Mxin QueryPostValid
 
 		paginator = Paginator(ObjPost,7) # Mustra 7 post en el index
 		try:
