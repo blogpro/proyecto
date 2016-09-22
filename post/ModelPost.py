@@ -15,28 +15,28 @@ class QueryPostValid(object):
 	def all(self):
 		user = self.request.user
 		if user.groups.filter(name='Administrador').exists():
-			ObjPost = Post.objects.all().order_by('-id')
+			ObjPost = Post.objects.all().exclude(status__in=[5]).order_by('-id')
 		else:
 			ObjPost = Post.objects.filter(status__id=1).order_by('-id')
 		return ObjPost	
 	def busqueda(self,query):
 		user = self.request.user
 		if user.groups.filter(name='Administrador').exists():
-			ObjPost = Post.objects.filter(Q(title__icontains=query) | Q(descripcion__icontains=query)).order_by('-id')
+			ObjPost = Post.objects.filter(Q(title__icontains=query) | Q(descripcion__icontains=query)).exclude(status__in=[5]).order_by('-id')
 		else:
 			ObjPost = Post.objects.filter(status__id=1).filter(Q(title__icontains=query) | Q(descripcion__icontains=query)).order_by('-id')
 		return ObjPost	
 	def categoria(self,cat):
 		user = self.request.user
 		if user.groups.filter(name='Administrador').exists():
-			ObjPost = Post.objects.filter(categoria__id=cat,status__id=1).order_by('-id')
+			ObjPost = Post.objects.filter(categoria__id=cat).exclude(status__in=[5]).order_by('-id')
 		else:
 			ObjPost = Post.objects.filter(categoria__id=cat,status__id=1).order_by('-id')
 		return ObjPost	
 	def etiqueta(self,tag):
 		user = self.request.user
 		if user.groups.filter(name='Administrador').exists():
-			ObjPost = Post.objects.filter(etiquetas__in=tag,status__id=1).order_by('-id')
+			ObjPost = Post.objects.filter(etiquetas__in=tag).exclude(status__in=[5]).order_by('-id')
 		else:
 			ObjPost = Post.objects.filter(etiquetas__in=tag,status__id=1).order_by('-id')
 		return ObjPost	
