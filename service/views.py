@@ -26,7 +26,7 @@ from etiquetas.models import Etiqueta
 from post.models import Post
 from comentarios.models import Comentario
 
-from .serializers import PostQuerySerializer, CategoriasSerializer, EtiquetasSerializer
+from .serializers import PostQuerySerializer, CategoriasSerializer, EtiquetasSerializer, ComentariosSerializer
 from post.ModelPost import ComentariosMixin
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> POST <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -122,6 +122,12 @@ class ServiceComentariosQuery(ComentariosMixin,APIView):
 	def get(self, request, *args, **kwargs):
 		if 'pk' in self.kwargs:
 			return Response(self.comenGet(self.kwargs['pk']))
+		serializers = Comentario.objects.all().order_by('-id')
+		try:
+			serializer = ComentariosSerializer(serializers, many=True)
+		except (TypeError, ValueError) as err:
+			print 'ERROR:', err
+		return Response(serializer.data)
 
 	def post(self, request, *args, **kwargs):
 		ObjPost = Post.objects.get(pk=request.data['post'])

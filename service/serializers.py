@@ -7,18 +7,18 @@ from django.contrib.auth.models import User
 from post.models import Post, Status_Post
 from categorias.models import Categoria
 from etiquetas.models import Etiqueta
+from comentarios.models import Comentario
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> USERS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
-		fields = ('first_name',)
+		fields = ('first_name','last_name')
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> STATUS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class StatusSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Status_Post
-		fields = ('title',)		
-
+		fields = ('title',)
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ETIQUETAS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class CategoriasSerializer(serializers.ModelSerializer):
 	pk = serializers.IntegerField(read_only=True)
@@ -48,4 +48,11 @@ class EtiquetasSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Etiqueta
-		fields = ('pk','title','order',)		
+		fields = ('pk','title','order',)
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> USERS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+class ComentariosSerializer(serializers.ModelSerializer):
+	user = UserSerializer()
+	post = PostQuerySerializer()
+	class Meta:
+		model = Comentario
+		fields = ('user','post','descripcion','activo','fechahora',)			

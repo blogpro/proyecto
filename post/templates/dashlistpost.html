@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller='indexController'>
+<div class="container-fluid">
 
                 <!-- Page Heading -->
                 <div class="row">
@@ -36,7 +36,7 @@
                                             <tr ng-repeat="pq in postQuery">
                                                 <td> [[ pq.title ]]  </td>
                                                 <td> [[ pq.status.title ]]  </td>
-                                                <td> [[ pq.user.first_name ]]  </td>
+                                                <td> [[ pq.user.first_name ]] [[ pq.user.last_name ]] </td>
                                                 <td class="text-center"> 
                                                     <a href="/edit-post/[[ pq.id ]]/"> <button type="button" class="btn btn-lg btn-primary">Editar</button></a>
                                                     <!-- <a href="edit/[[ pq.id ]]/"> <button type="button" class="btn btn-lg btn-success">Info</button></a>

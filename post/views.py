@@ -205,5 +205,6 @@ class ListCategoriasView(LoginRequiredMixin,TemplateView):
 	template_name = 'dashcategoriapost.html'
 class ListEtiquetasView(LoginRequiredMixin,TemplateView):
 	template_name = 'dashetiquetaspost.html'
-	
+class ListComentariosViewAngular(LoginRequiredMixin,TemplateView):
+	template_name = 'dashlistcommen.html'
 # <<<<<<<<<<<<<<<<<<< Viws Angular >>>>>>>>>>>>>>>>>>>>>>>	
