@@ -122,7 +122,7 @@ class ServiceComentariosQuery(ComentariosMixin,APIView):
 	def get(self, request, *args, **kwargs):
 		if 'pk' in self.kwargs:
 			return Response(self.comenGet(self.kwargs['pk']))
-		serializers = Comentario.objects.all().order_by('-id')
+		serializers = Comentario.objects.filter(activo=False).order_by('-id')
 		try:
 			serializer = ComentariosSerializer(serializers, many=True)
 		except (TypeError, ValueError) as err:

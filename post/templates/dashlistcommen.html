@@ -28,21 +28,19 @@
                                             <tr>
                                                 <th>Post</th>
                                                 <th>Usuario</th>
-                                                <th>Status</th>
                                                 <th>Descripción</th>
                                                 <th class="text-center">Acción</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="pq in postQuery">
-                                                <td> [[ pq.title ]]  </td>
+                                                <td> [[ pq.post.title ]]  </td>
                                                 <td> [[ pq.user.first_name ]] [[ pq.user.last_name ]]  </td>
-                                                <td> [[ pq.status.title ]]  </td>
-                                                <td> [[ pq.user.first_name ]] [[ pq.user.last_name ]] </td>
+                                                <td> [[ pq.descripcion]]  </td>
                                                 <td class="text-center"> 
-                                                    <a href="/edit-post/[[ pq.id ]]/"> <button type="button" class="btn btn-lg btn-primary">Editar</button></a>
-                                                    <!-- <a href="edit/[[ pq.id ]]/"> <button type="button" class="btn btn-lg btn-success">Info</button></a>
-                                                    <a href="edit/[[ pq.id ]]/"> <button type="button" class="btn btn-lg btn-warning">Info</button></a>  -->
+                                                    <a href="/edit-post/[[ pq.id ]]/"> <button type="button" class="btn btn-lg btn-success">Activar</button></a>
+                                                    <!-- <a href="edit/[[ pq.id ]]/"> <button type="button" class="btn btn-lg btn-success">Info</button></a> -->
+                                                    <a href="edit/[[ pq.id ]]/"> <button type="button" class="btn btn-lg btn-warning">Eliminar</button></a> 
                                                 </td>
                                             </tr>
                                         </tbody>
