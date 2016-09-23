@@ -141,3 +141,9 @@ class ServiceComentariosQuery(ComentariosMixin,APIView):
 			'setCod': 0,
 		}
 		return Response(data)
+	def put(self, request, *args, **kwargs):
+		Comentario.objects.filter(pk=request.data['pk']).update(activo=True)
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)	

@@ -55,4 +55,4 @@ class ComentariosSerializer(serializers.ModelSerializer):
 	post = PostQuerySerializer()
 	class Meta:
 		model = Comentario
-		fields = ('user','post','descripcion','activo','fechahora',)			
+		fields = ('id','user','post','descripcion','activo','fechahora',)			

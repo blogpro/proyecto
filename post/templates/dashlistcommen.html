@@ -38,7 +38,7 @@
                                                 <td> [[ pq.user.first_name ]] [[ pq.user.last_name ]]  </td>
                                                 <td> [[ pq.descripcion]]  </td>
                                                 <td class="text-center"> 
-                                                    <a href="/edit-post/[[ pq.id ]]/"> <button type="button" class="btn btn-lg btn-success">Activar</button></a>
+                                                     <button type="button" ng-click="SaveEditObjModel(pq.id)" class="btn btn-lg btn-success">Activar</button>
                                                     <!-- <a href="edit/[[ pq.id ]]/"> <button type="button" class="btn btn-lg btn-success">Info</button></a> -->
                                                     <a href="edit/[[ pq.id ]]/"> <button type="button" class="btn btn-lg btn-warning">Eliminar</button></a> 
                                                 </td>
