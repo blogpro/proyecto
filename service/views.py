@@ -146,4 +146,10 @@ class ServiceComentariosQuery(ComentariosMixin,APIView):
 		data = {
 			'setCod': 0,
 		}
-		return Response(data)	
+		return Response(data)
+	def delete(self, request, *args, **kwargs):
+		post = Comentario.objects.get(pk=self.kwargs['pk']).delete()
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)		

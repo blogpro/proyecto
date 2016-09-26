@@ -30,5 +30,19 @@ angular.module('comentariosModuleController', [])
                    console.log("error "+JSON.stringify(errResponse));
                 });
             }
+            $scope.DeleteObjModel = function (id)
+            {
+                ServiceHTTP.borrar('service-comentarios-query/',id).$promise.then(function(result) {
+                    if(result.setCod == 0){
+                        $scope.queryObjModel();
+                        NgToast.msjToast({mensaje: 'Comentario eliminado correctamente.', clase: 'success'});
+                    }else{
+                        NgToast.msjToast({mensaje: 'Error al Eliminar.', clase: 'danger'});
+                    }
+                    
+                }, function(errResponse) {
+                   console.log("error "+JSON.stringify(errResponse));
+                });
+            }
         }
     ]);        	
