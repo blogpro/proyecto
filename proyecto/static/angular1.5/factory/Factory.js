@@ -70,3 +70,15 @@ angular.module('factoryModule', [])
             }
         }
     })
+    
+    .factory('ServiceHTTPExternos',function ($resource,$location) {
+        var resource = "",
+            resultado = "";
+        return {
+            query: function (url,servicio) {
+                resource   = $resource(url + servicio);
+                resultado = resource.query();
+                return resultado;
+            }
+        }
+    })

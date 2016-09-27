@@ -3,6 +3,7 @@ var angularRoutingApp = angular.module('blog', [
   'ngDialog',
   'ngResource',
   'ngToast',
+  'sExternoModuleController',
   'factoryModule',
 	'indexModuleController',
   'categoriaModuleController',

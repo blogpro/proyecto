@@ -424,6 +424,64 @@ section {
 	margin: 20px auto;
 }
 
+#cambio {
+    float: left;
+    position: relative;
+}
+#cambio ul {
+    padding: 0;
+}
+li#text-2 {
+    list-style: none;
+}
+#text-2 {
+    margin-top: -20px;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.textwidget {
+    width: 157px;
+    display: block;
+    text-align: center;
+    font-size: 0.9em;
+    font-weight: bold;
+    font-family: "Mclaren";
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    background: #f2f2f2;
+}
+
+.textwidget {
+    height: auto;
+    display: block;
+}
+
+.titulo {
+    color: #FFFFFF;
+    font-family: 'Avant-Garde-Book';
+    background: #b8250b;
+    padding: 5px 23px;
+    border-radius: 8px 8px 0 0;
+    -webkit-border-radius: 8px 8px 0 0;
+    height: 20px;
+}
+
+.textwidget .tcBanderas-first {
+    background: url(/static/images/banderas-first.png);
+    width: 150px;
+    height: 22px;
+    margin-top: 9px;
+}
+
+.tc {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+    display: block;
+}
+
 #descripcion-post a {
     display: inline-block;
     font-size: 1.12em;

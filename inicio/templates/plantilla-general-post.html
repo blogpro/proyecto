@@ -22,6 +22,7 @@
     <!-- Configuracion de ajax -->
     <script src="/static/ajax/ajaxConfig.js" type="text/javascript"/></script>
     <script src="/static/ajax/ajaxService.js" type="text/javascript"/></script>
+    <script src="/static/ajax/ajaxServiceExterno.js" type="text/javascript"/></script>
     <!-- Configuracion de ajax -->
 
     <!-- CSS de las imagenes de icoMoon -->
@@ -88,6 +89,11 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
     <!--Codigo de configuracion para el facebook-->
+
+    <script>
+        var cambio = tipoCambio();
+        console.log(cambio);
+    </script>
 
 </head>
 
@@ -169,6 +175,18 @@
                         <li><a href="/blog/etiquetas/{{e.id}}/">{{e.title}}. </a></li>
                     {% endfor %}
                 </ul>
+                <h2>Tipo de cambio</h2>
+                <div id="cambio">
+                    <ul>
+                        <li id="text-2" class="widget widget_text">
+                            <div class="textwidget">
+                                <div class="titulo"><span class="tcFecha"></span></div>
+                                <div class="tcBanderas-first"></div>
+                                <span class="tc"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </aside>
             <!-- Barra lateral la pagina -->
 
