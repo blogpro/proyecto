@@ -246,12 +246,14 @@ ul.social-icons li a {
 //------------------------------
 ************/
 #main-content {
+    display: flex;
+    flex-direction: row;
 	width: 100%;
 	background: white;
 	max-width: 1120px;
 	margin: 20px auto;
 	box-shadow: 0 0 10px rgba(0,0,0,.1);
-	display: table;
+	/*display: table;*/
 }
 
 	#main-content header,
@@ -424,10 +426,12 @@ img {
 //------------------------------
 ************/
 section {
+    display: flex;
+    flex-direction: column;
 	overflow: hidden;
-	float: left;
+	/*float: left;*/
 	width: 75%;
-	margin: 20px auto;
+	/*margin: 20px auto;*/
 }
 
 #cambio {
