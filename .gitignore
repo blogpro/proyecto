@@ -16,6 +16,8 @@ migrations/
 proyecto/migrations/
 proyecto/images/images/
 
+proyecto/static/media/
+
 
 
 videos/

@@ -171,7 +171,7 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(RUTA_PROYECTO, 'static/images')
+MEDIA_ROOT = os.path.join(RUTA_PROYECTO, 'static/media')##ruta donde guardaremos los archivos de media/Archivos subido--Imagenes
 MEDIA_ROOT_MOVIL = os.path.join(RUTA_PROYECTO, 'static')
 
 #STATIC_ROOT = ''
@@ -193,16 +193,12 @@ STATICFILES_DIRS = (
     os.path.join(RUTA_PROYECTO, 'static'),
 )
 
-
+# la carpeta donde vamos a tener los templates de la aplicacion
 TEMPLATE_DIRS = (
     'templates',
 )
 
 #-----------------Autentificacion con red socil--------------
-# SOCIAL_AUTH_FACEBOOK_KEY = "1476656729277209"#Produccion
-# #SOCIAL_AUTH_FACEBOOK_KEY = "1539556102987271"#Local
-# SOCIAL_AUTH_FACEBOOK_SECRET = "5c1f80475bcef95cef58f523ab14df27"#Produccion
-# #SOCIAL_AUTH_FACEBOOK_SECRET = "330159cf0d1b6a8a98c0e35c564365a8"#Local
 SOCIAL_AUTH_FACEBOOK_KEY = facebook_key
 SOCIAL_AUTH_FACEBOOK_SECRET = facebook_secret
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
