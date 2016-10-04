@@ -14,7 +14,7 @@ from django.utils.decorators import method_decorator
 from menu.models import Menu
 from categorias.models import Categoria
 from etiquetas.models import Etiqueta
-from post.models import Post,PostAdd
+from post.models import Post
 
 from comentarios.models import Comentario
 

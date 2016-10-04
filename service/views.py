@@ -25,6 +25,7 @@ from categorias.models import Categoria
 from etiquetas.models import Etiqueta
 from post.models import Post
 from comentarios.models import Comentario
+from imagenes.models import ImagenPost
 
 from .serializers import PostQuerySerializer, CategoriasSerializer, EtiquetasSerializer, ComentariosSerializer
 from post.ModelPost import ComentariosMixin
@@ -152,4 +153,21 @@ class ServiceComentariosQuery(ComentariosMixin,APIView):
 		data = {
 			'setCod': 0,
 		}
-		return Response(data)		
+		return Response(data)
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Imagen <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+class ServiceImagenQuery(APIView):
+	def post(self, request, *args, **kwargs):
+		print "Vista Guardar Imagen4"
+		vfile = request.POST.get('file', None)
+		vfile2 = request.FILES.get('file')
+
+		print vfile2
+
+		ObjModel = ImagenPost()
+		ObjModel.image = vfile
+		#ObjModel.save()
+
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)			

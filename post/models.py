@@ -40,15 +40,5 @@ class Post(models.Model):
 		return self.title
 
 	def save(self, *args, **kwargs):
-		self.slug = defaultfilters.slugify(self.title)
-		super(Post, self).save(*args, **kwargs)	 
-
-class PostAdd(models.Model):
-	post = models.ForeignKey(Post)
-	imagenpost = models.ForeignKey(ImagenPost,blank=True, null=True)
-	
-	order = models.PositiveIntegerField()
-	def __unicode__(self):
-		return self.post.title		
-
-
+		self.slug = defaultfilters.slugify(sel.title)
+		super(Post, self).save(*args, **kwargs)

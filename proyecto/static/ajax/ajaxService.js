@@ -5,8 +5,6 @@ function enviarComentario(){
     var message = $('#message').val();
     var post = $('#post').val();
 
-    console.log(message);
-    console.log(post);
     $.ajax({
        url : '/service-comentarios-query/',
        type : "post",

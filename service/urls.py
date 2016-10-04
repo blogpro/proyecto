@@ -4,7 +4,7 @@ from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
 
-from .views import ServicePostQuery, ServiceCategoriasQuery, ServiceEtiquetasQuery, ServiceComentariosQuery
+from .views import ServicePostQuery, ServiceCategoriasQuery, ServiceEtiquetasQuery, ServiceComentariosQuery, ServiceImagenQuery
 
 router = DefaultRouter()
 #router.register(r'api', viewsetsCategoria)
@@ -22,4 +22,6 @@ urlpatterns = patterns('',
    	#Comentarios
    	url(r'^service-comentarios-query/$', ServiceComentariosQuery.as_view()),
       url(r'^service-comentarios-query/(?P<pk>[0-9]+)/$', ServiceComentariosQuery.as_view(), name='ServiceComentariosQuery'),
+      #Imagenes
+      url(r'^service-imagen-query/$', ServiceImagenQuery.as_view()),
 )

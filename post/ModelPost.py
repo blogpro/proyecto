@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from post.models import Post,PostAdd
+from post.models import Post
 from comentarios.models import Comentario
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
