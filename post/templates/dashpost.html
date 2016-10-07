@@ -79,11 +79,13 @@
                             </table>
                 </div>
                 <h1>Upload File</h1>
-                <form method="" action="" name='upload_form' id='upload_form' >
-                    {% csrf_token %}
-                   <input type='file' name='file' id='file' />
-                   <input type='button' value='Upload' id='upload' onclick="uploadFile()"/>
-                </form>
+                <form action="/test.cgi" enctype="multipart/form-data" method="post">
+      <input name="myFile" type="file" />
+      <div id="results">
+      </div>
+    </form>
+
+
             </div>
         </div>
         <!-- /.row -->

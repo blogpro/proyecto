@@ -158,6 +158,10 @@ class ServiceComentariosQuery(ComentariosMixin,APIView):
 class ServiceImagenQuery(APIView):
 	def post(self, request, *args, **kwargs):
 		print "Vista Guardar Imagen4"
+
+		print request.POST
+		print request.FILES
+
 		vfile = request.POST.get('file', None)
 		vfile2 = request.FILES.get('file')
 
@@ -165,7 +169,7 @@ class ServiceImagenQuery(APIView):
 
 		ObjModel = ImagenPost()
 		ObjModel.image = vfile
-		#ObjModel.save()
+		ObjModel.save()
 
 		data = {
 			'setCod': 0,
