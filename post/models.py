@@ -5,9 +5,6 @@ from categorias.models import Categoria
 #from comentarios.models import Comentario
 from votos.models import Voto
 
-#from subtitulos.models import SubtituloPost
-from descripciones.models import DescripcionPost
-from codigos.models import CodigosPost
 from imagenes.models import ImagenPost
 
 from django.contrib.auth.models import User

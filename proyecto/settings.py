@@ -104,10 +104,7 @@ INSTALLED_APPS = (
     'respuestas',
     'categorias',
     'menu',
-
-    #'subtitulos',
-    #'descripciones',
-    #'codigos',
+    
     'imagenes',
     'service',
 
