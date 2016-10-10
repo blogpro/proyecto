@@ -79,11 +79,18 @@
                             </table>
                 </div>
                 <h1>Upload File</h1>
-                <form action="/test.cgi" enctype="multipart/form-data" method="post">
-      <input name="myFile" type="file" />
-      <div id="results">
-      </div>
-    </form>
+                <form action="#" enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    <ul>
+                        <li>
+                            <label for="file_upload">File:</label>
+                            <input type="file" name="file_upload" id="file_upload" multiple>
+                        </li>
+
+                        <li><input type="submit" name="submit" value="Submit Content"></li>
+                    </ul>
+                </form>
+                <h1>Images</h1>
 
 
             </div>

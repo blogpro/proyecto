@@ -8,6 +8,7 @@ from post.models import Post, Status_Post
 from categorias.models import Categoria
 from etiquetas.models import Etiqueta
 from comentarios.models import Comentario
+from imagenes.models import ImagenPost
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> USERS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class UserSerializer(serializers.ModelSerializer):
@@ -55,4 +56,8 @@ class ComentariosSerializer(serializers.ModelSerializer):
 	post = PostQuerySerializer()
 	class Meta:
 		model = Comentario
-		fields = ('id','user','post','descripcion','activo','fechahora',)			
+		fields = ('id','user','post','descripcion','activo','fechahora',)
+class ImagenSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = ImagenPost
+		fields = ('image',)					

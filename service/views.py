@@ -27,7 +27,7 @@ from post.models import Post
 from comentarios.models import Comentario
 from imagenes.models import ImagenPost
 
-from .serializers import PostQuerySerializer, CategoriasSerializer, EtiquetasSerializer, ComentariosSerializer
+from .serializers import PostQuerySerializer, CategoriasSerializer, EtiquetasSerializer, ComentariosSerializer, ImagenSerializer
 from post.ModelPost import ComentariosMixin
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> POST <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -156,22 +156,21 @@ class ServiceComentariosQuery(ComentariosMixin,APIView):
 		return Response(data)
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Imagen <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class ServiceImagenQuery(APIView):
+	def get(self, request, *args, **kwargs):
+		serializers = ImagenPost.objects.all().order_by('-id')[:3]
+		try:
+			serializer = ImagenSerializer(serializers, many=True)
+		except (TypeError, ValueError) as err:
+			print 'ERROR:', err
+		return Response(serializer.data)
 	def post(self, request, *args, **kwargs):
-		print "Vista Guardar Imagen4"
-
-		print request.POST
-		print request.FILES
-
-		vfile = request.POST.get('file', None)
-		vfile2 = request.FILES.get('file')
-
-		print vfile2
+		vFile = request.FILES['0']#Se declara como longitud para ecuperar ya que puede venir mas de 1.
 
 		ObjModel = ImagenPost()
-		ObjModel.image = vfile
-		ObjModel.save()
+		ObjModel.image = vFile
+		#ObjModel.save()
 
 		data = {
-			'setCod': 0,
+			'setCod': 0
 		}
 		return Response(data)			
