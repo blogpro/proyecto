@@ -100,8 +100,9 @@
                 }
             });
         }
+    });
 
-        function GetAllImage(event)
+function GetAllImage(event)
         {
             $.ajax({
                 url: '/service-imagen-query/',
@@ -113,7 +114,18 @@
                     if(typeof data.error === 'undefined')
                     {
                         // Success so call function to process the form
-                        console.log('SUCCESS: ' + data);
+                        var string = "";
+                        console.log(data);
+                        for(obj in data){
+                          string +='<li> <picture>'
+                          +'<img srcset="'+data[obj].image  +'" alt="My default image" width="100" height="40" >'
+                          +'<br>'
+                          +'<br>'
+                          +'</li> </picture>'
+                          +'<p>"'+data[obj].image  +'"</p>'
+                          ;
+                        }
+                        $('#image').html(string); //nombre del slect donde se va a mostrar
                     }
                     else
                     {
@@ -133,6 +145,5 @@
             });
         }
 
-    });
 
                     

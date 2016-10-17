@@ -168,7 +168,7 @@ class ServiceImagenQuery(APIView):
 
 		ObjModel = ImagenPost()
 		ObjModel.image = vFile
-		#ObjModel.save()
+		ObjModel.save()
 
 		data = {
 			'setCod': 0
