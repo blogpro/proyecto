@@ -9,7 +9,8 @@
 
         // Add events
         $('input[type=file]').on('change', prepareUpload);
-        $('form').on('submit', uploadFiles);
+        //$('form').on('submit', uploadFiles);
+        $('input[type=button]').on('click', uploadFiles);
 
         // Grab the files and set them to our variable
         function prepareUpload(event)
