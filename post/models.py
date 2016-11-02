@@ -37,5 +37,5 @@ class Post(models.Model):
 		return self.title
 
 	def save(self, *args, **kwargs):
-		self.slug = defaultfilters.slugify(sel.title)
+		self.slug = defaultfilters.slugify(self.title)
 		super(Post, self).save(*args, **kwargs)
