@@ -28,6 +28,17 @@
                 <p class="readMore"> <a href="/blog/{{p.slug}}/">Leer más</a></p>
             </div>
         </article>  <!-- / article -->
+        {% empty %}
+        <article>
+            <header>
+                <div id="cuerpotitulo">
+                    <div id="titulo">
+                        <h2 itemprop="headline" class="post-title">No se han encontrado coincidencias....</h2>
+                    </div>    
+                </div>
+            </header>
+        </article>  <!-- / article -->
+
 	{% endfor %}
 
 
