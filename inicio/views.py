@@ -54,6 +54,33 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
     def get_context_data(self, **kwargs):
 		context = super(InicioViewInvitado, self).get_context_data(**kwargs)
 
+
+		ObjQueryPost = self.QueryPost(1,1)
+
+		ObjMenu = self.Menus()
+		ObjEtiqueta = self.Etiquetas()
+		ObjCategoria = self.Categorias()
+
+		isPost = False;
+
+		data = {
+			'Categoria':ObjCategoria,
+			'Etiqueta':ObjEtiqueta,
+			'Menu':ObjMenu,
+			'PostMatriz':ObjQueryPost,
+			'isPost':isPost,
+		}
+
+		context.update(data)
+		return context
+
+class BlogViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
+    template_name = 'index-post.html'
+
+    #Retorna los valores al template como nuevas variables
+    def get_context_data(self, **kwargs):
+		context = super(BlogViewInvitado, self).get_context_data(**kwargs)
+
 		try:
 			page = int(self.request.GET.get('page', '1'))
 		except ValueError:
@@ -65,19 +92,21 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 
 		query = self.request.GET.get('s', '')
 		if query:
-			ObjQueryPost = self.QueryPostBusqueda(page,query)
+			ObjQueryPost = self.QueryPostBusqueda(page,query,7)
 		else:	
-			ObjQueryPost = self.QueryPost(page)
+			ObjQueryPost = self.QueryPost(page,7)
 
+		isPost = True;
 		data = {
 			'Categoria':ObjCategoria,
 			'Etiqueta':ObjEtiqueta,
 			'Menu':ObjMenu,
 			'PostMatriz':ObjQueryPost,
+			'isPost':isPost,
 		}
 
 		context.update(data)
-		return context	
+		return context		
 class DashViewAdmin(LoginRequiredInicio,MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
     template_name = 'indexDash.html'
 
@@ -98,11 +127,14 @@ class DashViewAdmin(LoginRequiredInicio,MenuMixin,QueryPostMixin,AsideMixin,Temp
 		ObjQueryPost = self.QueryPost(page)
 		#-------------Lista de post QueryPostMixin----------
 
+		isPost = True;
+
 		data = {
 			'Categoria':ObjCategoria,
 			'Etiqueta':ObjEtiqueta,
 			'Menu':ObjMenu,
 			'PostMatriz':ObjQueryPost,
+			'isPost':isPost,
 		}
 
 		context.update(data)
@@ -113,7 +145,8 @@ class BaseDashViewAngular(LoginRequiredInicio,TemplateView):
 
 class indexViewDashAngular(LoginRequiredInicio,TemplateView):
 	template_name = 'indexDash.html'					
-#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<	
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 #>************************************* vista para mostrar los post por categorias ******************************≤
 class CategoriaQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
     template_name = 'index.html'
@@ -135,13 +168,15 @@ class CategoriaQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
 
 		idCategoria = self.kwargs['pk']
 
-		ObjQueryPost = self.QueryPostCategoria(page,idCategoria)
+		ObjQueryPost = self.QueryPostCategoria(page,idCategoria,7)
 
+		isPost = True;
 		data = {
 			'Categoria':ObjCategoria,
 			'Etiqueta':ObjEtiqueta,
 			'Menu':ObjMenu,
 			'PostMatriz':ObjQueryPost,
+			'isPost':isPost,
 		}
 
 		context.update(data)
@@ -167,13 +202,14 @@ class EtiquetasQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
 
 		idEtiquetas = self.kwargs['pk']
 
-		ObjQueryPost = self.QueryPostEtiquetas(page,idEtiquetas)
-
+		ObjQueryPost = self.QueryPostEtiquetas(page,idEtiquetas,7)
+		isPost = True;
 		data = {
 			'Categoria':ObjCategoria,
 			'Etiqueta':ObjEtiqueta,
 			'Menu':ObjMenu,
 			'PostMatriz':ObjQueryPost,
+			'isPost':isPost,
 		}
 
 		context.update(data)

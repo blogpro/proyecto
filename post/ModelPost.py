@@ -139,11 +139,11 @@ class GetPostMixin(object):
 
 
 class QueryPostMixin(QueryPostValid):
-	def QueryPost(self,page):
+	def QueryPost(self,page,totalPost):
 
 		ObjPost = self.all()# Mxin QueryPostValid
 
-		paginator = Paginator(ObjPost,7) # Mustra 7 post en el index
+		paginator = Paginator(ObjPost,totalPost) # Mustra 7 post en el index
 		try:
 			contacts = paginator.page(page)
 		except (EmptyPage, InvalidPage):
@@ -180,10 +180,10 @@ class QueryPostMixin(QueryPostValid):
 
 			PostMatriz.append(file_info)
 		return PostMatriz
-	def QueryPostBusqueda(self,page,query):
+	def QueryPostBusqueda(self,page,query,totalPost):
 		ObjPost = self.busqueda(query)# Mxin QueryPostValid
 
-		paginator = Paginator(ObjPost,7) # Mustra 7 post en el index
+		paginator = Paginator(ObjPost,totalPost) # Mustra 7 post en el index
 		try:
 			contacts = paginator.page(page)
 		except (EmptyPage, InvalidPage):
@@ -222,10 +222,10 @@ class QueryPostMixin(QueryPostValid):
 		return PostMatriz	
 
 class AsidePostMixin(QueryPostValid):
-	def QueryPostCategoria(self,page,cat):
+	def QueryPostCategoria(self,page,cat,totalPost):
 		ObjPost = self.categoria(cat)# Mxin QueryPostValid
 		
-		paginator = Paginator(ObjPost,7) # Mustra 7 post en el index
+		paginator = Paginator(ObjPost,totalPost) # Mustra 7 post en el index
 		try:
 			contacts = paginator.page(page)
 		except (EmptyPage, InvalidPage):
@@ -262,10 +262,10 @@ class AsidePostMixin(QueryPostValid):
 			PostMatriz.append(file_info)
 		return PostMatriz
 
-	def QueryPostEtiquetas(self,page,tag):
+	def QueryPostEtiquetas(self,page,tag,totalPost):
 		ObjPost = self.etiqueta(tag)# Mxin QueryPostValid
 
-		paginator = Paginator(ObjPost,7) # Mustra 7 post en el index
+		paginator = Paginator(ObjPost,totalPost) # Mustra 7 post en el index
 		try:
 			contacts = paginator.page(page)
 		except (EmptyPage, InvalidPage):

@@ -31,25 +31,27 @@
 	{% endfor %}
 
 
-	 <article>
-        <div class="contentpaginador">
-        {% for p in PostMatriz|slice:":1" %}
-            {% if p.previous_page_number > 0 %}
-                <a href="?page={{p.previous_page_number}}" class="older"><i> </i>Anterior</a>
-            {% endif %}
+    {% if isPost %}
+    	 <article>
+            <div class="contentpaginador">
+            {% for p in PostMatriz|slice:":1" %}
+                {% if p.previous_page_number > 0 %}
+                    <a href="?page={{p.previous_page_number}}" class="older"><i> </i>Anterior</a>
+                {% endif %}
 
-            <span class="currents">
-              Página {{p.number}} de {{p.num_pages}}.
-            </span>
+                <span class="currents">
+                  Página {{p.number}} de {{p.num_pages}}.
+                </span>
 
-            {% if p.next_page_number <= p.num_pages %}
-                <a href="?page={{p.next_page_number}}" class="older top-old"><i > </i>Siguiente</a>
-            {% endif %}
+                {% if p.next_page_number <= p.num_pages %}
+                    <a href="?page={{p.next_page_number}}" class="older top-old"><i > </i>Siguiente</a>
+                {% endif %}
 
 
-        {% endfor %}
-        </div>
-    </article>  <!-- / article -->
+            {% endfor %}
+            </div>
+        </article>  <!-- / article -->
+    {% endif %}
 
 
 
