@@ -79,7 +79,7 @@
 					<h2>Artículos mas populares</h2>
                     <ul>
                         {% for p in PostMatriz %}
-                            <li><a href="/blog/{{p.slug}}/" title="{{p.title}}">{{p.title}}. </a></li>
+                            <li><a href="/blog/{{p.slug}}/" title="{{p.title}}">{{p.title}} </a></li>
                         {% endfor %}
                     </ul>
 				</div>
@@ -90,7 +90,7 @@
                     <h2>Categorias</h2>
                     <ul>
                         {% for ca in Categoria %}
-                            <li><a href="/blog/categorias/{{ca.id}}/" title="{{ca.title}}">{{ca.title}}. </a></li>
+                            <li><a href="/blog/categorias/{{ca.id}}/" title="{{ca.title}}">{{ca.title}}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -101,7 +101,7 @@
 					<h2>Etiquetas</h2>
                     <ul>
                         {% for e in Etiqueta %}
-                            <li><a href="/blog/etiquetas/{{e.id}}/" title="{{e.title}}">{{e.title}}. </a></li>
+                            <li><a href="/blog/etiquetas/{{e.id}}/" title="{{e.title}}">{{e.title}}</a></li>
                         {% endfor %}
                     </ul>
 				</div>
