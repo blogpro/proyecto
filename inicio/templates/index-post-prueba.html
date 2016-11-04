@@ -25,8 +25,9 @@
 			</div>
 
 			<nav>
-				<a href="#">Inicio</a>
-				<a href="#">Blog</a>
+                {% for m in Menu %}
+                    <a class="{{m.css_menu}}" href="/{{m.slug}}/">{{m.title_menu}}</a>
+                {% endfor %}
 			</nav>
 		</header>
 
