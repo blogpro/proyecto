@@ -1,0 +1,275 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.contenedor {
+	/*background:#ccc;*/
+	width:90%;
+	max-width:1120px;
+	margin:auto; /* Para centrar el contenedor */
+
+	/* Flexbox */
+	display:flex;/* va hacer elemento padre */
+	flex-flow:row wrap;
+}
+
+body {
+	background:#e9e9e9;
+	font-family: Helvetica, Arial, sans-serif;
+	color: #666;
+}
+
+
+header {
+	background:#000000;
+	width:100%;
+	padding:20px;
+
+	/* Flexbox */
+	display: flex; /* va hacer elemento padre */
+	justify-content:space-between; /*que un lemento se ponga a la izquierda y el otro a la dereche, distribuye los elementos */
+	align-items:center;/* alinear elementos verticalmente*/
+
+	flex-direction:row;/* Inserta los elemntos en linea */
+	flex-wrap:wrap;/* vaja el elemto abajo si no cabe dentro de la linea */
+}
+
+header .logo {
+	color:#fff;
+	font-size:30px;
+}
+
+header .logo img {
+	width:50px;
+	vertical-align: top;
+}
+
+header .logo h1 {
+	color: #fff;
+    line-height: 0px;
+    font-size: 20px;
+    display: inline-flex;
+}
+
+header .logo span {
+	color: #fff;
+    line-height: 11px;
+    display: block;
+    font-size: 12px;
+    margin-top: -14px;
+    margin-left: 60px;
+}
+
+
+header nav {
+	width:50%;
+	/* Flexbox */
+
+	display:flex;/* va hacer elemento padre */
+	flex-wrap:wrap;
+	align-items:center;
+}
+
+header nav a {
+	background:#000000;
+	color:#fff;
+	text-align: center;
+	text-decoration: none;
+	padding:10px;
+
+	/* Flexbox */
+	flex-grow:1; /* abarcan el 100% del elemento padre del 'nav' todos los a */
+}
+
+header nav a:hover {
+	background:#272424;
+}
+
+.main {
+	background:#fff;
+	padding:20px;
+
+	flex:1 1 70%;/*   */
+	/*flex:1;*/
+	margin: 20px 0px 20px;
+}
+
+.main article {
+	margin-bottom: 20px;
+	padding-bottom:20px;
+	border-bottom:1px solid #e9e9e9;
+}
+
+.main article:nth-last-child(1){/* A el ultimo article no se le aplica nada queda todo en cero, para que no se muestre la linea que divide a los article*/
+	margin-bottom: 0;
+	padding-bottom: 0;
+	border-bottom:none;
+}
+
+aside {
+	background:#e9e9e9;
+	padding: 0px 0px 0px 5px;
+	/*FLEX*/
+	flex:1 1 30%;
+	/*flex:0 0 300px;*/
+
+	display: flex;
+	flex-wrap:wrap;
+	flex-direction:column;
+	justify-content:flex-start; /*Alinea los widget a el inicio, puede ser en medio o al final*/ 
+	margin: 20px 0px 20px;
+}
+
+aside .widget {
+	background: #ffffff;
+	margin: 0px 0px 10px 5px;
+}
+
+aside .widget h2{
+	padding: 9px;
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 16px;
+    color: #555555;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e9e9e9;
+}
+
+
+aside .widget ul{
+    padding: 0 12px 25px;
+    list-style: none;
+}
+
+aside .widget li {
+    background: none;
+    padding: 7px 0 2px 8px;
+    margin: 0;
+    /*border-bottom: 1px dotted #CACACA;*/
+}
+
+aside .widget li a, aside .widget li a:visited {
+    text-decoration: none;
+    display: block;
+    color: #3d62a5;
+}
+
+aside .widget li a:hover {
+	    text-decoration: underline;
+}
+
+aside .widget ul li {
+    list-style-image: url(/static/images/dot.png);
+    margin: 0px 0px 0px 14px;
+    text-decoration: none;
+}
+
+/* ******************************* Codigo para la busqueda ******************************* */
+aside .widget .search_bar {
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+}
+
+aside .widget .search_bar form input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #cbcbcb;
+    padding: 5px 1.875rem 5px 10px;
+    color: #302f2f;
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+aside .widget .search_bar form span {
+    position: absolute;
+    right: 12px;
+    bottom: 5px;
+}
+
+aside .widget .search_bar form span a {
+    color: #302f2f;
+}
+
+/* ******************************* Codigo para la busqueda ******************************* */
+
+footer {
+	background:#000000;
+	width: 100%;
+	padding:20px;
+
+	/* Flexbox */
+	display: flex;
+	flex-wrap:wrap;
+	justify-content:space-between;/* Un elemento a la derecha y otro a la izquierda, distribuye el conten */
+}
+
+footer .links {
+	background:#000000;
+	display:flex;
+	flex-wrap:wrap;
+}
+
+footer .links a {
+	flex-grow:1;/* abarcan el 100% del elemento padre del 'nav' todos los a */
+
+	color:#fff;
+	padding:10px;
+	text-align: center;
+	text-decoration:none;
+}
+
+footer .links a:hover {
+	background:#272424;
+}
+
+footer .social {
+	background:#e67e22;
+}
+
+footer .social a {
+	color:#fff;
+	text-decoration: none;
+	padding:10px;
+	display: inline-block;/* Para que un elemento se ponga de lado del otro */
+}
+
+@media screen and (max-width: 800px) {
+	.contenedor {
+		flex-direction:column;
+	}
+
+	header {
+		flex-direction:column;
+		padding:0;
+	}
+
+	header .logo {
+		margin:20px 0;
+	}
+
+	header nav {
+		width: 100%;
+	}
+
+	aside {
+		flex-direction:row;
+		flex:0;
+	}
+
+	aside .widget {
+		flex-grow:1;/* abarcan el 100% del elemento padre del 'nav' todos los a */
+	}
+}
+
+@media screen and (max-width: 600px) {
+	aside {
+		flex-direction:column;
+	}
+
+	footer {
+		justify-content:space-around;/*que un lemento se ponga a la izquierda y el otro a la dereche, distribuye los elementos */
+	}
+}

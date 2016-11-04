@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from .views import ValidaAccesoView, InicioViewInvitado, BlogViewInvitado, DashViewAdmin,ValidaINicioView, CategoriaQueryPost, EtiquetasQueryPost, BaseDashViewAngular,indexViewDashAngular
+from .views import ValidaAccesoView, InicioViewInvitado, BlogViewInvitado, DashViewAdmin,ValidaINicioView, CategoriaQueryPost, EtiquetasQueryPost, BaseDashViewAngular, indexViewDashAngular, PruebaViewInvitado
 
 urlpatterns = patterns('',
 	url(r'^validar-acceso/$', ValidaAccesoView.as_view(), name='validaAcceso'),
@@ -9,6 +9,8 @@ urlpatterns = patterns('',
     #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Url para el acceso <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     url(r'^$', InicioViewInvitado.as_view(), name='InicioViewInvitado'),#Invitado
     url(r'^blog/$', BlogViewInvitado.as_view(), name='BlogViewInvitado'),#Invitado
+
+    url(r'^prueba/$', PruebaViewInvitado.as_view(), name='PruebaViewInvitado'),#Invitado
 
     url(r'^dash-admin/$', BaseDashViewAngular.as_view(), name='BaseDashViewAngular'),#Admin Angular
     url(r'^index-dash-post-angular/$', indexViewDashAngular.as_view(), name='indexViewDashAngular'),#Admin Angular

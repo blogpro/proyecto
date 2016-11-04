@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Flexbox Layout</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+		<script src="/static/ejemplos/prueba1/prefix.js"></script>
+		<link rel="stylesheet" href="/static/ejemplos/prueba1/estilos.css">
+
+        <!-- CSS de las imagenes de icoMoon -->
+        <link href="/static/fonts/fonts.css" rel="stylesheet">
+        <!-- CSS de las imagenes de icoMoon -->
+
+	</head>
+<body>
+
+	<div class="contenedor">
+
+		<header>
+			<div class="logo">
+				<img src="/static/images/logo.png" width="150" alt="">
+				<h1>Tystab</h1>
+				<span class="site-desc">Programación / Diseño web / Tutoriales / Y más.....</span>
+			</div>
+
+			<nav>
+				<a href="#">Inicio</a>
+				<a href="#">Blog</a>
+			</nav>
+		</header>
+
+		<section class="main">
+			<article>
+				<h2 class="titulo">Lorem ipsum dolor sit amet.</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			</article>
+
+			<article>
+				<h2 class="titulo">Lorem ipsum dolor sit amet.</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			</article>
+
+            <article>
+                <h2 class="titulo">Lorem ipsum dolor sit amet.</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </article>
+		</section>
+
+		<aside>
+            <div class="widget">
+                <div class="search_bar">
+                    <form method="get" id="searchform" action="http://systab.herokuapp.com/">
+                        <input type="text" placeholder="Busca algo que aprender hoy" name="s" id="s">
+                        <span>
+                            <a href="#" class="icon-search" onclick="document.getElementById('searchform').submit();"></a>
+                        </span>
+                     </form>
+                </div>
+            </div>
+
+			<div class="widget">
+				<div class="imagen">
+					<h2>Artículos mas populares</h2>
+                    <ul>
+                        {% for p in PostMatriz %}
+                            <li><a href="/blog/{{p.slug}}/" title="{{p.title}}">{{p.title}}. </a></li>
+                        {% endfor %}
+                    </ul>
+				</div>
+			</div>
+
+            <div class="widget">
+                <div class="imagen">
+                    <h2>Categorias</h2>
+                    <ul>
+                        {% for ca in Categoria %}
+                            <li><a href="/blog/categorias/{{ca.id}}/" title="{{ca.title}}">{{ca.title}}. </a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+			<div class="widget">
+				<div class="imagen">
+					<h2>Etiquetas</h2>
+                    <ul>
+                        {% for e in Etiqueta %}
+                            <li><a href="/blog/etiquetas/{{e.id}}/" title="{{e.title}}">{{e.title}}. </a></li>
+                        {% endfor %}
+                    </ul>
+				</div>
+			</div>
+		</aside>
+
+		<footer>
+			<section class="links">
+				<a href="#">Inicio</a>
+				<a href="#">Blog</a>
+				<a href="#">Proyectos</a>
+				<a href="#">Contacto</a>
+			</section>
+
+			<div class="social">
+				<a href="#">FB</a>
+				<a href="#">TW</a>
+			</div>
+		</footer>
+
+	</div>
+
+</body>
+</html>
