@@ -2,7 +2,7 @@
 <html lang="es">
 	<head>
 		<meta charset="utf-8">
-		<title>Flexbox Layout</title>
+		<title>Tystab</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
 		<script src="/static/ejemplos/prueba1/prefix.js"></script>
@@ -18,17 +18,41 @@
 	<div class="contenedor">
 
 		<header>
-			<div class="logo">
-				<img src="/static/images/logo.png" width="150" alt="">
-				<h1>Tystab</h1>
-				<span class="site-desc">Programación / Diseño web / Tutoriales / Y más.....</span>
+			<div class="container">
+				<div class="logo">
+					<img src="/static/images/logo.png" width="150" alt="">
+					<h1>Tystab</h1>
+					<span class="site-desc">Programación / Diseño web / Tutoriales / Y más.....</span>
+				</div>
+
+				<div class="social-icons">
+					<ul class="social-icons">
+                    <li class="facebook"><a href="https://www.facebook.com/Tystab-1066756010010989/" target="_blank" title="Facebook">Facebook</a></li>
+                    <!-- <li class="twitter"><a href="#" target="_blank" title="Twitter">Twitter</a></li> -->
+                	</ul>
+				</div>
+
+				<div class="user-menu">
+					<span><a href="#" class="icon-user-minus"> Cuenta</a></span>
+					{% if not user.is_authenticated %}
+						<span><a href="{% url 'social:begin' 'facebook' %}" class="icon-unlocked"> Login</a></span>
+					{% endif %}
+					{% if user.is_authenticated %}
+						<span><a href="{% url 'log-out' %}" class="icon-pinterest"> Logout</a></span>
+					{% endif %}
+				</div>
+
 			</div>
 
-			<nav>
-                {% for m in Menu %}
-                    <a class="{{m.css_menu}}" href="/{{m.slug}}/">{{m.title_menu}}</a>
-                {% endfor %}
-			</nav>
+			<div class="navigation">
+				<nav>
+                	{% for m in Menu %}
+                    	<a class="{{m.css_menu}}" href="/{{m.slug}}/">{{m.title_menu}}</a>
+                	{% endfor %}
+				</nav>
+			</div>
+
+
 		</header>
 
 		<section class="main">
@@ -67,7 +91,7 @@
             <div class="widget">
                 <div class="search_bar">
                     <form method="get" id="searchform" action="http://systab.herokuapp.com/">
-                        <input type="text" placeholder="Busca algo que aprender hoy" name="s" id="s">
+                        <input type="text" placeholder="¿Qué desea encontrar?" name="s" id="s">
                         <span>
                             <a href="#" class="icon-search" onclick="document.getElementById('searchform').submit();"></a>
                         </span>

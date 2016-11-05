@@ -21,39 +21,50 @@ body {
 	color: #666;
 }
 
-
+/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Header ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 header {
-	background:#000000;
-	width:100%;
-	padding:20px;
+	background: -webkit-linear-gradient(#3c3333, black);
+    background: -o-linear-gradient(#3c3333, black);
+    background: -moz-linear-gradient(#3c3333, black);
+     background: linear-gradient(#3c3333, black);
+    /* background: #000000; */
+    width:100%;
+	padding:9px;
 
 	/* Flexbox */
 	display: flex; /* va hacer elemento padre */
-	justify-content:space-between; /*que un lemento se ponga a la izquierda y el otro a la dereche, distribuye los elementos */
-	align-items:center;/* alinear elementos verticalmente*/
+	/*align-items:center;*//* alinear elementos verticalmente*/
 
-	flex-direction:row;/* Inserta los elemntos en linea */
-	flex-wrap:wrap;/* vaja el elemto abajo si no cabe dentro de la linea */
+	flex-direction:column;/* Inserta los elemntos en linea */
 }
 
-header .logo {
+header .container{
+	flex-grow:1;/* abarcan el 100% del elemento padre del 'nav' todos los a */
+	padding: 10px;
+
+	/* Flexbox */
+	display: flex; /* va hacer elemento padre */
+	justify-content: space-between;/*Alinea los widget a el inicio, puede ser en medio o al final*/ 
+}
+
+header .container .logo {
 	color:#fff;
 	font-size:30px;
 }
 
-header .logo img {
+header .container .logo img {
 	width:50px;
 	vertical-align: top;
 }
 
-header .logo h1 {
+header .container .logo h1 {
 	color: #B2B2B2;
     line-height: 0px;
     font-size: 20px;
     display: inline-flex;
 }
 
-header .logo span {
+header .container .logo span {
 	color: #616060;
     line-height: 11px;
     display: block;
@@ -63,16 +74,93 @@ header .logo span {
 }
 
 
-header nav {
-	width:50%;
+
+header .container .social-icons {
+    clear: right;
+    float: right;
+    margin-top: -3px;
+    margin-left: 5px;
+    position: relative;
+}
+
+ul.social-icons{
+    margin: 0;
+    padding: 0;
+    width: auto;
+}
+
+ul.social-icons li.facebook {
+    background-position: 0 -120px;
+}
+
+ul.social-icons li.facebook:hover{
+    background-position: 0 -150px;
+}
+
+ul.social-icons li.twitter {
+    background-position: 0 -1140px;
+}
+ul.social-icons li.twitter:hover{
+    background-position: 0 -1170px;
+}
+ul.social-icons li {
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+    background-image: url(/static/images/social-sprites.png);
+    background-repeat: no-repeat;
+    background-position: 0 100px;
+    display: inline-block;
+    margin: -1px 1px 5px 0;
+    padding: 0;
+    border-radius: 100%;
+    overflow: visible;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.3);
+}
+ul.social-icons li[class] a {
+    text-indent: -9999px;
+}
+ul.social-icons li a {
+    display: block;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+}
+
+header .container .user-menu span{
+	padding-left: 5px;
+}
+
+header .container .user-menu span a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+header .container .user-menu span a:hover {
+    color: rgb(255, 255, 255);
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+header .navigation{
+	flex-grow:1;/* abarcan el 100% del elemento padre del 'nav' todos los a */
+}
+
+header .navigation nav {
 	/* Flexbox */
 
 	display:flex;/* va hacer elemento padre */
 	flex-wrap:wrap;
 	align-items:center;
+	flex-grow:1; /* abarcan el 100% del elemento padre del 'nav' todos los a */
 }
 
-header nav a {
+header .navigation nav a {
 	background:#000000;
 	color:#fff;
 	text-align: center;
@@ -83,9 +171,11 @@ header nav a {
 	flex-grow:1; /* abarcan el 100% del elemento padre del 'nav' todos los a */
 }
 
-header nav a:hover {
+header .navigation nav a:hover {
 	background:#272424;
 }
+
+/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Header ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 
 .main {
 	background:#fff;
@@ -132,7 +222,7 @@ aside .widget h2{
     font-family: 'Roboto';
     font-weight: 500;
     font-size: 16px;
-    color: #000000;
+    color: #940114;
     text-transform: uppercase;
     border-bottom: 1px solid #e9e9e9;
 }
@@ -153,7 +243,7 @@ aside .widget li {
 aside .widget li a, aside .widget li a:visited {
     text-decoration: none;
     display: block;
-    color: #f52600;
+    color: #707070;
 }
 
 aside .widget li a:hover {
@@ -241,7 +331,7 @@ footer .social a {
 		flex-direction:column;
 	}
 
-	header {
+	header .container{
 		flex-direction:column;
 		padding:0;
 	}
