@@ -177,6 +177,8 @@ header .navigation nav a:hover {
 
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Header ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 
+
+/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Contenido ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 .main {
 	background:#fff;
 	padding:20px;
@@ -190,6 +192,9 @@ header .navigation nav a:hover {
 	margin-bottom: 20px;
 	padding-bottom:20px;
 	border-bottom:1px solid #e9e9e9;
+
+	display:flex;/* va hacer elemento padre */
+	flex-wrap: nowrap;
 }
 
 .main article:nth-last-child(1){/* A el ultimo article no se le aplica nada queda todo en cero, para que no se muestre la linea que divide a los article*/
@@ -198,6 +203,64 @@ header .navigation nav a:hover {
 	border-bottom:none;
 }
 
+.main article .imagenPost{
+
+}
+
+.main article .contenPost{
+	padding-left: 18px;
+}
+
+.main article .contenPost .titulo{
+	padding-bottom: 11px;
+    font-size: 25px;
+    padding-top: 0;
+    letter-spacing: 0;
+    text-transform: none;
+    padding-top: 0;
+}
+
+.main article .contenPost .titulo a{
+	color: #3d3d3d;
+    text-decoration: none;
+}
+
+.main article .contenPost .titulo a:hover{
+	color: #00c8d7;
+    text-decoration: none;
+}
+
+.main article .contenPost .entry-meta{
+	padding-bottom: 11px;
+}
+
+.main article .contenPost .entry-meta .autor{
+	color: #00c8d7;
+}
+
+.main article .contenPost .entry-meta .meta-date{
+	color: #00c8d7;
+}
+
+.main article .contenPost .entry-meta .comentario{
+	color: #00c8d7;
+}
+.main article .contenPost p{
+	font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1.785em;
+    vertical-align: top;
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word;
+}
+
+
+
+/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Contenido ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 aside {
 	background:#e9e9e9;
 	padding: 0px 0px 0px 5px;
@@ -223,7 +286,7 @@ aside .widget h2{
     font-weight: 500;
     font-size: 16px;
     color: #940114;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     border-bottom: 1px solid #e9e9e9;
 }
 

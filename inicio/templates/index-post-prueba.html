@@ -56,35 +56,38 @@
 		</header>
 
 		<section class="main">
-			<article>
-				<h2 class="titulo">Lorem ipsum dolor sit amet.</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-			</article>
 
+			{% for p in PostMatriz %}
 			<article>
-				<h2 class="titulo">Lorem ipsum dolor sit amet.</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-			</article>
+				<div class="imagenPost">
+					<img src="http://3.bp.blogspot.com/-bZbjNokaHFc/VW1fizLgAFI/AAAAAAAALgM/OyS4UjoQ-zI/s1600/iniciablog-blogger-emprendedor.jpg" width="272px" height="204px">
+				</div>
+				<div class="contenPost">
+					<h2 class="titulo">
+						<a href="#">{{p.title}}</a>
+					</h2>
+					<div class="entry-meta">
+						<span class="meta-author">
+							<i class="icon-pencil"></i>
+							<span class="autor">{{p.first_name}} {{p.last_name}}</span>
+						</span>
+						— 
+						<i class="icon-calendar"></i> 
+						<span class="meta-date">6/02/2015</span>
+						— 
+						<i class="icon-bubbles4"></i> 
+						<span class="comentario">{{p.comentariosCount}}</span>
+					</div>
 
-            <article>
-                <h2 class="titulo">Lorem ipsum dolor sit amet.</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </article>
+					<p>{{p.descripcion|safe|slice:":400"}}...</p>
+				</div>
+			
+			</article>
+			{% endfor %}
+
+
+
+
 		</section>
 
 		<aside>
@@ -112,7 +115,7 @@
 
             <div class="widget">
                 <div class="imagen">
-                    <h2>Categorias</h2>
+                    <h2>Categorías</h2>
                     <ul>
                         {% for ca in Categoria %}
                             <li><a href="/blog/categorias/{{ca.id}}/" title="{{ca.title}}">{{ca.title}}</a></li>
