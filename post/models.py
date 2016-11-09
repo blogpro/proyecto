@@ -30,7 +30,7 @@ class Post(models.Model):
 	categoria = models.ForeignKey(Categoria)
 	voto = models.ForeignKey(Voto,blank=True, null=True)
 	date_ini = models.DateField(blank=True, null=True)
-	image = models.ImageField(upload_to='images/postconfig/%Y/%m/%d', verbose_name='Imágen', blank=True, null=True)
+	#image = models.ImageField(upload_to='images/postconfig/%Y/%m/%d', verbose_name='Imágen', blank=True, null=True)
 
 	slug = models.SlugField()
 	
