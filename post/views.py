@@ -69,7 +69,7 @@ class UpdatePostViewPost(LoginRequiredMixin,UpdateView):
 	template_name = 'dashpost.html'
 	model = Post
 	form_class=PostForm
-	fields = ['status', 'title','etiquetas','categoria','descripcion']
+	fields = ['status', 'title','etiquetas','categoria','descripcion','image']
 
 	success_url = '/dash-admin/#/list-post/'
 	

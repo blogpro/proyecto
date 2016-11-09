@@ -90,6 +90,7 @@ class GetPostSlugMixin(ComentariosMixin):
 
 		file_info['id']=p.id
 		file_info['title']=p.title
+		file_info['image']=p.image
 		file_info['slug']=p.slug
 		file_info['descripcion']=p.descripcion
 		file_info['first_name']=p.user.first_name
@@ -110,21 +111,9 @@ class GetPostMixin(object):
 		p = ObjPost
 		file_info = {}
 
-		#----------------------------------------Lista Post---------------------------------------
-		ListaPost = []
-		ObjPostAdd = PostAdd.objects.filter(post__id= p.id).order_by('order')
-		for s in ObjPostAdd:
-			file_info_html = {}
-			if s.imagenpost != None:
-				file_info_html['inicio_html']="<img class='img-responsive' src='"	
-				file_info_html['codigo_pos'] =s.imagenpost
-				file_info_html['fin_html']=" ' alt=''> "
-				file_info_html['id_post_add']=s.id
-			ListaPost.append(file_info_html)
-		file_info['postList']=ListaPost
-		#----------------------------------------Lista Post---------------------------------------
-
 		file_info['title']=p.title
+		file_info['image']=p.image
+		file_info['image']=p.image
 		file_info['slug']=p.slug
 		file_info['descripcion']=p.descripcion
 		file_info['first_name']=p.user.first_name
@@ -167,6 +156,7 @@ class QueryPostMixin(QueryPostValid):
 			file_info['next_page_number'] = number_next
 
 			file_info['title']=p.title
+			file_info['image']=p.image
 			file_info['slug']=p.slug
 			file_info['descripcion']=p.descripcion
 			file_info['id']=p.id
@@ -207,6 +197,7 @@ class QueryPostMixin(QueryPostValid):
 			file_info['next_page_number'] = number_next
 
 			file_info['title']=p.title
+			file_info['image']=p.image
 			file_info['slug']=p.slug
 			file_info['descripcion']=p.descripcion
 			file_info['id']=p.id
@@ -248,6 +239,7 @@ class AsidePostMixin(QueryPostValid):
 			file_info['next_page_number'] = number_next
 
 			file_info['title']=p.title
+			file_info['image']=p.image
 			file_info['slug']=p.slug
 			file_info['descripcion']=p.descripcion
 			file_info['id']=p.id
@@ -288,6 +280,7 @@ class AsidePostMixin(QueryPostValid):
 			file_info['next_page_number'] = number_next
 
 			file_info['title']=p.title
+			file_info['image']=p.image
 			file_info['slug']=p.slug
 			file_info['descripcion']=p.descripcion
 			file_info['id']=p.id

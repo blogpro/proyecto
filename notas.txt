@@ -1,2 +1,7 @@
 1.- Elimnar de la base de datos:
 post_posadd
+
+2.- Hacer cambios a la base de datos de el modelo post
+	./manage.py makemigrations post
+	./manage.py migrate post
+	./manage.py migrate post --f
