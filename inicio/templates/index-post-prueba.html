@@ -73,7 +73,7 @@
 						</span>
 						— 
 						<i class="icon-calendar"></i> 
-						<span class="meta-date">6/02/2015</span>
+						<span class="meta-date">{{p.fecha|date:"M d, Y"}} - {{p.fecha|date:"g:i a"}}</span>
 						— 
 						<i class="icon-bubbles4"></i> 
 						<span class="comentario">{{p.comentariosCount}}</span>
@@ -138,15 +138,20 @@
 
 		<footer>
 			<section class="links">
-				<a href="#">Inicio</a>
+				<!-- <a href="#">Inicio</a>
 				<a href="#">Blog</a>
 				<a href="#">Proyectos</a>
-				<a href="#">Contacto</a>
+				<a href="#">Contacto</a> -->
 			</section>
 
+			<div class="datafooter">
+				<span class="autorfooter">Design • Code • Content © 2016 Elder López Félix</span>
+					<br>
+				<span class="eslogan">Mundo informático con programación y diseño web......</span>
+			</div>
+
 			<div class="social">
-				<a href="#">FB</a>
-				<a href="#">TW</a>
+				<a href="https://www.facebook.com/Tystab-1066756010010989/" target="_blank" title="Facebook"><img src="/static/images/facebook.png" width="50" alt=""></a>
 			</div>
 		</footer>
 

@@ -377,17 +377,28 @@ footer .links a:hover {
 	background:#272424;
 }
 
+footer .datafooter{
+	margin: auto;
+}
+footer .datafooter .autorfooter{
+	color: #fff;
+}
+
+
 footer .social {
-	background:#e67e22;
+	
 }
 
 footer .social a {
-	color:#fff;
 	text-decoration: none;
-	padding:10px;
 	display: inline-block;/* Para que un elemento se ponga de lado del otro */
 }
+/* ******************************* Fin del codigo del css para la la pagina en tamaño normal ******************************* */
 
+
+
+
+/* ******************************* Inicio de el css responsive  ******************************* */
 @media screen and (max-width: 800px) {
 	.contenedor {
 		flex-direction:column;
