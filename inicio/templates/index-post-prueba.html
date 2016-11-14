@@ -1,70 +1,19 @@
-<!doctype html>
-<html lang="es">
-	<head>
-		<meta charset="utf-8">
-		<title>Tystab</title>
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
-		<script src="/static/ejemplos/prueba1/prefix.js"></script>
-		<link rel="stylesheet" href="/static/ejemplos/prueba1/estilos.css">
+{% extends "baseIndexPost.html" %}
 
-        <!-- CSS de las imagenes de icoMoon -->
-        <link href="/static/fonts/fonts.css" rel="stylesheet">
-        <!-- CSS de las imagenes de icoMoon -->
-
-	</head>
-<body>
-
-	<div class="contenedor">
-
-		<header>
-			<div class="container">
-				<div class="logo">
-					<img src="/static/images/logo.png" width="150" alt="">
-					<h1>Tystab</h1>
-					<span class="site-desc">Programación / Diseño web / Tutoriales / Y más.....</span>
-				</div>
-
-				<div class="social-icons">
-					<ul class="social-icons">
-                    <li class="facebook"><a href="https://www.facebook.com/Tystab-1066756010010989/" target="_blank" title="Facebook">Facebook</a></li>
-                    <!-- <li class="twitter"><a href="#" target="_blank" title="Twitter">Twitter</a></li> -->
-                	</ul>
-				</div>
-
-				<div class="user-menu">
-					<span><a href="#" class="icon-user-minus"> Cuenta</a></span>
-					{% if not user.is_authenticated %}
-						<span><a href="{% url 'social:begin' 'facebook' %}" class="icon-unlocked"> Login</a></span>
-					{% endif %}
-					{% if user.is_authenticated %}
-						<span><a href="{% url 'log-out' %}" class="icon-pinterest"> Logout</a></span>
-					{% endif %}
-				</div>
-
-			</div>
-
-			<div class="navigation">
-				<nav>
-                	{% for m in Menu %}
-                    	<a class="{{m.css_menu}}" href="/{{m.slug}}/">{{m.title_menu}}</a>
-                	{% endfor %}
-				</nav>
-			</div>
+{% block title %}
+  Sistemas Tabasco
+{% endblock %}
 
 
-		</header>
-
-		<section class="main">
-
-			{% for p in PostMatriz %}
+{% block contenido %}
+	{% for p in PostMatriz %}
 			<article>
 				<div class="imagenPost">
 					<img src="/static/media/{{p.image}}" width="272px" height="204px">
 				</div>
 				<div class="contenPost">
 					<h2 class="titulo">
-						<a href="#">{{p.title}}</a>
+						<a href="/blog/{{p.slug}}/">{{p.title}}</a>
 					</h2>
 					<div class="entry-meta">
 						<span class="meta-author">
@@ -84,78 +33,4 @@
 			
 			</article>
 			{% endfor %}
-
-
-
-
-		</section>
-
-		<aside>
-            <div class="widget">
-                <div class="search_bar">
-                    <form method="get" id="searchform" action="http://systab.herokuapp.com/">
-                        <input type="text" placeholder="¿Qué desea encontrar?" name="s" id="s">
-                        <span>
-                            <a href="#" class="icon-search" onclick="document.getElementById('searchform').submit();"></a>
-                        </span>
-                     </form>
-                </div>
-            </div>
-
-			<div class="widget">
-				<div class="imagen">
-					<h2>Artículos mas populares</h2>
-                    <ul>
-                        {% for p in PostMatriz %}
-                            <li><a href="/blog/{{p.slug}}/" title="{{p.title}}">{{p.title}} </a></li>
-                        {% endfor %}
-                    </ul>
-				</div>
-			</div>
-
-            <div class="widget">
-                <div class="imagen">
-                    <h2>Categorías</h2>
-                    <ul>
-                        {% for ca in Categoria %}
-                            <li><a href="/blog/categorias/{{ca.id}}/" title="{{ca.title}}">{{ca.title}}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-
-			<div class="widget">
-				<div class="imagen">
-					<h2>Etiquetas</h2>
-                    <ul>
-                        {% for e in Etiqueta %}
-                            <li><a href="/blog/etiquetas/{{e.id}}/" title="{{e.title}}">{{e.title}}</a></li>
-                        {% endfor %}
-                    </ul>
-				</div>
-			</div>
-		</aside>
-
-		<footer>
-			<section class="links">
-				<!-- <a href="#">Inicio</a>
-				<a href="#">Blog</a>
-				<a href="#">Proyectos</a>
-				<a href="#">Contacto</a> -->
-			</section>
-
-			<div class="datafooter">
-				<span class="autorfooter">Design • Code • Content © 2016 Elder López Félix</span>
-					<br>
-				<span class="eslogan">Mundo informático con programación y diseño web......</span>
-			</div>
-
-			<div class="social">
-				<a href="https://www.facebook.com/Tystab-1066756010010989/" target="_blank" title="Facebook"><img src="/static/images/facebook.png" width="50" alt=""></a>
-			</div>
-		</footer>
-
-	</div>
-
-</body>
-</html>
+{% endblock %}

@@ -84,6 +84,7 @@ class DetailPostViewPost(MenuMixin,AsideMixin,GetPostSlugMixin, DetailView):
 	model = Post
 	#template_name = 'detailpost.html'
 	template_name = 'ver-mas-post.html'
+	template_name = 'ver-mas-post-prueba.html'
 
 	#Retorna los valores al template como nuevas variables
 	def get_context_data(self, **kwargs):

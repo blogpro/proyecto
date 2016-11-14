@@ -48,7 +48,7 @@ class ValidaINicioView(RedirectView):
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
-    template_name = 'index-post.html'
+    template_name = 'index-post-prueba.html'
 
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
@@ -75,7 +75,7 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		return context
 
 class BlogViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
-    template_name = 'index-post.html'
+    template_name = 'index-post-prueba.html'
 
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
@@ -125,9 +125,9 @@ class PruebaViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 
 		query = self.request.GET.get('s', '')
 		if query:
-			ObjQueryPost = self.QueryPostBusqueda(page,query,7)
+			ObjQueryPost = self.QueryPostBusqueda(page,query,1)
 		else:	
-			ObjQueryPost = self.QueryPost(page,7)
+			ObjQueryPost = self.QueryPost(page,1)
 
 		isPost = True;
 		data = {
