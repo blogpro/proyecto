@@ -1,0 +1,120 @@
+{% extends "baseIndexPost.html" %}
+
+{% block title %}
+  Sistemas Tabasco
+{% endblock %}
+
+{% block configFacebook %}
+    <meta property="og:site_name" content="Systab Blog | Development, Marketing &amp; Web Design" />
+    <meta property="og:url"           content="http://systab.herokuapp.com/blog/{{id_post}}/" />
+    <meta property="og:type"          content="article" />
+    {% for p in PostMatriz %}
+    	<meta property="og:title"         content="{{p.title}}" />
+    {% endfor %}
+    <meta property="og:description"   content="Pagina dedicado al mundo de la informatica" />
+    <meta property="og:image"         content="http://systab.herokuapp.com/static/images/logo.png" />
+{% endblock %}
+
+{% block contenido %}
+	{% for p in PostMatriz %}
+		<article>
+			<!-- <div class="imagenPost">
+				<img src="/static/media/{{p.image}}" width="272px" height="204px">
+			</div> -->
+			<div class="contenPost">
+				<h2 class="titulo">
+					<a href="#">{{p.title}}</a>
+				</h2>
+				<div class="entry-meta">
+					<span class="meta-author">
+						<i class="icon-pencil"></i>
+						<span class="autor">{{p.first_name}} {{p.last_name}}</span>
+					</span>
+					— 
+					<i class="icon-calendar"></i> 
+					<span class="meta-date">{{p.fecha|date:"M d, Y"}} - {{p.fecha|date:"g:i a"}}</span>
+					— 
+					<i class="icon-bubbles4"></i> 
+					<span class="comentario">{{p.comentariosCount}}</span>
+				</div>
+
+				<p>{{p.descripcion|safe}}...</p>
+			</div>
+		
+		</article>
+
+		</article>
+			<header>
+                <div class="cuerpotituloComent" >
+                    {% for p in PostMatriz %}
+                        {{p.comentariosCount}} Comentarios.
+                    {% endfor %}
+                </div>
+            </header>
+
+            <div id="comentarios">
+	            {% for p in PostMatriz %}
+	                {% for c in p.comentarios %}
+
+	                    <div class="contentComentario">
+	                        <div class="avatarComent">
+	                            <img src="/static/images/avatar-comentario.png" class="img-circle">
+	                        </div>
+
+	                        <div class="infoComent">
+	                            <div class="filaprincipalComent">
+	                                <div class="userComent">
+	                                    {{c.first_name}} {{c.last_name}}
+	                                </div>
+	                                <div class="dataComent">
+	                                    {{c.fecha_hora|date:"j F o"}} , {{c.fecha_hora|date:"g:i a"}}
+	                                </div>
+	                            </div>
+	                            <div class="descripcionComent">
+	                                {{c.descripcion}}
+	                            </div>
+	                            {% if not c.activo %}
+	                                <div class="aprobarComentario">
+	                                    {{c.nota}}
+	                                </div>
+	                            {% endif %}
+	                        </div>
+	                    </div> 
+	                {% endfor %}
+	            {% endfor %}
+            </div>
+
+            {% if not user.is_authenticated %}
+                <div class="listar texto-centrado">    
+                    <div class="alerta alerta-verde"><a href="{% url 'social:begin' 'facebook' %}">Inicia sesión para comentar</a></div>
+                </div>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                <div class="FormComentario">
+                   <form class="contact_form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div>
+                    	<ul> 
+                            <li> 
+                                <h2>Comentario</h2> <span class="required_notification">* Datos requeridos</span> 
+                            </li> 
+                            <li>
+                                {% for p in PostMatriz %}
+                                    <input name="post" id="post" type="hidden" value="{{p.id}}">
+                                {% endfor %}    
+                            	<textarea name="message" id="message" cols="40" rows="6"  required></textarea>
+                            </li> 
+                            <li>
+                                <button class="submit" onClick="enviarComentario()">Enviar mensaje</button> 
+                            </li> 
+                        </ul>
+                    </div>
+                   </form>
+                </div>
+            {% endif %}
+
+		</article>
+
+	{% endfor %}
+{% endblock %}
