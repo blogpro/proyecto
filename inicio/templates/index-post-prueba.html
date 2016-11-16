@@ -6,31 +6,31 @@
 
 
 {% block contenido %}
-	{% for p in PostMatriz %}
-			<article>
-				<div class="imagenPost">
-					<img src="/static/media/{{p.image}}" width="272px" height="204px">
-				</div>
-				<div class="contenPost">
-					<h2 class="titulo">
-						<a href="/blog/{{p.slug}}/">{{p.title}}</a>
-					</h2>
-					<div class="entry-meta">
-						<span class="meta-author">
-							<i class="icon-pencil"></i>
-							<span class="autor">{{p.first_name}} {{p.last_name}}</span>
-						</span>
-						— 
-						<i class="icon-calendar"></i> 
-						<span class="meta-date">{{p.fecha|date:"M d, Y"}} - {{p.fecha|date:"g:i a"}}</span>
-						— 
-						<i class="icon-bubbles4"></i> 
-						<span class="comentario">{{p.comentariosCount}}</span>
-					</div>
+  {% for p in PostMatriz %}
+      <article>
+        <div class="imagenPost">
+          <img src="/static/media/{{p.image}}" width="272px" height="204px">
+        </div>
+        <div class="contenPost">
+          <h2 class="titulo">
+            <a href="/blog/{{p.slug}}/">{{p.title}}</a>
+          </h2>
+          <div class="entry-meta">
+            <span class="meta-author">
+              <i class="icon-pencil"></i>
+              <span class="autor">{{p.first_name}} {{p.last_name}}</span>
+            </span>
+            — 
+            <i class="icon-calendar"></i> 
+            <span class="meta-date">{{p.fecha|date:"M d, Y"}} - {{p.fecha|date:"g:i a"}}</span>
+            — 
+            <i class="icon-bubbles4"></i> 
+            <span class="comentario">{{p.comentariosCount}}</span>
+          </div>
 
-					<p>{{p.descripcion|safe|slice:":400"}}...</p>
-				</div>
-			
-			</article>
-			{% endfor %}
+          <p>{{p.descripcion|safe|slice:":400"}}...</p>
+        </div>
+      
+      </article>
+      {% endfor %}
 {% endblock %}

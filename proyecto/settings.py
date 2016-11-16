@@ -18,10 +18,10 @@ import socket
 a = socket.gethostbyname(socket.gethostname())
 
 
-if str(a) == '127.0.0.1' or str(a) == '10.51.215.193':
+if str(a) == '127.0.0.1':
     debug = True
     HOSTS = ['*']
-    NAME = 'proyecto'
+    NAME = 'bdpro'
     USER = 'postgres'
     PASSWORD = ''
     HOST = 'localhost'
