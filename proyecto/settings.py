@@ -18,29 +18,9 @@ import socket
 a = socket.gethostbyname(socket.gethostname())
 
 
-if str(a) == '127.0.0.1':
-    debug = True
-    HOSTS = ['*']
-    NAME = 'bdpro'
-    USER = 'postgres'
-    PASSWORD = ''
-    HOST = 'localhost'
-
-    facebook_key = "1539556102987271"#Local
-    facebook_secret = "330159cf0d1b6a8a98c0e35c564365a8"#Local
-
-else:
-    debug = False  
-    HOSTS = ['http://systab.herokuapp.com/','systab.herokuapp.com']
-
-    #Bd
-    HOST = 'ec2-54-225-201-25.compute-1.amazonaws.com'
-    NAME = 'd8aecn4b0n19m3'
-    USER = 'nnwgvgoklyndcu'
-    PASSWORD = '3eyYWb0OMg9o5VNlkEa4QQPkpu'
-
-    facebook_key = "1476656729277209"#Produccion
-    facebook_secret = "5c1f80475bcef95cef58f523ab14df27"#Produccion
+# local.py
+from .base import *
+#from .produccion import *
 
 
 # Quick-start development settings - unsuitable for production

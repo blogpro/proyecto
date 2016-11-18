@@ -76,16 +76,6 @@
 	        {% block configFacebook %}{% endblock %}
 	        
 
-	    <div id="fb-root"></div>
-	    <script>(function(d, s, id) {
-	      var js, fjs = d.getElementsByTagName(s)[0];
-	      if (d.getElementById(id)) return;
-	      js = d.createElement(s); js.id = id;
-	      js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.5&appId=1476656729277209";
-	      fjs.parentNode.insertBefore(js, fjs);
-	    }(document, 'script', 'facebook-jssdk'));</script>
-	    <!--Codigo de configuracion para el facebook-->
-
 	    <script>
 	        tipoCambio();
 	    </script>
@@ -101,6 +91,16 @@
 
 	</head>
 <body>
+	<!--Codigo de configuracion para el facebook-->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.8";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+		<!--Codigo de configuracion para el facebook-->
 
 	<div class="contenedor">
 
@@ -181,6 +181,16 @@
                      </form>
                 </div>
             </div>
+
+            <!-- <div class="widget">
+            	<div class="fb-like" data-href="http://systab.herokuapp.com/" data-layout="box_count" data-action="like" data-show-faces="true" data-share="true"></div>
+            </div> -->
+
+            <!-- <div class="widget">
+            <div class="fb-like" data-href="http://systab.herokuapp.com/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+            </div> -->
+
+            
 
 			<div class="widget">
 				<div class="imagen">
