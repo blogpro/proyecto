@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
 class StatusSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Status_Post
-		fields = ('title',)
+		fields = ('title','descripcion','pk')
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ETIQUETAS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class CategoriasSerializer(serializers.ModelSerializer):
 	pk = serializers.IntegerField(read_only=True)

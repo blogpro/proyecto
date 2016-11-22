@@ -201,11 +201,12 @@ class DeleteItemPostView(RedirectView):
 # <<<<<<<<<<<<<<<<<<< Viws Angular >>>>>>>>>>>>>>>>>>>>>>>
 class ListPostViewAngular(LoginRequiredMixin,TemplateView):
 	template_name = 'dashlistpost.html'
-
 class ListCategoriasView(LoginRequiredMixin,TemplateView):
 	template_name = 'dashcategoriapost.html'
 class ListEtiquetasView(LoginRequiredMixin,TemplateView):
 	template_name = 'dashetiquetaspost.html'
+class ListStatusView(LoginRequiredMixin,TemplateView):
+	template_name = 'dashstatuspost.html'	
 class ListComentariosViewAngular(LoginRequiredMixin,TemplateView):
 	template_name = 'dashlistcommen.html'
 # <<<<<<<<<<<<<<<<<<< Viws Angular >>>>>>>>>>>>>>>>>>>>>>>	

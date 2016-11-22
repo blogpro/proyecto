@@ -23,11 +23,11 @@ from django.core.urlresolvers import reverse
 
 from categorias.models import Categoria
 from etiquetas.models import Etiqueta
-from post.models import Post
+from post.models import Post, Status_Post
 from comentarios.models import Comentario
 from imagenes.models import ImagenPost
 
-from .serializers import PostQuerySerializer, CategoriasSerializer, EtiquetasSerializer, ComentariosSerializer, ImagenSerializer
+from .serializers import PostQuerySerializer, CategoriasSerializer, EtiquetasSerializer, ComentariosSerializer, ImagenSerializer, StatusSerializer
 from post.ModelPost import ComentariosMixin
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> POST <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -173,4 +173,43 @@ class ServiceImagenQuery(APIView):
 		data = {
 			'setCod': 0
 		}
-		return Response(data)			
+		return Response(data)
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> STATUS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+class ServiceStatusQuery(APIView):
+	def get(self, request, *args, **kwargs):
+		if 'pk' in self.kwargs:
+			ObjModel = Status_Post.objects.get(pk=self.kwargs['pk'])
+			data = {
+				'pk':ObjModel.id,
+				'title':ObjModel.title,
+				'descripcion':ObjModel.descripcion
+			}
+			return Response(data)
+		serializers = Status_Post.objects.all().order_by('-id')
+		try:
+			serializer = StatusSerializer(serializers, many=True)
+		except (TypeError, ValueError) as err:
+			print 'ERROR:', err
+		return Response(serializer.data)
+	def post(self, request, *args, **kwargs):
+		ObjModel = Status_Post()
+		ObjModel.title = request.data['title']
+		ObjModel.descripcion = request.data['descripcion']
+		ObjModel.save()
+
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)
+	def put(self, request, *args, **kwargs):
+		Status_Post.objects.filter(pk=request.data['pk']).update(title=request.data['title'],descripcion=request.data['descripcion'])
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)
+	def delete(self, request, *args, **kwargs):
+		post = Status_Post.objects.get(pk=self.kwargs['pk']).delete()
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)				
