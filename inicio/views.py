@@ -61,6 +61,13 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		ObjEtiqueta = self.Etiquetas()
 		ObjCategoria = self.Categorias()
 
+		query = self.request.GET.get('s', '')
+		print query
+		if query:
+			ObjQueryPost = self.QueryPostBusqueda(1,query,7)
+		else:	
+			ObjQueryPost = self.QueryPost(1,1)
+
 		isPost = False;
 
 		data = {
@@ -91,6 +98,7 @@ class BlogViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		ObjCategoria = self.Categorias()
 
 		query = self.request.GET.get('s', '')
+		print query
 		if query:
 			ObjQueryPost = self.QueryPostBusqueda(page,query,7)
 		else:	
