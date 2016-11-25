@@ -54,15 +54,11 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
     def get_context_data(self, **kwargs):
 		context = super(InicioViewInvitado, self).get_context_data(**kwargs)
 
-
-		ObjQueryPost = self.QueryPost(1,1)
-
 		ObjMenu = self.Menus()
 		ObjEtiqueta = self.Etiquetas()
 		ObjCategoria = self.Categorias()
 
 		query = self.request.GET.get('s', '')
-		print query
 		if query:
 			ObjQueryPost = self.QueryPostBusqueda(1,query,7)
 		else:	
@@ -194,6 +190,7 @@ class CategoriaQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
     template_name = 'index.html'
     template_name = 'ver-mas-post.html'
     template_name = 'index-post.html'
+    template_name = 'index-post-prueba.html'
 
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
@@ -228,6 +225,7 @@ class EtiquetasQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
     template_name = 'index.html'
     template_name = 'ver-mas-post.html'
     template_name = 'index-post.html'
+    template_name = 'index-post-prueba.html'
 
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
