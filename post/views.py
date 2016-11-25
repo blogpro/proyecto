@@ -43,8 +43,8 @@ class PostView(LoginRequiredMixin,FormView):
         new_post.user = self.request.user
         new_post.save()
 
-        idn = str(new_post.id)
-        return HttpResponseRedirect("/add-item-post/"+idn+"/")
+
+        return HttpResponseRedirect("/dash-admin/#/list-post/")
     def form_invalid(self, form):
     	return self.render_to_response(self.get_context_data(form=form))    
     
@@ -123,12 +123,10 @@ class AddItemPostView(LoginRequiredMixin,GetPostMixin,TemplateView):
 		id_post = self.kwargs['pk']
 
 		ObjGetPost = self.GetPost(id_post)
-		ObjPostAdd = PostAdd.objects.filter(post__id=id_post)
 
 		data = {
 			'Menu':ObjMenu,
 			'PostMatriz':ObjGetPost,
-			'ObjPostAdd':ObjPostAdd,
 			'id_post':id_post,
 		}
 
