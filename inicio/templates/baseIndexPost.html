@@ -1,10 +1,20 @@
 <!doctype html>
 <html lang="es">
 	<head>
-		<meta charset="utf-8">
 		<title>{% block title %}{% endblock %}</title>
-		<meta name="description" content="">
+		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+		<meta name="Tystab" content="Blog de desarrollo wey y de aplicaciones." />
+	    <meta name="author" content="Elder Lopez Felix" />
+	    <meta name="description" content="Servicio de blog, donde se enseña códigos de programación en diferentes lenguajes, para ayudar a los futuros desarrolladores." />
+	    <meta name="generator" content="Django 1.7" />
+	    <meta name="keywords" content="analítica web, seo, web semántica, seo semántico, analytics, Django, php, JavaScript, html5, css, js, Itsma" />
+
+	    <meta name="robots" content="index, follow" />
+	    <meta name="google-site-verification" content="MUjMM0GxurpKpaCtXUIJ0xlOa9j4JoAFQIUfPQjXZfM" />
+
+
 
 		<script src="/static/ejemplos/prueba1/prefix.js"></script>
 		<link rel="stylesheet" href="/static/ejemplos/prueba1/estilos.css">
@@ -57,23 +67,9 @@
 	    <!-- You can use Open Graph tags to customize link previews.
 	        Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
 	        {% block configFacebook %}{% endblock %}
-
-	        <meta name="google-site-verification" content="MUjMM0GxurpKpaCtXUIJ0xlOa9j4JoAFQIUfPQjXZfM" />
-	        
-
 	    <script>
 	        tipoCambio();
 	    </script>
-
-        <meta name="Tystab" content="Blog de desarrollo wey y de aplicaciones." />
-	    <meta name="author" content="Elder Lopez Felix" />
-	    <meta name="description" content="Servicio de blog, donde se enseña códigos de programación en diferentes lenguajes, para ayudar a los futuros desarrolladores." />
-	    <meta name="generator" content="Django 1.7" />
-	    <meta name="keywords" content="analítica web, seo, web semántica, seo semántico, analytics, Django, php, JavaScript, html5, css, js, Itsma" />
-
-	    <meta name="robots" content="index, follow" />
-
-
 	</head>
 <body>
 	<!--Codigo de configuracion para el facebook-->
@@ -93,7 +89,7 @@
 			<div class="container">
 				<div class="logo">
 					<img src="/static/images/logo.png" width="150" alt="">
-					<h1>Tystab</h1>
+					<h1>{% block h1title %}{% endblock %}</h1>
 					<span class="site-desc">Programación / Diseño web / Tutoriales / Y más.....</span>
 				</div>
 
@@ -174,8 +170,6 @@
             <!-- <div class="widget">
             <div class="fb-like" data-href="http://systab.herokuapp.com/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
             </div> -->
-
-            
 
 			<div class="widget">
 				<div class="imagen">

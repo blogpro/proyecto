@@ -1,8 +1,22 @@
 {% extends "baseIndexPost.html" %}
 
-{% block title %}
-  Sistemas Tabasco
-{% endblock %}
+
+
+
+
+	{% block title %}
+		{% for p in PostMatriz %}
+	  		{{p.title}}
+	  	{% endfor %}
+	{% endblock %}
+
+	{% block h1title %}
+	  {% for p in PostMatriz %}
+	  		{{p.title}}
+	  	{% endfor %}
+	{% endblock %}
+
+
 
 {% block configFacebook %}
     <meta property="og:site_name" content="Tystab Blog | Development, Marketing &amp; Web Design" />

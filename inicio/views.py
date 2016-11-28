@@ -187,9 +187,6 @@ class indexViewDashAngular(LoginRequiredInicio,TemplateView):
 
 #>************************************* vista para mostrar los post por categorias ******************************≤
 class CategoriaQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
-    template_name = 'index.html'
-    template_name = 'ver-mas-post.html'
-    template_name = 'index-post.html'
     template_name = 'index-post-prueba.html'
 
     #Retorna los valores al template como nuevas variables
@@ -222,9 +219,6 @@ class CategoriaQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
 		return context
 
 class EtiquetasQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
-    template_name = 'index.html'
-    template_name = 'ver-mas-post.html'
-    template_name = 'index-post.html'
     template_name = 'index-post-prueba.html'
 
     #Retorna los valores al template como nuevas variables
