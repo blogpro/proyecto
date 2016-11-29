@@ -22,7 +22,7 @@ from comentarios.models import Comentario
 from .form import PostForm
 from comentarios.form import ComentarioForm
 
-from .ModelPost import MenuMixin, AsideMixin, GetPostMixin, GetPostSlugMixin, QueryPostMixin
+from .ModelPost import MenuMixin, AsideMixin, GetPostSlugMixin, QueryPostMixin
 from django.core.urlresolvers import reverse
 
 class LoginRequiredMixin(object): 
@@ -82,8 +82,6 @@ class UpdatePostViewPost(LoginRequiredMixin,UpdateView):
 
 class DetailPostViewPost(MenuMixin,AsideMixin,GetPostSlugMixin, DetailView):
 	model = Post
-	#template_name = 'detailpost.html'
-	template_name = 'ver-mas-post.html'
 	template_name = 'ver-mas-post-prueba.html'
 
 	#Retorna los valores al template como nuevas variables
@@ -109,92 +107,6 @@ class DetailPostViewPost(MenuMixin,AsideMixin,GetPostSlugMixin, DetailView):
 
 		context.update(data)
 		return context
-
-
-
-class AddItemPostView(LoginRequiredMixin,GetPostMixin,TemplateView):
-    template_name = 'dashAddItemPost.html'
-      
-    #Retorna los valores al template como nuevas variables
-    def get_context_data(self, **kwargs):
-		context = super(AddItemPostView, self).get_context_data(**kwargs)
-		ObjMenu = Menu.objects.all()
-
-		id_post = self.kwargs['pk']
-
-		ObjGetPost = self.GetPost(id_post)
-
-		data = {
-			'Menu':ObjMenu,
-			'PostMatriz':ObjGetPost,
-			'id_post':id_post,
-		}
-
-		context.update(data)
-		return context
-
-
-
-class EditItemPostView(RedirectView):
-
-	def get(self, args, **kwargs):
-		post_id = self.kwargs.get('pk1', None)
-		postitem_id = self.kwargs.get('pk2', None)
-
-		ObjPostAdd = get_object_or_404(PostAdd, pk=postitem_id)
-
-		v_subtitulopost = ObjPostAdd.subtitulopost
-		v_descripcionpost = ObjPostAdd.descripcionpost
-		v_codigospost = ObjPostAdd.codigospost
-		v_imagenpost = ObjPostAdd.imagenpost
-
-
-
-		if v_subtitulopost != None:
-			url = "/edit-subtitulo-post/"
-			positem_id = v_subtitulopost.id
-		if v_descripcionpost != None:
-			url = "/edit-descripcion-post/"
-			positem_id = v_descripcionpost.id
-		if v_codigospost != None:
-			url = "/edit-codigo-post/"
-			positem_id = v_codigospost.id
-		if v_imagenpost != None:
-			url = "/edit-imagen-post/"
-			positem_id = v_imagenpost.id
-
-		return HttpResponseRedirect(url+str(post_id)+"/"+str(postitem_id)+"/"+str(positem_id)+"/")
-
-
-class DeleteItemPostView(RedirectView):
-
-	def get(self, args, **kwargs):
-		post_id = self.kwargs.get('pk1', None)
-		postitem_id = self.kwargs.get('pk2', None)
-
-		ObjPostAdd = get_object_or_404(PostAdd, pk=postitem_id)
-
-		v_subtitulopost = ObjPostAdd.subtitulopost
-		v_descripcionpost = ObjPostAdd.descripcionpost
-		v_codigospost = ObjPostAdd.codigospost
-		v_imagenpost = ObjPostAdd.imagenpost
-
-
-
-		if v_subtitulopost != None:
-			url = "/delete-subtitulo-post/"
-			positem_id = v_subtitulopost.id
-		if v_descripcionpost != None:
-			url = "/delete-descripcion-post/"
-			positem_id = v_descripcionpost.id
-		if v_codigospost != None:
-			url = "/delete-codigo-post/"
-			positem_id = v_codigospost.id
-		if v_imagenpost != None:
-			url = "/delete-imagen-post/"
-			positem_id = v_imagenpost.id
-
-		return HttpResponseRedirect(url+str(positem_id)+"/")
 
 # <<<<<<<<<<<<<<<<<<< Viws Angular >>>>>>>>>>>>>>>>>>>>>>>
 class ListPostViewAngular(LoginRequiredMixin,TemplateView):

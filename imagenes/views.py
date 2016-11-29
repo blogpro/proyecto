@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.generic import TemplateView, RedirectView, FormView, UpdateView, DeleteView
 
-from post.ModelPost import GetPostMixin
 
 #Seguridad para las vistas
 from django.contrib.auth.decorators import login_required

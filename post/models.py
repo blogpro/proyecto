@@ -31,10 +31,11 @@ class Post(models.Model):
 	voto = models.ForeignKey(Voto,blank=True, null=True)
 	date_ini = models.DateField(blank=True, null=True)
 	image = models.ImageField(upload_to='images/postconfig/%Y/%m/%d', verbose_name='Imágen', blank=True, null=True)
-
 	slug = models.SlugField()
-	
 	fecha_registro = models.DateTimeField(auto_now_add=True)
+
+	metadescripcion = models.CharField(max_length=156)
+	metakeywords = models.CharField(max_length=255,blank=True, null=True)
 	def __unicode__(self):
 		return self.title
 

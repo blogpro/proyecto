@@ -17,10 +17,12 @@ class PostForm(forms.ModelForm):
 	descripcion = forms.CharField(widget=CKEditorWidget())#tiene que ser el mismo nombre del campo en la base de datos
 	class Meta:
 		model = Post
-		fields = ('status','title','etiquetas','categoria','descripcion','image')
+		fields = ('status','title','etiquetas','categoria','descripcion','image','metadescripcion','metakeywords')
 		widgets = {
 			'status': Select(attrs={'class':'form-control','id':'status'}),
 			'title': TextInput(attrs={'class':'form-control','id':'Descripcion','placeholder':'Descripcion'}),
 			'etiquetas': SelectMultiple(attrs={'class':'form-control','size':'5'}),
 			'categoria': Select(attrs={'class':'form-control','id':'categoria'}),
+			'metadescripcion': TextInput(attrs={'class':'form-control','id':'metadescripcion','placeholder':'Meta Descripcion'}),
+			'metakeywords': TextInput(attrs={'class':'form-control','id':'metakeywords','placeholder':'Meta keywords'}),
 	}          

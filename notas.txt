@@ -1,1 +1,2 @@
-
+./manage.py makemigrations post
+./manage.py migrate post
