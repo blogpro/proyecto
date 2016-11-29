@@ -48,7 +48,7 @@ class ValidaINicioView(RedirectView):
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<< Vistas principales <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
-    template_name = 'index-post-prueba.html'
+    template_name = 'index.html'
 
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
@@ -78,7 +78,7 @@ class InicioViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		return context
 
 class BlogViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
-    template_name = 'index-post-prueba.html'
+    template_name = 'index.html'
 
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
@@ -113,7 +113,7 @@ class BlogViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
 		return context
 
 class PruebaViewInvitado(MenuMixin,QueryPostMixin,AsideMixin,TemplateView):
-    template_name = 'index-post-prueba.html'
+    template_name = 'index.html'
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
 		context = super(PruebaViewInvitado, self).get_context_data(**kwargs)
@@ -187,7 +187,7 @@ class indexViewDashAngular(LoginRequiredInicio,TemplateView):
 
 #>************************************* vista para mostrar los post por categorias ******************************≤
 class CategoriaQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
-    template_name = 'index-post-prueba.html'
+    template_name = 'index.html'
 
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):
@@ -219,7 +219,7 @@ class CategoriaQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
 		return context
 
 class EtiquetasQueryPost(MenuMixin,AsidePostMixin,AsideMixin,TemplateView):
-    template_name = 'index-post-prueba.html'
+    template_name = 'index.html'
 
     #Retorna los valores al template como nuevas variables
     def get_context_data(self, **kwargs):

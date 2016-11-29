@@ -1,176 +1,59 @@
-{% extends "base3.html" %}
+{% extends "baseIndexPost.html" %}
 
 {% block title %}
   Sistemas Tabasco
 {% endblock %}
 
-
-{% block menu %}
-  <div class="header">
-      <div class="header-top">
-        <div class="header-in">
-          <div class="logo">
-            <a href="/"><img src="/static/images/logo.png" alt="" ></a>
-          </div>
-          <div class="search">
-            <form role="search" method="get" class="search-form" action="http://systab.herokuapp.com/">
-              <input type="search"  value="" name="s" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
-              <input type="submit" value="SEARCH">
-            </form>
-          </div>
-          <div class="clearfix"> </div>
-        </div>
-        <div class="header-top-on">
-          <ul class="social-in">         
-            <li><a href="#"><i class="facebook"> </i></a></li>
-            <li><a href="#"><i class="tin"> </i></a></li>
-          </ul>
-        </div>
-        <div class="clearfix"> </div>
-      </div>
-      <!---->
-      <div class="header-bottom">
-        <div class="navigation">  
-        <div>
-          <label class="mobile_menu" for="mobile_menu">
-          <span>Menu</span>
-          </label>
-          <input id="mobile_menu" type="checkbox">
-          <ul class="nav">
-
-            {% for m in Menu %}
-              <li><a class="{{m.css_menu}}" href="/{{m.slug}}/">{{m.title_menu}}</a></li>
-            {% endfor %}
-
-            <div class="clearfix"></div>
-          </ul>
-        </div>      
-      </div>
-    </div>
-  </div>
-
+{% block metadescripcion %}Servicio de blog, donde se enseña códigos de programación en diferentes lenguajes, para ayudar a los futuros desarrolladores.
 {% endblock %}
+
+{% block metakeywords %}analítica web, seo, web semántica, seo semántico, analytics, Django, php, JavaScript, html5, css, js, Itsma
+{% endblock %}
+
+{% block h1title %}
+  Sistemas Tabasco
+{% endblock %}
+
 
 {% block contenido %}
-<div class="col-md-8 content-top">
-    {% for p in PostMatriz %}
-      <div class="number">
-        <h3><a href="/blog/{{p.slug}}/">{{p.title}}</a></h3>    
-
-        <h4>Escrito por: {{p.first_name}} {{p.last_name}}</h4>
-
-        {{p.descripcion|safe|slice:":400"}}...
-          
-          </pre></strong></p>
-
-        <div class="movie">
-          <ul class="comment">
-            <li><span>Categoria :  {{p.categoria}} </span></li>
-            <li><a href=""><i> </i>{{p.comentarios}} Comentarios</a></li>
-          </ul>       
-          <a href="/blog/{{p.slug}}/" class="more">Ver más </a>
-        <div class="clearfix"> </div>
+  {% for p in PostMatriz %}
+      <article>
+        <div class="imagenPost">
+          <img src="/static/media/{{p.image}}" width="200px" height="150px">
         </div>
+        <div class="contenPost">
+          <h2 class="titulo">
+            <a href="/blog/{{p.slug}}/">{{p.title}}</a>
+          </h2>
+          <div class="entry-meta">
+            <span class="meta-author">
+              <i class="icon-pencil"></i>
+              <span class="autor">{{p.first_name}} {{p.last_name}}</span>
+            </span>
+            — 
+            <i class="icon-calendar"></i> 
+            <span class="meta-date">{{p.fecha|date:"M d, Y"}} - {{p.fecha|date:"g:i a"}}</span>
+            — 
+            <i class="icon-bubbles4"></i> 
+            <span class="comentario">{{p.comentariosCount}}</span>
+          </div>
+
+          <p>{{p.descripcion|safe|slice:":400"}}...</p>
+        </div>
+      
+      </article>
+
+      {% empty %}
+        <article>
+            <header>
+                <div id="cuerpotitulo">
+                    <div id="titulo">
+                        <h2 itemprop="headline" class="post-title">No se han encontrado coincidencias....</h2>
+                    </div>    
+                </div>
+            </header>
+        </article>  <!-- / article -->
 
 
-      </div>
-    {% endfor %} 
-      <!---->
-
-      <!---->
-      {% for p in PostMatriz|slice:":1" %}
-      <div class="older-top">
-      {% if p.previous_page_number > 0 %}
-            <a href="?page={{p.previous_page_number}}" class="older"><i> </i>Anterior</a>
-        {% endif %}
-
-        <span class="currents">
-          Pagina {{p.number}} de {{p.num_pages}}.
-        </span>
-
-        {% if p.next_page_number <= p.num_pages %}
-            <a href="?page={{p.next_page_number}}" class="older top-old"><i > </i>Siguiente</a>
-        {% endif %}
-        
-        <div class="clearfix"> </div>
-      </div>
       {% endfor %}
-      <!---->
-  </div>
 {% endblock %}
-
-{% block aside %}
-<div class="col-md-4 content-bottom">
-  <!--
-  <div class="story"><h4  class="stories"><span>Top Stories</span></h4></div>
-  --> 
-<!--
-  <div class="might">
-    <h4>YOU MIGHT ALSO LIKE</h4>
-    <div class="might-grid">
-      <div class="grid-might">
-        <a href="single.html"><img src="/static/images/mi.jpg" class="img-responsive" alt=""> </a>
-      </div>
-      <div class="might-top">
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> 
-        <a href="single.html">Medication <i> </i></a>
-      </div>
-    <div class="clearfix"></div>
-    </div>
-  </div>
--->
-<!---->
-  <div class="grid-top">
-    <h4>Acceso</h4>
-    <br>
-    {% if not user.is_authenticated %}
-      <a href="{% url 'social:begin' 'facebook' %}">
-        <img src="http://i.stack.imgur.com/LKMP7.png" alt="enter image description here" style="width: 50px;">
-      </a>
-    {% endif %}
-    
-    {% if user.is_authenticated %}
-      <a href="{% url 'log-out' %}" class="btn btn-danger" role="button">Logout</a>
-    {% endif %}
-  </div>
-  <!---->
-  <div class="grid-top">
-    <h4>Redes Sociales</h4>
-    </br>
-    <ul>
-     <div class="fb-like"></div>
-    </ul>
-  </div>
-<!---->
-<!---->
-  <div class="grid-top">
-    <h4>Categorias</h4>
-    <ul>
-      {% for ca in Categoria %}
-        <li><a href="/blog/categorias/{{ca.id}}/">{{ca.title}}. </a></li>
-      {% endfor %}
-    </ul>
-  </div>
-<!---->
-
-<!---->
-  <div class="grid-top">
-    <h4>Tag</h4>
-    <ul>
-      {% for e in Etiqueta %}
-      <li><a href="/blog/etiquetas/{{e.id}}/">{{e.title}}. </a></li>
-      {% endfor %}
-     </ul>       
-  </div>
-<!---->  
-</div>
-{% endblock %}
-
-{% block footer %}
-  <p class="footer-class">Copyright © 2015 Megblog Template by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
-  <a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-{% endblock %}
-
-
-
-

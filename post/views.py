@@ -82,7 +82,7 @@ class UpdatePostViewPost(LoginRequiredMixin,UpdateView):
 
 class DetailPostViewPost(MenuMixin,AsideMixin,GetPostSlugMixin, DetailView):
 	model = Post
-	template_name = 'ver-mas-post-prueba.html'
+	template_name = 'ver-mas-post.html'
 
 	#Retorna los valores al template como nuevas variables
 	def get_context_data(self, **kwargs):
