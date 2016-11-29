@@ -82,6 +82,9 @@ class QueryPostAddIteracion(object):
 			ObjComentarioCount = Comentario.objects.filter(post__id=p.id,activo=True).count()
 			file_info['comentariosCount']=ObjComentarioCount
 
+			file_info['metadescripcion']=p.metadescripcion
+			file_info['metakeywords']=p.metakeywords
+
 			PostMatriz.append(file_info)
 		return PostMatriz
 

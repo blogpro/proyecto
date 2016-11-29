@@ -6,6 +6,19 @@
 	  	{% endfor %}
 	{% endblock %}
 
+	{% block metadescripcion %}
+		{% for p in PostMatriz %}
+	  		{{p.metadescripcion}}
+	  	{% endfor %}
+	{% endblock %}
+
+	{% block metakeywords %}
+		{% for p in PostMatriz %}
+	  		{{p.metakeywords}}
+	  	{% endfor %}
+	{% endblock %}
+
+
 	{% block h1title %}
 	  {% for p in PostMatriz %}
 	  		{{p.title}}
