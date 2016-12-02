@@ -81,10 +81,6 @@ class QueryPostAddIteracion(object):
 			file_info['categoria']=p.categoria
 			ObjComentarioCount = Comentario.objects.filter(post__id=p.id,activo=True).count()
 			file_info['comentariosCount']=ObjComentarioCount
-
-			file_info['metadescripcion']=p.metadescripcion
-			file_info['metakeywords']=p.metakeywords
-
 			PostMatriz.append(file_info)
 		return PostMatriz
 
@@ -141,6 +137,9 @@ class GetPostSlugMixin(ComentariosMixin):
 		file_info['categoria']=p.categoria
 		ObjComentarioCount = Comentario.objects.filter(post__id=p.id,activo=True).count()
 		file_info['comentariosCount']=ObjComentarioCount
+
+		file_info['metadescripcion']=p.metadescripcion
+		file_info['metakeywords']=p.metakeywords
 
 		PostMatriz.append(file_info)
 		return PostMatriz
