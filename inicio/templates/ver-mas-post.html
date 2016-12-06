@@ -37,7 +37,11 @@
     {% for p in PostMatriz %}
     	<meta property="og:title"         content="{{p.title}}" />
     	<meta property="og:description"   content="{{p.metadescripcion}}" />
-    	<meta property="og:image"         content="http://tystab.tk/static/media/{{p.image}}" />
+    	<meta property="og:image"         content="http://tystab.tk/static/media/{{p.image}}"/>
+
+		<meta property="og:image:width" content="650" />
+		<meta property="og:image:height" content="453" />
+
     {% endfor %}
     
     
