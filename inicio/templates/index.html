@@ -14,6 +14,23 @@
   Sistemas Tabasco
 {% endblock %}
 
+{% block btnFacebook %}
+  <div class="fb-like" data-href="http://tystab.tk/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="false"></div>
+  <div class="fb-share-button" data-href="http://tystab.tk/" data-layout="button_count"></div>
+{% endblock %}
+
+{% block configFacebook %}
+    <meta property="og:site_name" content="Tystab Blog | Development, Marketing &amp; Web Design" />
+    <meta property="og:url"           content="http://tystab.tk/" />
+    <meta property="og:type"          content="article" />
+    {% for p in PostMatriz %}
+      <meta property="og:title"         content="{{p.title}}" />
+      <meta property="og:description"   content="Servicio de blog, donde se enseña códigos de programación en diferentes lenguajes, para ayudar a los futuros desarrolladores." />
+    {% endfor %}
+    
+    <meta property="og:image"         content="http://tystab.tk/static/images/logo.png" />
+{% endblock %}
+
 
 {% block contenido %}
   {% for p in PostMatriz %}

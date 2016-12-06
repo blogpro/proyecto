@@ -81,6 +81,8 @@
   ga('create', 'UA-27724557-1', 'auto');
   ga('send', 'pageview');
 </script>
+
+
 	<!--Codigo de configuracion para el facebook-->
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -176,9 +178,15 @@
                 </div>
             </div>
 
-            <div class="widget">
+            <!-- <div class="widget">
             	<div class="fb-like" data-href="http://tystab.tk/" data-layout="box_count" data-action="like" data-show-faces="true" data-share="true"></div>
-            </div>
+            </div> -->
+            
+
+            <!-- Your share button code -->
+            <div class="widget">
+				{% block btnFacebook %}{% endblock %}
+			</div>
 
             <!-- <div class="widget">
             <div class="fb-like" data-href="http://systab.herokuapp.com/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>

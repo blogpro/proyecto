@@ -25,7 +25,10 @@
 	  	{% endfor %}
 	{% endblock %}
 
-
+{% block btnFacebook %}
+  <div class="fb-like" data-href="http://tystab.tk/blog/{{id_post}}/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="false"></div>
+  <div class="fb-share-button" data-href="http://tystab.tk/blog/{{id_post}}/" data-layout="button_count"></div>
+{% endblock %}
 
 {% block configFacebook %}
     <meta property="og:site_name" content="Tystab Blog | Development, Marketing &amp; Web Design" />
@@ -33,8 +36,9 @@
     <meta property="og:type"          content="article" />
     {% for p in PostMatriz %}
     	<meta property="og:title"         content="{{p.title}}" />
+    	<meta property="og:description"   content="{{p.metadescripcion}}" />
     {% endfor %}
-    <meta property="og:description"   content="Pagina dedicado al mundo de la informatica" />
+    
     <meta property="og:image"         content="http://tystab.tk/static/images/logo.png" />
 {% endblock %}
 
