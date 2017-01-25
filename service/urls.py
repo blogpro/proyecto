@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 from rest_framework.routers import DefaultRouter
-
+from rest_framework.authtoken import views
 
 from .views import ServicePostQuery, ServiceCategoriasQuery, ServiceEtiquetasQuery, ServiceComentariosQuery, ServiceImagenQuery, ServiceStatusQuery
 
@@ -11,6 +11,7 @@ router = DefaultRouter()
 #urlpatterns = router.urls
 
 urlpatterns = patterns('',
+   url(r'^api-token-auth/', views.obtain_auth_token),
 	#Post
    	url(r'^service-post-query/$', ServicePostQuery.as_view()),
    	#Categorias

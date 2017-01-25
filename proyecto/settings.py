@@ -94,6 +94,8 @@ INSTALLED_APPS = (
     'ckeditor',
     'suit_ckeditor',
     'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
 
 )
 
@@ -105,6 +107,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 )
 
 ROOT_URLCONF = 'proyecto.urls'
@@ -204,4 +208,9 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.user_details'
 )
 #-----------------Autentificacion con red socil--------------
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000',
+    '127.0.0.1:3000'
+)
 

@@ -1,7 +1,7 @@
 dj-database-url==0.3.0
 dj-static==0.0.6
-Django==1.7.6
 django-ckeditor==4.4.7
+django-cors-headers==2.0.0
 django-filter==0.11.0
 django-suit-ckeditor==0.0.2
 django-toolbelt==0.0.1
@@ -16,5 +16,5 @@ python-openid==2.2.5
 python-social-auth==0.2.2
 requests==2.6.0
 requests-oauthlib==0.4.2
-six==1.9.0
+six==1.10.0
 static3==0.5.1
