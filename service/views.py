@@ -18,6 +18,8 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 
+from rest_framework.permissions import IsAuthenticated, AllowAny
+
 
 from django.core.urlresolvers import reverse
 
@@ -176,6 +178,8 @@ class ServiceImagenQuery(APIView):
 		return Response(data)
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> STATUS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class ServiceStatusQuery(APIView):
+	permission_classes = (AllowAny,)
+
 	def get(self, request, *args, **kwargs):
 		if 'pk' in self.kwargs:
 			ObjModel = Status_Post.objects.get(pk=self.kwargs['pk'])
