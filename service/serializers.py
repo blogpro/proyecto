@@ -10,6 +10,8 @@ from etiquetas.models import Etiqueta
 from comentarios.models import Comentario
 from imagenes.models import ImagenPost
 
+from Angular2.models import Alumnos
+
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> USERS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -60,4 +62,9 @@ class ComentariosSerializer(serializers.ModelSerializer):
 class ImagenSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = ImagenPost
-		fields = ('image',)					
+		fields = ('image',)
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PROYECTO ANGULAR2 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<		
+class AlumnosSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Alumnos
+		fields = ('pk','name','last_name','first_name','email',)						

@@ -88,6 +88,7 @@ INSTALLED_APPS = (
     
     'imagenes',
     'service',
+    'Angular2',
 
     'social.apps.django_app.default',#Login con facebook
 

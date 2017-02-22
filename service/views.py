@@ -29,7 +29,9 @@ from post.models import Post, Status_Post
 from comentarios.models import Comentario
 from imagenes.models import ImagenPost
 
-from .serializers import PostQuerySerializer, CategoriasSerializer, EtiquetasSerializer, ComentariosSerializer, ImagenSerializer, StatusSerializer
+from Angular2.models import Alumnos
+
+from .serializers import PostQuerySerializer, CategoriasSerializer, EtiquetasSerializer, ComentariosSerializer, ImagenSerializer, StatusSerializer, AlumnosSerializer
 from post.ModelPost import ComentariosMixin
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> POST <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -216,4 +218,45 @@ class ServiceStatusQuery(APIView):
 		data = {
 			'setCod': 0,
 		}
-		return Response(data)				
+		return Response(data)
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PROYECTO ANGULAR2 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+class AlumnosServiceQuery(APIView):
+	permission_classes = (AllowAny,)
+
+	def get(self, request, *args, **kwargs):
+		if 'pk' in self.kwargs:
+			ObjModel = Alumnos.objects.get(pk=self.kwargs['pk'])
+			data = {
+				'pk':ObjModel.id,
+				'title':ObjModel.title,
+				'descripcion':ObjModel.descripcion
+			}
+			return Response(data)
+		serializers = Alumnos.objects.all().order_by('-id')
+		try:
+			serializer = AlumnosSerializer(serializers, many=True)
+		except (TypeError, ValueError) as err:
+			print 'ERROR:', err
+		return Response(serializer.data)
+	def post(self, request, *args, **kwargs):
+		ObjModel = Alumnos()
+		ObjModel.title = request.data['title']
+		ObjModel.descripcion = request.data['descripcion']
+		ObjModel.save()
+
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)
+	def put(self, request, *args, **kwargs):
+		Alumnos.objects.filter(pk=request.data['pk']).update(title=request.data['title'],descripcion=request.data['descripcion'])
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)
+	def delete(self, request, *args, **kwargs):
+		post = Alumnos.objects.get(pk=self.kwargs['pk']).delete()
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)						
