@@ -29,9 +29,9 @@ from post.models import Post, Status_Post
 from comentarios.models import Comentario
 from imagenes.models import ImagenPost
 
-from Angular2.models import Alumnos
+from Angular2.models import Alumnos, Productos
 
-from .serializers import PostQuerySerializer, CategoriasSerializer, EtiquetasSerializer, ComentariosSerializer, ImagenSerializer, StatusSerializer, AlumnosSerializer
+from .serializers import PostQuerySerializer, CategoriasSerializer, EtiquetasSerializer, ComentariosSerializer, ImagenSerializer, StatusSerializer, AlumnosSerializer, ProductosSerializer
 from post.ModelPost import ComentariosMixin
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> POST <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -221,15 +221,17 @@ class ServiceStatusQuery(APIView):
 		return Response(data)
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PROYECTO ANGULAR2 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 class AlumnosServiceQuery(APIView):
-	permission_classes = (AllowAny,)
+	# permission_classes = (AllowAny,)
 
 	def get(self, request, *args, **kwargs):
 		if 'pk' in self.kwargs:
 			ObjModel = Alumnos.objects.get(pk=self.kwargs['pk'])
 			data = {
 				'pk':ObjModel.id,
-				'title':ObjModel.title,
-				'descripcion':ObjModel.descripcion
+				'name':ObjModel.name,
+				'last_name':ObjModel.last_name,
+				'first_name':ObjModel.first_name,
+				'email':ObjModel.email
 			}
 			return Response(data)
 		serializers = Alumnos.objects.all().order_by('-id')
@@ -240,8 +242,10 @@ class AlumnosServiceQuery(APIView):
 		return Response(serializer.data)
 	def post(self, request, *args, **kwargs):
 		ObjModel = Alumnos()
-		ObjModel.title = request.data['title']
-		ObjModel.descripcion = request.data['descripcion']
+		ObjModel.name = request.data['name']
+		ObjModel.last_name = request.data['last_name']
+		ObjModel.first_name = request.data['first_name']
+		ObjModel.email = request.data['email']
 		ObjModel.save()
 
 		data = {
@@ -249,7 +253,7 @@ class AlumnosServiceQuery(APIView):
 		}
 		return Response(data)
 	def put(self, request, *args, **kwargs):
-		Alumnos.objects.filter(pk=request.data['pk']).update(title=request.data['title'],descripcion=request.data['descripcion'])
+		Alumnos.objects.filter(pk=request.data['pk']).update(name=request.data['name'],first_name=request.data['first_name'],last_name=request.data['last_name'],email=request.data['email'])
 		data = {
 			'setCod': 0,
 		}
@@ -259,4 +263,49 @@ class AlumnosServiceQuery(APIView):
 		data = {
 			'setCod': 0,
 		}
-		return Response(data)						
+		return Response(data)
+
+class ProductosviceQuery(APIView):
+	permission_classes = (AllowAny,)
+
+	def get(self, request, *args, **kwargs):
+		if 'pk' in self.kwargs:
+			ObjModel = Productos.objects.get(pk=self.kwargs['pk'])
+			data = {
+				'pk':ObjModel.id,
+				'name':ObjModel.name,
+				'last_name':ObjModel.last_name,
+				'first_name':ObjModel.first_name,
+				'email':ObjModel.email
+			}
+			return Response(data)
+		serializers = Productos.objects.all().order_by('-id')
+		try:
+			serializer = ProductosSerializer(serializers, many=True)
+		except (TypeError, ValueError) as err:
+			print 'ERROR:', err
+		return Response(serializer.data)
+	def post(self, request, *args, **kwargs):
+		ObjModel = Productos()
+		ObjModel.name = request.data['name']
+		ObjModel.last_name = request.data['last_name']
+		ObjModel.first_name = request.data['first_name']
+		ObjModel.email = request.data['email']
+		ObjModel.save()
+
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)
+	def put(self, request, *args, **kwargs):
+		Productos.objects.filter(pk=request.data['pk']).update(name=request.data['name'],first_name=request.data['first_name'],last_name=request.data['last_name'],email=request.data['email'])
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)
+	def delete(self, request, *args, **kwargs):
+		post = Productos.objects.get(pk=self.kwargs['pk']).delete()
+		data = {
+			'setCod': 0,
+		}
+		return Response(data)									

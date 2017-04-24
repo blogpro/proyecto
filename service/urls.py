@@ -4,7 +4,7 @@ from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 
-from .views import ServicePostQuery, ServiceCategoriasQuery, ServiceEtiquetasQuery, ServiceComentariosQuery, ServiceImagenQuery, ServiceStatusQuery, AlumnosServiceQuery
+from .views import ServicePostQuery, ServiceCategoriasQuery, ServiceEtiquetasQuery, ServiceComentariosQuery, ServiceImagenQuery, ServiceStatusQuery, AlumnosServiceQuery, ProductosviceQuery
 
 router = DefaultRouter()
 #router.register(r'api', viewsetsCategoria)
@@ -32,4 +32,7 @@ urlpatterns = patterns('',
       #Etiquetas
       url(r'^service-alumnos-query/$', AlumnosServiceQuery.as_view()),
       url(r'^service-alumnos-query/(?P<pk>[0-9]+)/$', AlumnosServiceQuery.as_view(), name='AlumnosServiceQuery'),
+
+      url(r'^service-productos-query/$', ProductosviceQuery.as_view()),
+      url(r'^service-productos-query/(?P<pk>[0-9]+)/$', ProductosviceQuery.as_view(), name='ProductosviceQuery'),
 )

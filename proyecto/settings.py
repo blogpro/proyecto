@@ -212,6 +212,8 @@ SOCIAL_AUTH_PIPELINE = (
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:9000',
+    'localhost:9001',
+    'localhost:8000',
     '127.0.0.1:9000'
 )
 
