@@ -170,6 +170,15 @@ STATICFILES_FINDERS = (
 
 #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
 
+# Static files (CSS, JavaScript, Images)
+STATIC_ROOT = os.path.join(RUTA_PROYECTO, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(RUTA_PROYECTO, 'static'),
+)
+
 # various locations.
 STATICFILES_DIRS = (
     # I have the static folder inside my app and not inside the project
