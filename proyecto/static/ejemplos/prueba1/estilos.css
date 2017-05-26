@@ -53,7 +53,7 @@ header .container .logo {
 }
 
 header .container .logo img {
-	width:50px;
+	width:100px;
 	vertical-align: top;
 }
 
@@ -67,7 +67,7 @@ header .container .logo h1 {
 header .container .logo span {
 	color: #616060;
     line-height: 11px;
-    display: block;
+    /*display: block;*/
     font-size: 12px;
     margin-top: -14px;
     margin-left: 60px;
