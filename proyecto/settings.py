@@ -210,6 +210,7 @@ SOCIAL_AUTH_PIPELINE = (
 )
 #-----------------Autentificacion con red socil--------------
 
+
 CORS_ORIGIN_WHITELIST = (
     'localhost:9000',
     'localhost:9001',
